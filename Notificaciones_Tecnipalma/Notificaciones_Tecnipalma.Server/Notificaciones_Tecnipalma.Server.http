@@ -1,0 +1,6 @@
+@Notificaciones_Tecnipalma.Server_HostAddress = http://localhost:5000
+
+GET {{Notificaciones_Tecnipalma.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

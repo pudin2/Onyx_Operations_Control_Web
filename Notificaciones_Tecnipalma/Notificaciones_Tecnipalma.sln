@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notificaciones_Tecnipalma.Server", "Notificaciones_Tecnipalma.Server\Notificaciones_Tecnipalma.Server.csproj", "{8264C7D3-F178-40B1-9694-D3CCB610832F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notificaciones_Tecnipalma.Server", "Notificaciones_Tecnipalma.Server\Notificaciones_Tecnipalma.Server.csproj", "{8264C7D3-F178-40B1-9694-D3CCB610832F}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "notificaciones_tecnipalma.client", "notificaciones_tecnipalma.client\notificaciones_tecnipalma.client.esproj", "{E24FDB96-F3A8-4191-85FD-726399DE63F9}"
 EndProject

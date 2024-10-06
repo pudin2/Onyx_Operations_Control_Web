@@ -10,6 +10,7 @@ import { AuthService } from '../auth.service';
 export class LoginComponent {
   username = '';
   password = '';
+  errorMessage: string = '';
 
   constructor(private authService: AuthService) { }
 
@@ -18,9 +19,11 @@ export class LoginComponent {
       response => {
         console.log('Login exitoso', response);
         // Maneja el login exitoso aquí, como redirigir a otra página
+        this.errorMessage = '';
       },
       error => {
         console.error('Error en el login', error);
+        this.errorMessage = 'Usuario o contraseña incorrectos';
         // Maneja el error aquí, por ejemplo, mostrando un mensaje
       }
     );

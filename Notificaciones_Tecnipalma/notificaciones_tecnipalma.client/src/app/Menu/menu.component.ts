@@ -1,11 +1,10 @@
-<!DOCTYPE html>
+//import { Component } from '@angular/core';
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
+//@Component({
+//  selector: 'app-menu',
+//  templateUrl: './menu.component.html',
+//  styleUrls: ['./menu.component.css'],
+//  standalone
+//
+//})
 
-</body>
-</html>

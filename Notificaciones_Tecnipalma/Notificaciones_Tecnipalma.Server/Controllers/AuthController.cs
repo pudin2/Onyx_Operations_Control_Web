@@ -1,4 +1,5 @@
 using LoginAPI.Services;
+using LoginAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoginAPI.Controllers
@@ -15,9 +16,9 @@ namespace LoginAPI.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginModel loginModel)
+        public async Task<IActionResult> Login([FromBody] Usuarios usuarioModel)
         {
-            var isValidUser = await _authService.ValidateUser(loginModel.Username, loginModel.Password);
+            var isValidUser = await _authService.ValidateUser(usuarioModel.Usuario, usuarioModel.Contraseña);
 
             if (!isValidUser)
                 return Unauthorized(new { message = "Credenciales inválidas" });
@@ -26,9 +27,5 @@ namespace LoginAPI.Controllers
         }
     }
 
-    public class LoginModel
-    {
-        public string Username { get; set; }
-        public string Password { get; set; }
-    }
+    
 }

@@ -21,9 +21,9 @@ builder.Services.AddCors(options =>
 
 
 builder.Services.AddControllers();
+   
 
-
-// Otros servicios que uses
+    // Otros servicios que uses
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

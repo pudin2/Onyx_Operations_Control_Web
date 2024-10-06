@@ -13,3 +13,9 @@ table {
     margin: 0 auto;
 }
 
+.imagen {
+  width: 200px; /* Ancho de la imagen */
+  height: auto; /* Altura automática, mantiene la proporción */
+  border-radius: 10px; /* Bordes redondeados */
+  margin: 10px; /* Espacio alrededor de la imagen */
+}

@@ -7,7 +7,7 @@ namespace LoginAPI.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Usuarios> Usuarios { get; set; }
     }
 }
 

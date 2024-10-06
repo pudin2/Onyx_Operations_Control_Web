@@ -15,12 +15,12 @@ namespace LoginAPI.Services
         public async Task<bool> ValidateUser(string username, string password)
         {
             var user = await _context.Usuarios
-                .FirstOrDefaultAsync(u => u.NombreUsuario == username);
+                .FirstOrDefaultAsync(u => u.Usuario == username);
 
             if (user == null)
                 return false;
 
-            return user.Password == password;
+            return user.Contraseña == password;
         }
     }
 }

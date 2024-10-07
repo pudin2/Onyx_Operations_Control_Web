@@ -16,3 +16,5 @@ export class MenuComponent {
     this.router.navigate(['/login']);
   }
 }
+
+

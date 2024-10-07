@@ -1,34 +1,16 @@
-.menu {
-  background-color: #f8f9fa;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+.produccion {
+  background-color: #1976d2; /* Cambia el color de fondo */
+  color: white; /* Cambia el color del texto */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 10px 20px; /* Espaciado interno */
+  font-size: 16px; /* Tamaño de la fuente */
+
 }
 
-  .menu h2 {
-    color: #333;
-    margin-bottom: 20px;
+  .produccion:hover {
+    background-color: #1565c0; /* Color de fondo al pasar el ratón */
   }
-
-  .menu ul {
-    list-style-type: none;
-    padding: 0;
-  }
-
-    .menu ul li {
-      margin-bottom: 10px;
-    }
-
-      .menu ul li a {
-        color: #007bff;
-        text-decoration: none;
-        font-size: 16px;
-      }
-
-        .menu ul li a:hover {
-          text-decoration: underline;
-        }
-
 .logout-btn {
   margin-top: 20px;
   padding: 10px 15px;
@@ -40,5 +22,6 @@
 }
 
   .logout-btn:hover {
-    background-color:   #c82333;
+    background-color:#c82333;
   }
+

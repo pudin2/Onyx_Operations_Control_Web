@@ -1,11 +1,10 @@
-<button mat-button [matMenuTriggerFor]="aboveMenu">Produccion</button>
-<!-- #docregion menu-position -->
-<mat-menu #aboveMenu="matMenu" yPosition="above">
-  <!-- #enddocregion menu-position -->
-  <button mat-menu-item>Item 1</button>
-  <button mat-menu-item>Item 2</button>
-</mat-menu>
+<button class="produccion" mat-button [matMenuTriggerFor]="belowMenu" >Producción</button>
 
+<mat-menu  #belowMenu="matMenu" yPosition="below">
+
+  <button mat-menu-item>Item 1</button>
+  
+</mat-menu>
 
 <button (click)="logout()" class="logout-btn">Cerrar sesión</button>
 

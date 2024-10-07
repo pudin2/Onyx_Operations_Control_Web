@@ -1,1 +1,9 @@
-<h1> Hola </h1>
+<nav class="menu">
+  <h2>Menú Principal</h2>
+  <ul>
+    <li><a routerLink="/dashboard">Dashboard</a></li>
+    <li><a routerLink="/profile">Perfil</a></li>
+    <li><a routerLink="/settings">Configuración</a></li>
+  </ul>
+  <button (click)="logout()" class="logout-btn">Cerrar sesión</button>
+</nav>

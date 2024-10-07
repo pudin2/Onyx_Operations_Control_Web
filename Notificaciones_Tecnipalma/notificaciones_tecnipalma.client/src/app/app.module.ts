@@ -13,6 +13,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
   declarations: [
     AppComponent,
     LoginComponent,
+    MenuComponent,
     MainLayoutComponent
   ],
   imports: [

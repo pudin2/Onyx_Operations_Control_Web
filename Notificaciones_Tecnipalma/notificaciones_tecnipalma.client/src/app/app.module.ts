@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './Login/login.component';
 import { MenuComponent } from './Menu/menu.component';
 import { MainLayoutComponent } from './layouts/main_layout/main-layout.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,9 @@ import { MainLayoutComponent } from './layouts/main_layout/main-layout.component
     BrowserModule, FormsModule, HttpClientModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

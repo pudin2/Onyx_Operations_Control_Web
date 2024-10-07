@@ -12,6 +12,7 @@ import { MainLayoutComponent } from './layouts/main_layout/main-layout.component
   declarations: [
     AppComponent,
     LoginComponent,
+    MenuComponent,
     MainLayoutComponent
   ],
   imports: [

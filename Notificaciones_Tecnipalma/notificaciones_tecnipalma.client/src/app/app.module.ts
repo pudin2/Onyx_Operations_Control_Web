@@ -6,12 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './Login/login.component';
 import { MenuComponent } from './Menu/menu.component';
+import { MainLayoutComponent } from './layouts/main_layout/main-layout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    MenuComponent
+    MenuComponent,
+    MainLayoutComponent
   ],
   imports: [
     BrowserModule, FormsModule, HttpClientModule,

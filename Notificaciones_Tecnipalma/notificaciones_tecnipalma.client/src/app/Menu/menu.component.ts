@@ -4,25 +4,16 @@ import { Router } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MatRippleModule } from '@angular/material/core';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormsModule } from '@angular/forms';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-
+import { MatRipple } from '@angular/material/core';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css'],
   standalone: true,
-  imports: [MatButtonModule, MatMenuModule, MatTabsModule,
-    MatCheckboxModule, FormsModule, MatFormFieldModule, MatInputModule, MatRippleModule],
+  imports: [MatButtonModule, MatMenuModule, MatTabsModule, MatRipple],
 })
 export class MenuComponent {
-  centered = false;
-  disabled = false;
-  unbounded = false;
 
   constructor(private router: Router) { }
 

@@ -1,4 +1,83 @@
 
+.static-menu {
+  width: 300px;
+  border: 1px solid;
+  font-family: Arial, sans-serif;
+  margin: 0 auto; /* Centra el menú horizontalmente */
+  display: block; /* Asegura que el elemento sea tratado como un bloque */
+  margin-top: 2rem;
+}
+
+.menu-item {
+  border-bottom: 1px solid #ddd;
+}
+
+  .menu-item:last-child {
+    border-bottom: none;
+  }
+
+.menu-header {
+  padding: 15px;
+  background-color: #B5BAC9;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+  .menu-header:hover {
+    background-color: red;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.5);
+    transform: translateY(1px);
+  }
+
+.imagen-inline, .texto-inline {
+  display: inline-block; /* Muestra la imagen y el texto en la misma línea */
+  vertical-align: middle; /* Alinea verticalmente en el centro */
+}
+
+.content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: white;
+  text-align:center;
+  display: flex; /* Activa Flexbox */
+  align-items: center; /* Alinea verticalmente en el centro */
+  gap: 10px; /* Espacio entre la imagen y el texto */
+}
+
+  .content.show {
+    max-height: 500px;
+  }
+
+.link-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+  .link-list li {
+    padding: 10px 15px;
+    border-top: 1px solid #eee;
+  }
+
+    .link-list li:first-child {
+      border-top: none;
+    }
+
+  .link-list a {
+    display: flex; /* Alinea el ícono y el texto en una fila */
+    align-items: center; /* Centra verticalmente el ícono y el texto */
+    gap: 8px; /* Espacio entre el ícono y el texto */
+    text-decoration: none; /* Elimina el subrayado de los enlaces */
+    color: red; /* Mantiene el color del texto */
+    
+  }
+
+    .link-list a:hover {
+      color: #0066cc;
+    }
+
+
 .logout-btn {
   margin-top: 200px;
   padding: 10px 15px;
@@ -7,29 +86,19 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  text-align:center;
+  font-size: 15px;
+  width: 200px; /* Ancho fijo */
+  height: 50px; /* Alto fijo */
 }
 
-.logout-btn:hover {
-    background-color:#c82333;
+  .logout-btn:hover {
+    background-color: #c82333;
   }
 
-
-.noti {
-  margin-bottom: 200px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.imagen {
+  width: 25px; /* Ajusta el tamaño de los íconos */
+  height: 25px;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
-
-.ripple-demo {
-  width: 200px;
-  height: 100px;
-  background-color: #e0e0e0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  cursor: pointer;
-  text-align: center;
-}
-
-

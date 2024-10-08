@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './Login/login.component';
 import { MenuComponent } from './Menu/menu.component';
 import { MainLayoutComponent } from './layouts/main_layout/main-layout.component';
+import { NotiComponent} from './Produccion/noti/noti.component'
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },// Redirige a la página de login por defecto

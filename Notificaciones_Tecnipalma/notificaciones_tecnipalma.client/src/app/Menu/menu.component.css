@@ -1,18 +1,6 @@
 
-.produccion {
-  background-color: #1976d2; /* Cambia el color de fondo */
-  color: white; /* Cambia el color del texto */
-  border-radius: 8px; /* Bordes redondeados */
-  padding: 10px 20px; /* Espaciado interno */
-  font-size: 16px; /* Tamaño de la fuente */
-
-}
-
-  .produccion:hover {
-    background-color: #1565c0; /* Color de fondo al pasar el ratón */
-  }
 .logout-btn {
-  margin-top: 20px;
+  margin-top: 200px;
   padding: 10px 15px;
   background-color: #dc3545;
   color: white;
@@ -21,7 +9,27 @@
   cursor: pointer;
 }
 
-  .logout-btn:hover {
+.logout-btn:hover {
     background-color:#c82333;
   }
+
+
+.noti {
+  margin-bottom: 200px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.example-ripple-container {
+  cursor: pointer;
+  text-align: center;
+  width: 300px;
+  height: 300px;
+  line-height: 300px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-tap-highlight-color: transparent;
+}
 

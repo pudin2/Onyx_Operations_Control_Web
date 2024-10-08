@@ -1,10 +1,19 @@
-<button class="produccion" mat-button [matMenuTriggerFor]="belowMenu" >Producción</button>
 
-<mat-menu  #belowMenu="matMenu" yPosition="below">
+<mat-tab-group animationDuration="2000ms" class="noti">
+  <mat-tab label="Producción" class="noti">Notificaciones</mat-tab>
+  <mat-tab label="Second">Content 2</mat-tab>
+  <mat-tab label="Third">Content 3</mat-tab>
+</mat-tab-group>
 
-  <button mat-menu-item>Item 1</button>
-  
-</mat-menu>
+<div class="example-ripple-container mat-elevation-z4"
+     matRipple
+     [matRippleCentered]="centered"
+     [matRippleDisabled]="disabled"
+     [matRippleUnbounded]="unbounded"
+     [matRippleRadius]="radius"
+     [matRippleColor]="color">
+  Click me
+</div>
+
 
 <button (click)="logout()" class="logout-btn">Cerrar sesión</button>
-

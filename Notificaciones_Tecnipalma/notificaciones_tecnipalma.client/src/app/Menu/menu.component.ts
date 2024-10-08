@@ -1,11 +1,26 @@
-<!DOCTYPE html>
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
 
-</body>
-</html>
+
+@Component({
+  selector: 'app-menu',
+  templateUrl: './menu.component.html',
+  styleUrls: ['./menu.component.css'],
+  standalone: true,
+  imports: [MatButtonModule, MatMenuModule],
+})
+export class MenuComponent {
+
+  constructor(private router: Router) { }
+
+  logout(): void {
+    // Aquí puedes limpiar la información del usuario y redirigirlo al login
+    console.log('Cerrando sesión...');
+    this.router.navigate(['/login']);
+  }
+}
+
+

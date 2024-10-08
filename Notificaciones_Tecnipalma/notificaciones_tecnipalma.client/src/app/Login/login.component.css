@@ -75,3 +75,10 @@ input {
   background-color: #1877f2;
   color: white;
 }
+
+.error-message {
+  color: #d32f2f;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}

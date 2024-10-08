@@ -1,11 +1,27 @@
-<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
+.produccion {
+  background-color: #1976d2; /* Cambia el color de fondo */
+  color: white; /* Cambia el color del texto */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 10px 20px; /* Espaciado interno */
+  font-size: 16px; /* Tamaño de la fuente */
 
-</body>
-</html>
+}
+
+  .produccion:hover {
+    background-color: #1565c0; /* Color de fondo al pasar el ratón */
+  }
+.logout-btn {
+  margin-top: 20px;
+  padding: 10px 15px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+  .logout-btn:hover {
+    background-color:#c82333;
+  }
+

@@ -1,11 +1,10 @@
-<!DOCTYPE html>
+<button class="produccion" mat-button [matMenuTriggerFor]="belowMenu" >Producción</button>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
+<mat-menu  #belowMenu="matMenu" yPosition="below">
 
-</body>
-</html>
+  <button mat-menu-item>Item 1</button>
+  
+</mat-menu>
+
+<button (click)="logout()" class="logout-btn">Cerrar sesión</button>
+

@@ -1,32 +1,30 @@
 <div class="container">
-
-  <h2>Búsqueda en Tabla</h2>
-
   <div class="search-container">
-
-    <input [(ngModel)]="searchTerm" placeholder="Buscar..." (input)="onSearch()">
-
-    <button (click)="onSearch()">Buscar</button>
-
+    <button (click)="goBack()" class="btn-regresar">
+      <img src="img/girar-a-la-izquierda.png" alt="Botón Imagen" class="img-boton">
+    </button>
+    <input [(ngModel)]="searchTerm" placeholder="Buscar por Numero de OT..." (input)="onSearch()">
+    <button (click)="onSearch()" class="btn-buscar">Buscar</button>
   </div>
-
-  <table>
-
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Email</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr *ngFor="let item of filteredData">
-        <td>{{ item.id }}</td>
-        <td>{{ item.name }}</td>
-        <td>{{ item.email }}</td>
-      </tr>
-    </tbody>
-
-  </table>
 </div>
+
+
+<!--<table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let item of filteredData">
+          <td>{{ item.id }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.email }}</td>
+        </tr>
+      </tbody>
+
+    </table>
+-->

@@ -1,34 +1,71 @@
 .container {
-  font-family: Arial, sans-serif;
-  max-width: 800px;
-  margin: 0 auto;
+  font-family: "Poppins", sans-serif;
+  position: relative;
+  padding: 1rem;
 }
 
 .search-container {
+  display: flex; /* Usamos Flexbox para alinear los elementos */
+  align-items: center; /* Centra los elementos verticalmente */
+  gap: 10px; /* Espacio entre los elementos */
   margin-bottom: 20px;
 }
 
 input {
-  padding: 5px;
-  width: 200px;
-}
+  width: 400px; /* Establece un ancho fijo de 400px */
 
-button {
-  padding: 5px 10px;
-  margin-left: 10px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th, td {
+  padding: 0.5rem;
   border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
 }
 
-th {
-  background-color: #f2f2f2;
+.btn-buscar {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  flex-shrink: 0; /* Evita que el botón se encoja */
+}
+
+.btn-regresar {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 16px;
+  flex-shrink: 0; /* Evita que el botón se encoja */
+}
+
+.img-boton {
+  width: 40px; /* Ajusta el tamaño según lo que desees */
+  height: 40px;
+  border-radius: 50%; /* Hace que la imagen sea circular */
+  transition: box-shadow 0.3s ease;
+}
+
+.btn-regresar:hover .img-boton {
+  box-shadow: 0px 0px 15px rgba(255, 99, 71, 0.7); /* Sombra roja clara */
+}
+
+/* Media Query para pantallas pequeñas */
+@media (max-width: 768px) {
+  .search-container {
+    flex-direction: column; /* Cambia a una columna en pantallas pequeñas */
+    align-items: stretch; /* Estira los elementos para ocupar el ancho completo */
+    gap: 15px; /* Aumenta el espacio entre los elementos */
+  }
+
+  input {
+    width: 50%; /* Hace que el input ocupe todo el ancho del contenedor */
+  }
+
+  .btn-buscar, .btn-regresar {
+    width: 100%; /* Hace que los botones ocupen todo el ancho en pantallas pequeñas */
+    text-align: center; /* Centra el texto en los botones */
+  }
 }

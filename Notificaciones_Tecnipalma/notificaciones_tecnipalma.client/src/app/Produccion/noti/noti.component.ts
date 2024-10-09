@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms'; // Importa FormsModule
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -28,6 +29,11 @@ export class NotiComponent implements OnInit {
       { id: 5, name: 'Pedro Sánchez', email: 'pedro@example.com' },
     ];
     this.filteredData = [...this.data];
+  }
+  constructor(private location: Location) { }
+
+  goBack() {
+    this.location.back(); // Navega a la página anterior
   }
 
   onSearch() {

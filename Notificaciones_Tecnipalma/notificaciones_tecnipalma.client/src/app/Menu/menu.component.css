@@ -1,32 +1,43 @@
 
 .static-menu {
   width: 300px;
-  border: 1px solid;
-  font-family: Arial, sans-serif;
+  border: none;
   margin: 0 auto; /* Centra el menú horizontalmente */
   display: block; /* Asegura que el elemento sea tratado como un bloque */
   margin-top: 2rem;
+  font-size:18px;
+ 
 }
 
 .menu-item {
   border-bottom: 1px solid #ddd;
+  
 }
 
   .menu-item:last-child {
     border-bottom: none;
   }
 
-.menu-header {
+.menu-header { /* Titulo grande de cada boton */
   padding: 15px;
   background-color: #B5BAC9;
   cursor: pointer;
+  border-radius: 100px; /* Hace que los bordes sean redondeados */
+  text-align: center; /* Centra el texto */
+  width: 80%; /* Ajusta el ancho para que se vea como un óvalo */
+  margin: 10px auto; /* Centra horizontalmente */
+  border: none; /* Elimina el borde negro */
+
   transition: background-color 0.3s;
+  transform: scale(0.95);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }
 
   .menu-header:hover {
     background-color: red;
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.5);
-    transform: translateY(1px);
+    transform: translateY(1px) scale(1.05);
+    
   }
 
 .imagen-inline, .texto-inline {
@@ -37,9 +48,13 @@
 .content {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.2s ease-out;
+  transform: translateX(0) scale(0);
+  transition: transform 0.3s ease;
   background-color: white;
-  text-align:center;
+  text-align: center;
+  font-size:17px;
+  margin-top: 1.3rem; /* espacio hacia arriba */
+  margin-bottom: 1.3rem; /* espacio hacia abajo */
   display: flex; /* Activa Flexbox */
   align-items: center; /* Alinea verticalmente en el centro */
   gap: 10px; /* Espacio entre la imagen y el texto */
@@ -47,17 +62,18 @@
 
   .content.show {
     max-height: 500px;
+    transform: translateX(50px) scale(1); /* Mueve el elemento 100px a la derecha */
   }
 
 .link-list {
-  list-style-type: none;
+  list-style-type: none; /* tipo de marcador que puede tener la lista */
   padding: 0;
   margin: 0;
 }
 
   .link-list li {
     padding: 10px 15px;
-    border-top: 1px solid #eee;
+    border-top: 1px solid #eee; /* linea gris que divide las opciones */
   }
 
     .link-list li:first-child {
@@ -70,11 +86,14 @@
     gap: 8px; /* Espacio entre el ícono y el texto */
     text-decoration: none; /* Elimina el subrayado de los enlaces */
     color: red; /* Mantiene el color del texto */
+
+
     
   }
 
     .link-list a:hover {
-      color: #0066cc;
+      color: #0066cc; /* pone de color azul la palabra seleccionada*/
+      text-shadow: 0 8px 12px rgba(0, 0, 0, 0.5);
     }
 
 
@@ -101,4 +120,8 @@
   height: 25px;
   margin-left: 1rem;
   margin-right: 1rem;
+}
+
+.static-menu, .menu-header, .link-list a, .logout-btn {
+  font-family: 'Poppins', sans-serif; /* Aplica la fuente específicamente al menú */
 }

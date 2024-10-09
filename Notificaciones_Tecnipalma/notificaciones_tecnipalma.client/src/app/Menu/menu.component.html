@@ -1,5 +1,5 @@
 <div class="static-menu">
-  <div class="menu-item" *ngFor="let item of menuItems">
+  <div class="menu-item" *ngFor="let item of menuItems"> 
 
     <div class="menu-header" (click)="toggleItem(item)">
       {{ item.title }}
@@ -26,28 +26,5 @@
     </div>
   </div>
 </div>
-
-
-
-<!--
-  <mat-tab-group animationDuration="2000ms" class="noti">
-  <mat-tab label="Producción" class="noti">
-    Notificaciones
-
-    <div matRipple [matRippleColor]="'rgba(255, 0, 0, 0.3)'" class="ripple-demo">
-      Efecto ripple rojo
-    </div>
-
-
-
-  </mat-tab>
-  <mat-tab label="Second">Content 2</mat-tab>
-  <mat-tab label="Third">Content 3</mat-tab>
-</mat-tab-group>
-
--->
-
-
-
 
 <button (click)="logout()" class="logout-btn">Cerrar sesión</button>

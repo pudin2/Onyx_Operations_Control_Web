@@ -57,6 +57,8 @@ export class MenuComponent {
     console.log(`Navegando a: ${url}`);
   }
 
+
+
   constructor(private router: Router) { }
 
   logout(): void {

@@ -21,7 +21,7 @@ namespace LoginAPI.Data
             modelBuilder.Entity<Usuarios>()
                 .HasKey(u => u.Usuario); // Aquí se define la clave primaria
             modelBuilder.Entity<OrdenTrabajo>()
-                .HasKey(o => o.Id);
+                .HasKey(o => o.NumOrden);
 
             modelBuilder.Entity<OrdenTrabajo>()
                 .Property(o => o.NumOrden)

@@ -5,30 +5,31 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Location } from '@angular/common';
-
+import { CommonModule } from '@angular/common'; // Importa CommonModule
 
 @Component({
   selector: 'app-noti',
   templateUrl: './noti.component.html',
-  styleUrl: './noti.component.css',
+  styleUrls: ['./noti.component.css'],
   standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, FormsModule],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, FormsModule, CommonModule],
 })
-export class NotiComponent implements OnInit {
-  searchTerm: string = '';
-  data: any[] = [];
-  filteredData: any[] = [];
+export class NotiComponent {
 
-  ngOnInit() {
-    // Inicializar con algunos datos de ejemplo
-    this.data = [
-      { id: 1, name: 'Juan Pérez', email: 'juan@example.com' },
-      { id: 2, name: 'María García', email: 'maria@example.com' },
-      { id: 3, name: 'Carlos López', email: 'carlos@example.com' },
-      { id: 4, name: 'Ana Martínez', email: 'ana@example.com' },
-      { id: 5, name: 'Pedro Sánchez', email: 'pedro@example.com' },
-    ];
-    this.filteredData = [...this.data];
+  searchTerm: string = '';
+  errorMessage: string = '';
+
+  onSearch(): void {
+    // Validar si el valor ingresado contiene solo números
+    const regex = /^[0-9]*$/;
+
+    if (regex.test(this.searchTerm)) {
+      this.errorMessage = ''; // Limpiar el mensaje de error si todo es válido
+      console.log('Valor válido:', this.searchTerm);
+      // Aquí puedes agregar la lógica adicional que quieras ejecutar con el valor válido
+    } else {
+      this.errorMessage = 'Orden de trabajo, no existe';
+    }
   }
   constructor(private location: Location) { }
 
@@ -36,14 +37,5 @@ export class NotiComponent implements OnInit {
     this.location.back(); // Navega a la página anterior
   }
 
-  onSearch() {
-    if (this.searchTerm) {
-      this.filteredData = this.data.filter(item =>
-        item.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        item.email.toLowerCase().includes(this.searchTerm.toLowerCase())
-      );
-    } else {
-      this.filteredData = [...this.data];
-    }
-  }
+
 }

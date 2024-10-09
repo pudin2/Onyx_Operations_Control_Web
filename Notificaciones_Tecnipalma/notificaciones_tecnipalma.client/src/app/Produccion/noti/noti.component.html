@@ -1,18 +1,25 @@
 <div class="container">
   <div class="search-container">
 
+    <!-- Botón de regresar -->
     <button (click)="goBack()" class="btn-regresar">
-
       <img src="img/girar-a-la-izquierda.png" alt="Botón Imagen" class="img-boton">
-
     </button>
 
-    <input [(ngModel)]="searchTerm" placeholder="Buscar por Numero de OT..." (input)="onSearch()">
+    <!-- Input de búsqueda -->
+    <input [(ngModel)]="searchTerm" placeholder="Buscar Número de OT..." class="input-buscar">
 
+    <!-- Botón de buscar -->
     <button (click)="onSearch()" class="btn-buscar">Buscar</button>
 
   </div>
+
+  <!-- Mensaje de error si hay caracteres inválidos -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
 </div>
+
 
 
 <!--<table>

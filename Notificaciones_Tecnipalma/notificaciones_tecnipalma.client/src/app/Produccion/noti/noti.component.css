@@ -6,14 +6,17 @@
 
 .search-container {
   display: flex; /* Usamos Flexbox para alinear los elementos */
-  align-items: center; /* Centra los elementos verticalmente */
+  justify-content: center; /* Centra horizontalmente los elementos */
+  align-items: center; /* Centra verticalmente los elementos */
   gap: 10px; /* Espacio entre los elementos */
-  margin-bottom: 20px;
+  margin-top: 3rem;
+  flex-wrap: wrap; /* Permite que los elementos se ajusten en varias líneas si es necesario */
 }
 
 input {
-  width: 600px; /* Establece un ancho fijo de 400px */
-
+  flex: 1; /* Permite que el input ocupe todo el espacio disponible */
+  max-width: 210px; /* Establece un ancho máximo para el input */
+  text-align:center;
   padding: 0.5rem;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -30,16 +33,22 @@ input {
   cursor: pointer;
   font-size: 16px;
   flex-shrink: 0; /* Evita que el botón se encoja */
+  margin-left: 1rem;
 }
+
+  .btn-buscar:hover {
+    background-color: #0056b3;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.5);
+  }
 
 .btn-regresar {
   background: none;
   border: none;
   padding: 0;
   cursor: pointer;
-  margin-right: 15rem;
   font-size: 16px;
   flex-shrink: 0; /* Evita que el botón se encoja */
+  margin-right: 3rem;
 }
 
 .img-boton {
@@ -53,20 +62,27 @@ input {
   box-shadow: 0px 0px 15px rgba(255, 99, 71, 0.7); /* Sombra roja clara */
 }
 
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
 /* Media Query para pantallas pequeñas */
 @media (max-width: 768px) {
   .search-container {
     flex-direction: column; /* Cambia a una columna en pantallas pequeñas */
-    align-items: stretch; /* Estira los elementos para ocupar el ancho completo */
+    align-items: center; /* Centra los elementos horizontalmente */
     gap: 15px; /* Aumenta el espacio entre los elementos */
   }
 
   input {
-    width: 50%; /* Hace que el input ocupe todo el ancho del contenedor */
+    width: 100%; /* Hace que el input ocupe todo el ancho disponible en pantallas pequeñas */
+    max-width: none; /* Elimina el ancho máximo para que ocupe el 100% */
   }
 
   .btn-buscar, .btn-regresar {
-    width: 100%; /* Hace que los botones ocupen todo el ancho en pantallas pequeñas */
+    width: auto; /* Los botones toman el ancho del contenido */
     text-align: center; /* Centra el texto en los botones */
   }
 }

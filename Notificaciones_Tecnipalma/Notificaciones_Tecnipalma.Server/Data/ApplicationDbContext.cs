@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using LoginAPI.Models;
+using Microsoft.Extensions.Options;
 
 namespace LoginAPI.Data
 {
@@ -8,20 +9,38 @@ namespace LoginAPI.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         public DbSet<Usuarios> Usuarios { get; set; }
+        public DbSet<OrdenTrabajo> CabOt { get; set; }
 
         //Configuración del modelo
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             base.OnModelCreating(modelBuilder);
 
             // Configura 'NombreUsuario' como clave primaria
             modelBuilder.Entity<Usuarios>()
                 .HasKey(u => u.Usuario); // Aquí se define la clave primaria
+            modelBuilder.Entity<OrdenTrabajo>()
+                .HasKey(o => o.Id);
+
+            modelBuilder.Entity<OrdenTrabajo>()
+                .Property(o => o.NumOrden)
+                .HasColumnType("int"); // Esto asegura que la columna se trata como int
 
             // Puedes agregar más configuraciones de entidades aquí si es necesario
         }
-    }
 
-    
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder
+                    .UseSqlServer("DefaultConnection") // Reemplaza con tu cadena de conexión
+                    .EnableSensitiveDataLogging() // Habilita el registro de datos sensibles
+                    .LogTo(Console.WriteLine, LogLevel.Information); // Registra la salida en la consola
+            }
+        }
+
+    }
 }
 

@@ -10,11 +10,14 @@
       <ul class="link-list">
         <li *ngFor="let link of item.links">
 
-          <a href="javascript:void(0);" (click)="onLinkClick(link.url)">
+          <!-- Enlazar la URL usando routerLink para que Angular gestione el enrutamiento -->
+          <a [routerLink]="['/Produccion/noti']">
+
             <!-- Mostrar el ícono correspondiente basado en el texto del link -->
             <img *ngIf="link.text === 'Notificaciones'" src="/img/correo.png" class="imagen">
             <img *ngIf="link.text === 'Prueba'" src="/img/microfono.png" class="imagen">
             {{ link.text }}
+
           </a>
 
         </li>
@@ -23,6 +26,7 @@
     </div>
   </div>
 </div>
+
 
 
 <!--

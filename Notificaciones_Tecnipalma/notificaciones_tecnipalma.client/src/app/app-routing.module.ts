@@ -12,6 +12,7 @@ const routes: Routes = [
     component: MainLayoutComponent, // Este es el layout que incluye el menú
     children: [
       { path: 'menu', component: MenuComponent },
+      {path: 'Produccion/noti', component: NotiComponent },
       { path: '', redirectTo: '/login', pathMatch: 'full' },
       { path: '**', redirectTo: '/login' }// Ruta para la página de menú
     ]
@@ -21,6 +22,7 @@ const routes: Routes = [
 
 
 @NgModule({
+
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })

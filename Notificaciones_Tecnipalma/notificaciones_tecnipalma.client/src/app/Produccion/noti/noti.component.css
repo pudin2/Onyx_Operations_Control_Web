@@ -15,7 +15,7 @@
 
 input {
   flex: 1; /* Permite que el input ocupe todo el espacio disponible */
-  max-width: 210px; /* Establece un ancho máximo para el input */
+  max-width: 220px; /* Establece un ancho máximo para el input */
   text-align:center;
   padding: 0.5rem;
   border: 1px solid #ddd;
@@ -34,6 +34,7 @@ input {
   font-size: 16px;
   flex-shrink: 0; /* Evita que el botón se encoja */
   margin-left: 1rem;
+  font-family: "Poppins", sans-serif;
 }
 
   .btn-buscar:hover {
@@ -52,8 +53,8 @@ input {
 }
 
 .img-boton {
-  width: 40px; /* Ajusta el tamaño según lo que desees */
-  height: 40px;
+  width: 50px; /* Ajusta el tamaño según lo que desees */
+  height: 50px;
   border-radius: 50%; /* Hace que la imagen sea circular */
   transition: box-shadow 0.3s ease;
 }
@@ -64,9 +65,87 @@ input {
 
 .error-message {
   color: red;
+  background-color: #ffe6e6; /* Fondo rojo suave */
   font-size: 0.9rem;
-  margin-top: 1rem;
+  margin-top: 40px;
+  padding: 8px; /* Agrega espacio interno */
+  border: 1px solid #ff9999; /* Borde rojo suave */
+  border-radius: 5px; /* Bordes redondeados */
+  text-align: center;
+  max-width: 400px; /* Establece un ancho máximo para el mensaje */
+  margin-left: auto; /* Centra horizontalmente */
+  margin-right: auto; /* Centra horizontalmente */
 }
+
+.orden-details {
+  background-color: #f9f9f9; /* Fondo suave para resaltar la sección */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 20px; /* Espaciado interno */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil para darle un efecto de elevación */
+  max-width: 600px; /* Limitar el ancho para que se vea bien en pantallas grandes y pequeñas */
+  margin: 20px auto; /* Centrar la tarjeta en la página */
+  font-family: Arial, sans-serif; /* Fuente sencilla y legible */
+}
+
+  .orden-details p {
+    margin: 10px 0; /* Espaciado entre párrafos */
+    line-height: 1.6; /* Espaciado entre líneas para mejorar la legibilidad */
+  }
+
+  .orden-details strong {
+    color: #333; /* Color para hacer que los títulos sean más oscuros y visibles */
+    font-weight: bold; /* Asegurar que se vea como un título */
+  }
+
+  .orden-details p:first-child {
+    font-size: 1.2em; /* Aumentar el tamaño de la fuente del primer párrafo (número de orden) */
+    color: #007bff; /* Darle un color distintivo */
+  }
+
+  .orden-details p:nth-child(2) {
+    font-size: 1.1em; /* Aumentar ligeramente el tamaño del cliente */
+    color: #555; /* Color sutil para los subtítulos */
+  }
+
+  .orden-details p:nth-child(3) {
+    font-size: 1em; /* Mantener el tamaño normal */
+  }
+
+  .orden-details p:nth-child(4) {
+    background-color: #f0f0f0; /* Fondo suave para resaltar el alcance */
+    padding: 10px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+  }
+
+.alcance-list {
+  margin: 10px 0;
+  padding-left: 20px;
+  list-style-type: none; /* Elimina la viñeta predeterminada */
+}
+
+  .alcance-list li {
+    margin-bottom: 5px; /* Espaciado entre cada línea */
+    line-height: 1.5; /* Espaciado entre líneas */
+    padding-left: 10px;
+    text-indent: -10px;
+    text-align: justify; /* Justificar el texto de cada elemento de la lista */
+  }
+
+.btn-limpiar {
+  padding: 10px;
+  margin-left: 10px;
+  background-color: #f0ad4e; /* Color naranja */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+  .btn-limpiar:hover {
+    background-color: #ec971f; /* Un tono más oscuro para el hover */
+  }
+
+
 
 /* Media Query para pantallas pequeñas */
 @media (max-width: 768px) {

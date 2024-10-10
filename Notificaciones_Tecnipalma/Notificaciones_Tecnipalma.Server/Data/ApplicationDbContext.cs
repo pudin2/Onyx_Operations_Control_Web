@@ -9,6 +9,7 @@ namespace LoginAPI.Data
 
         public DbSet<Usuarios> Usuarios { get; set; }
         public DbSet<VwOrdenTrabajo> VW_CabOt { get; set; }
+        public DbSet<Cab_SubT> CabSubT { get; set; }
 
         //Configuración del modelo
         protected override void OnModelCreating(ModelBuilder modelBuilder)

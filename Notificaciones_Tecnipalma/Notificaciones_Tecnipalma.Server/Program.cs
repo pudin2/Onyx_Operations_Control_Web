@@ -1,7 +1,7 @@
 using LoginAPI.Data;
 using LoginAPI.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +13,9 @@ builder.Services.AddCors(options =>
         {
             policy.WithOrigins("https://localhost:4200") // Permitir solicitudes desde Angular
                   .AllowAnyHeader()
-                  .AllowAnyMethod();
+                  .AllowAnyMethod()
+                  .AllowCredentials()
+                  .SetIsOriginAllowed((host) => true);
         });
 });
 

@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using LoginAPI.Models;
-using Microsoft.Extensions.Options;
 
 namespace LoginAPI.Data
 {
@@ -9,7 +8,7 @@ namespace LoginAPI.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         public DbSet<Usuarios> Usuarios { get; set; }
-        public DbSet<OrdenTrabajo> CabOt { get; set; }
+        public DbSet<VwOrdenTrabajo> VW_CabOt { get; set; }
 
         //Configuración del modelo
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -20,10 +19,11 @@ namespace LoginAPI.Data
             // Configura 'NombreUsuario' como clave primaria
             modelBuilder.Entity<Usuarios>()
                 .HasKey(u => u.Usuario); // Aquí se define la clave primaria
-            modelBuilder.Entity<OrdenTrabajo>()
-                .HasKey(o => o.NumOrden);
+            modelBuilder.Entity<VwOrdenTrabajo>()
+                .HasNoKey()
+                .ToView("VW_CabOt");
 
-            modelBuilder.Entity<OrdenTrabajo>()
+            modelBuilder.Entity<VwOrdenTrabajo>()
                 .Property(o => o.NumOrden)
                 .HasColumnType("int"); // Esto asegura que la columna se trata como int
 

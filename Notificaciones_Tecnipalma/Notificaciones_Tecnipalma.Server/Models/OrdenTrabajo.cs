@@ -1,7 +1,9 @@
-public class OrdenTrabajo
+public class VwOrdenTrabajo
 {
-    //public int Id { get; set; } // Clave primaria
-    public int NumOrden { get; set; } // Asegúrate de que coincida con el tipo de datos en la BD
-    public int CabCotizacion_Id { get; set; }
-    public string Alcance { get; set; }
+    // Asegúrate de que coincida con el tipo de datos en la BD
+    public int Ot_Id { get; set; } 
+    public int NumOrden { get; set; } // Clave primaria
+    public string NombreCliente { get; set; }
+    public string NombreProyecto { get; set; }
+    public string OT_Alcance { get; set; }
 }

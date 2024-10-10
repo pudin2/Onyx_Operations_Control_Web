@@ -1,7 +1,6 @@
 using LoginAPI.Data;
 using Microsoft.AspNetCore.Mvc;
-using LoginAPI.Models;
-using System.Linq;
+
 
 namespace Notificaciones_Tecnipalma.Server.Controllers
 {
@@ -19,7 +18,7 @@ namespace Notificaciones_Tecnipalma.Server.Controllers
         [HttpGet("{numeroOrden:int}")] // Asegura que el parámetro sea de tipo int
         public IActionResult GetOrdenTrabajo(int numeroOrden) // Cambia el tipo del parámetro a int
         {
-            var orden = _context.CabOt.FirstOrDefault(o => o.NumOrden == numeroOrden);
+            var orden = _context.VW_CabOt.FirstOrDefault(o => o.NumOrden == numeroOrden);
 
             if (orden == null)
             {

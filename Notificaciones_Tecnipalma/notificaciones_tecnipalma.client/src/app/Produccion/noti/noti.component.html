@@ -1,23 +1,31 @@
 <div class="container">
+
   <div class="search-container">
 
-    <!-- Botón de regresar -->
     <button (click)="goBack()" class="btn-regresar">
       <img src="img/girar-a-la-izquierda.png" alt="Botón Imagen" class="img-boton">
     </button>
 
-    <!-- Input de búsqueda -->
-    <input [(ngModel)]="searchTerm" placeholder="Buscar Número de OT..." class="input-buscar">
+    <input [(ngModel)]="searchTerm" placeholder="Buscar por Número de OT..." /><!--(input)="onSearch()"-->
 
-    <!-- Botón de buscar -->
-    <button (click)="onSearch()" class="btn-buscar">Buscar</button>
+
+    <button (click)="buscarOrden()" class="btn-buscar">Buscar</button>
 
   </div>
 
-  <!-- Mensaje de error si hay caracteres inválidos -->
-  <div *ngIf="errorMessage" class="error-message">
-    {{ errorMessage }}
+  <div *ngIf="orden; else noData" class="orden-details">
+    <!-- <h3>Detalles de la Orden de Trabajo</h3> -->
+    <!--<p><strong>ID:</strong> {{ orden?.Ot_Id }}</p>-->
+    <p><strong>Número de Orden:</strong> {{ orden?.NumOrden }}</p>
+    <p><strong>Cliente:</strong> {{ orden?.NombreCliente }}</p>
+    <p><strong>Proyecto:</strong> {{ orden?.NombreProyecto }}</p>
+    <p><strong>Alcance:</strong> {{ orden?.OT_Alcance }}</p>
+    <!-- Agrega más campos si es necesario -->
   </div>
+
+  <ng-template #noData>
+    <p>No se encontró la orden de trabajo con el número ingresado.</p>
+  </ng-template>
 </div>
 
 

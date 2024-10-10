@@ -22,10 +22,14 @@ builder.Services.AddCors(options =>
 // Add services to the container.
 
 
-builder.Services.AddControllers();
-   
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = null;
+    });
 
-    // Otros servicios que uses
+
+// Otros servicios que uses
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

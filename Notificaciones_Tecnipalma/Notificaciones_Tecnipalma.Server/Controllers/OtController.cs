@@ -1,7 +1,6 @@
 using LoginAPI.Data;
 using Microsoft.AspNetCore.Mvc;
 
-
 namespace Notificaciones_Tecnipalma.Server.Controllers
 {
     [ApiController]
@@ -15,8 +14,8 @@ namespace Notificaciones_Tecnipalma.Server.Controllers
             _context = context;
         }
 
-        [HttpGet("{numeroOrden:int}")] // Asegura que el parámetro sea de tipo int
-        public IActionResult GetOrdenTrabajo(int numeroOrden) // Cambia el tipo del parámetro a int
+        [HttpGet("{numeroOrden:int}")]
+        public IActionResult GetOrdenTrabajo(int numeroOrden)
         {
             var orden = _context.VW_CabOt.FirstOrDefault(o => o.NumOrden == numeroOrden);
 
@@ -28,5 +27,27 @@ namespace Notificaciones_Tecnipalma.Server.Controllers
             return Ok(orden);
         }
 
+        // Nuevo método para obtener registros de Cab_SubT basados en el Ot_Id de VW_CabOt
+        [HttpGet("{numeroOrden:int}/subt")]
+        public IActionResult GetSubTByNumeroOrden(int numeroOrden)
+        {
+            // Primero, buscamos la orden en VW_CabOt
+            var orden = _context.VW_CabOt.FirstOrDefault(o => o.NumOrden == numeroOrden);
+
+            if (orden == null)
+            {
+                return NotFound(new { message = "Orden de trabajo no encontrada" });
+            }
+
+            // Usamos el Ot_Id obtenido para buscar los registros en Cab_SubT
+            var SubTareas = _context.CabSubT.Where(s => s.OT_Cab_ID == orden.Ot_Id).ToList();
+
+            if (SubTareas == null || SubTareas.Count == 0)
+            {
+                return NotFound(new { message = "No se encontraron registros para el Ot_Id proporcionado" });
+            }
+
+            return Ok(SubTareas);
+        }
     }
 }

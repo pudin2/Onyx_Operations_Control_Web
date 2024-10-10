@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 
 interface MenuItem {
   title: string;
-  links: { text: string; url: string }[];
+  links: { text: string; url: string; disabled?: boolean }[];
   isOpen: boolean;
 }
 
@@ -28,7 +28,7 @@ export class MenuComponent {
       title: 'Producción',
       links: [
         { text: 'Notificaciones', url: '/Producción/Notificaciones' },
-        { text: 'Prueba', url: '/Producción/Notificaciones' },
+        //{ text: 'Prueba', url: '/Producción/Notificaciones', disabled: true },
   
       ],
       isOpen: false
@@ -37,11 +37,16 @@ export class MenuComponent {
     {
       title: 'En desarrollo',
       links: [
-        { text: 'Desarrollo', url: '/En desarrolo/Desarrollo' },
+        // text: 'Desarrollo', url: '/En desarrolo/Desarrollo', disabled: true },
       ],
       isOpen: false
     }
   ];
+
+  isLinkDisabled(link: any): boolean {
+    // Verificar si el enlace tiene la propiedad 'disabled' en true
+    return link.disabled === true;
+  }
 
   hasNotificationLink(item: any): boolean {
     return item.links.some((link: any) => link.text === 'Notificaciones');

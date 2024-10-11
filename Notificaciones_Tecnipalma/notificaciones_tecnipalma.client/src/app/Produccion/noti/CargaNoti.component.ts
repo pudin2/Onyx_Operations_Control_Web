@@ -8,6 +8,7 @@ import { OrdenService } from '../../Servicios/ot.service';
 import { VwOrdenTrabajo } from '../../Models/OtModel'
 import { CommonModule } from '@angular/common'; // Importa CommonModule
 import { CabSubT } from '../../Models/SubTModel';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-carganoti',
@@ -25,7 +26,7 @@ export class CargaNotiComponent {
   errorMessage: string = '';
   noData: boolean = false;
 
-  constructor(private location: Location, private ordenService: OrdenService) { }
+  constructor(private location: Location, private ordenService: OrdenService, private router:Router) { }
 
   buscarOrden(): void {
     const numeroOrden = parseInt(this.searchTerm, 10);
@@ -105,7 +106,8 @@ export class CargaNotiComponent {
   }
 
 
-  notificar(subt: any): void {
+  notificar(subt: CabSubT): void {
+    this.router.navigate(['/produccion/noti', subt.Id]);
     // Aquí puedes añadir la lógica para manejar la notificación
     // Por ejemplo, podrías mostrar un mensaje en consola o llamar a un servicio
     console.log(`Notificando a la tarea: ${subt.Descripcion}`);

@@ -10,13 +10,13 @@ import { CommonModule } from '@angular/common'; // Importa CommonModule
 import { CabSubT } from '../../Models/SubTModel';
 
 @Component({
-  selector: 'app-noti',
+  selector: 'app-carganoti',
   templateUrl: './CargaNoti.component.html',
   styleUrls: ['./CargaNoti.component.css'],
   standalone: true,
   imports: [MatToolbarModule, MatButtonModule, MatIconModule, FormsModule, CommonModule],
 })
-export class NotiComponent {
+export class CargaNotiComponent {
   searchTerm: string = '';
   //data: any[] = [];
   //filteredData: any[] = [];

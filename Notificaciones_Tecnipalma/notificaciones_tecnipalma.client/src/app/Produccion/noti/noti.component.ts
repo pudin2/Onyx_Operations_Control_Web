@@ -22,6 +22,8 @@ export class NotiComponent {
   //filteredData: any[] = [];
   orden: VwOrdenTrabajo | null = null; // Variable para almacenar la orden
   subtRegistros: CabSubT[] = []; // Variable para almacenar los registros de Cab_SubT
+  errorMessage: string = '';
+  noData: boolean = false;
 
   constructor(private location: Location, private ordenService: OrdenService) { }
 

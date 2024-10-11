@@ -22,13 +22,13 @@
   padding: 15px;
   background-color: #B5BAC9;
   cursor: pointer;
-  border-radius: 100px; /* Hace que los bordes sean redondeados */
+  border-radius: 60px 70px 40px 140px; /* Hace que los bordes sean redondeados */
   text-align: center; /* Centra el texto */
   width: 80%; /* Ajusta el ancho para que se vea como un óvalo */
   margin: 10px auto; /* Centra horizontalmente */
   border: none; /* Elimina el borde negro */
 
-  transition: background-color 0.3s;
+  transition: 0.5s;
   transform: scale(0.95);
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }
@@ -113,6 +113,7 @@
 
   .logout-btn:hover {
     background-color: #c82333;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.5);
   }
 
 .imagen {

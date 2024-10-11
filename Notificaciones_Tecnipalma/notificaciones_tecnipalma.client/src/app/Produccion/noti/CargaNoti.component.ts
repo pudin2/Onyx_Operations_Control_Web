@@ -11,8 +11,8 @@ import { CabSubT } from '../../Models/SubTModel';
 
 @Component({
   selector: 'app-noti',
-  templateUrl: './noti.component.html',
-  styleUrls: ['./noti.component.css'],
+  templateUrl: './CargaNoti.component.html',
+  styleUrls: ['./CargaNoti.component.css'],
   standalone: true,
   imports: [MatToolbarModule, MatButtonModule, MatIconModule, FormsModule, CommonModule],
 })

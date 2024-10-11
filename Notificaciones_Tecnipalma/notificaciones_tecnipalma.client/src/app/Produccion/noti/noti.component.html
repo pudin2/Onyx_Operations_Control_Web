@@ -1,25 +1,46 @@
 <div class="container">
-
   <div class="search-container">
 
+  <!-- Botón de regresar -->
     <button (click)="goBack()" class="btn-regresar">
       <img src="img/girar-a-la-izquierda.png" alt="Botón Imagen" class="img-boton">
     </button>
 
-    <input [(ngModel)]="searchTerm" placeholder="Buscar por Número de OT..." /><!--(input)="onSearch()"-->
+    <!-- Input de búsqueda -->
+    <input [(ngModel)]="searchTerm" placeholder="Buscar por Número de OT..." class="input-buscar" (input)="onInputChange()">
 
+    <!-- Botón de buscar -->
+    <button (click)="buscarOrden()" class="btn-buscar">
+      <img src="img/busqueda.png" alt="Botón Imagen" class="img-buscar">
+    </button>
 
-    <button (click)="buscarOrden()" class="btn-buscar">Buscar</button>
+    <!-- Botón de limpiar -->
+    <button (click)="limpiarInput()" class="btn-limpiar">
+      <img src="img/borrar.png" alt="Botón Imagen" class="img-borrar">
+    </button>
 
   </div>
 
-  <div *ngIf="orden; else noData" class="orden-details">
-    <!-- <h3>Detalles de la Orden de Trabajo</h3> -->
-    <!--<p><strong>ID:</strong> {{ orden?.Ot_Id }}</p>-->
-    <p><strong>Número de Orden:</strong> {{ orden?.NumOrden }}</p>
-    <p><strong>Cliente:</strong> {{ orden?.NombreCliente }}</p>
-    <p><strong>Proyecto:</strong> {{ orden?.NombreProyecto }}</p>
-    <p><strong>Alcance:</strong> {{ orden?.OT_Alcance }}</p>
+  <!-- Mensaje de error si hay caracteres inválidos o no se encuentra la orden -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Detalles de la orden si se encuentra -->
+  <div *ngIf="orden" class="orden-details">
+    <p><strong>Número de Orden:</strong> {{ orden.NumOrden }}</p>
+    <p><strong></strong> {{ orden.NombreCliente }}</p>
+    <p><strong></strong> {{ orden.NombreProyecto }}</p>
+
+    <!-- Mostrando la introducción del alcance -->
+    <p><strong></strong> {{ getAlcanceIntroduccion() }}:</p>
+
+    <!-- Lista con viñetas para mostrar los elementos después de los dos puntos -->
+    <ul class="alcance-list">
+      <li *ngFor="let item of getAlcanceItems()">
+        - {{ item }}
+      </li>
+    </ul>
     <!-- Agrega más campos si es necesario -->
   
 
@@ -48,11 +69,11 @@
     </table>
   </div>
 
-
+  <!-- Mensaje de no datos si no se encuentra ninguna orden -->
   <ng-template #noData>
-    <p>No se encontró la orden de trabajo con el número ingresado.</p>
+    <div class="no-data-message">
+      No hay datos disponibles.
+    </div>
   </ng-template>
+
 </div>
-
-
-

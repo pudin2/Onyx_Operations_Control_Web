@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core'; // Importa OnInit
-import { FormsModule } from '@angular/forms'; // Importa FormsModule
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -9,15 +9,14 @@ import { VwOrdenTrabajo } from '../../Models/OtModel'
 import { CommonModule } from '@angular/common'; // Importa CommonModule
 import { CabSubT } from '../../Models/SubTModel';
 
-
 @Component({
   selector: 'app-noti',
   templateUrl: './noti.component.html',
-  styleUrl: './noti.component.css',
+  styleUrls: ['./noti.component.css'],
   standalone: true,
   imports: [MatToolbarModule, MatButtonModule, MatIconModule, FormsModule, CommonModule],
 })
-export class NotiComponent implements OnInit {
+export class NotiComponent {
   searchTerm: string = '';
   //data: any[] = [];
   //filteredData: any[] = [];
@@ -26,27 +25,29 @@ export class NotiComponent implements OnInit {
 
   constructor(private location: Location, private ordenService: OrdenService) { }
 
-  ngOnInit() {
-    // Aquí podrías obtener un número de orden fijo o de otra manera (por ejemplo, de la URL)
-    //const numeroOrden = 1; // Número de orden para la búsqueda (puedes cambiarlo o hacerlo dinámico)
-    //this.getOrden(numeroOrden);
-  }
-
-  buscarOrden() {
+  buscarOrden(): void {
     const numeroOrden = parseInt(this.searchTerm, 10);
+
+    // Limpiar los datos de la orden anterior antes de continuar
+    this.orden = null;
+    this.noData = false;
+
     if (isNaN(numeroOrden)) {
-      alert('Por favor, ingresa un número de orden válido.');
+      this.errorMessage = 'Ingresa un número de orden válido.';
+      this.noData = true;
       return;
     }
 
     this.ordenService.getOrdenTrabajo(numeroOrden).subscribe({
       next: (data) => {
-        this.orden = data
+        this.orden = data;
+        this.errorMessage = ''; // Limpiar el mensaje de error si se obtiene la orden correctamente
+        this.noData = false; // Hay datos, así que no hay error
         this.getSubTByNumeroOrden(numeroOrden);
       },
       error: (err) => {
         console.error('Error al obtener la orden', err);
-        alert('No se encontró la orden con el número proporcionado.');
+        this.errorMessage = 'No se encontró la orden con el número proporcionado.';
         this.orden = null; // Resetea la variable si no se encuentra la orden
         this.subtRegistros = []; // Resetea los registros si no hay orden
       },
@@ -66,8 +67,34 @@ export class NotiComponent implements OnInit {
     });
   }
 
+  getAlcanceIntroduccion(): string {
+    return this.orden?.OT_Alcance?.split(':')[0] || '';
+  }
+
+  getAlcanceItems(): string[] {
+    // Dividimos la parte después de los dos puntos (:) en elementos separados por el guion seguido de un espacio (" - ")
+    const items = this.orden?.OT_Alcance?.split(':')[1]?.split(/\s*-\s*/g) || [];
+    // Limpiamos cada elemento para eliminar posibles espacios adicionales
+    return items.map(item => item.trim()).filter(item => item.length > 0);
+  }
+
+
+
+  onInputChange(): void {
+    // Limpia el mensaje de error cuando el usuario empieza a escribir de nuevo
+    this.errorMessage = '';
+    this.orden = null;
+    this.noData = false;
+  }
+
   goBack() {
     this.location.back(); // Navega a la página anterior
   }
- 
+
+  limpiarInput(): void {
+    this.searchTerm = ''; // Limpia el valor del input
+    this.errorMessage = ''; // Limpia cualquier mensaje de error
+    this.orden = null; // Limpia los datos de la orden si estaban cargados
+    this.noData = false; // Resetea el estado de 'noData'
+  }
 }

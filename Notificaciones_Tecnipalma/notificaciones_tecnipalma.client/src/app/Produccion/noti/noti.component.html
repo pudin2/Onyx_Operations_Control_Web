@@ -1,6 +1,7 @@
 <div class="container">
   <div class="search-container">
-    <!-- Botón de regresar -->
+
+  <!-- Botón de regresar -->
     <button (click)="goBack()" class="btn-regresar">
       <img src="img/girar-a-la-izquierda.png" alt="Botón Imagen" class="img-boton">
     </button>
@@ -8,11 +9,16 @@
     <!-- Input de búsqueda -->
     <input [(ngModel)]="searchTerm" placeholder="Buscar por Número de OT..." class="input-buscar" (input)="onInputChange()">
 
-    <!-- Botón de limpiar -->
-    <button (click)="limpiarInput()" class="btn-limpiar">Limpiar</button>
-
     <!-- Botón de buscar -->
-    <button (click)="buscarOrden()" class="btn-buscar">Buscar</button>
+    <button (click)="buscarOrden()" class="btn-buscar">
+      <img src="img/busqueda.png" alt="Botón Imagen" class="img-buscar">
+    </button>
+
+    <!-- Botón de limpiar -->
+    <button (click)="limpiarInput()" class="btn-limpiar">
+      <img src="img/borrar.png" alt="Botón Imagen" class="img-borrar">
+    </button>
+
   </div>
 
   <!-- Mensaje de error si hay caracteres inválidos o no se encuentra la orden -->
@@ -22,9 +28,9 @@
 
   <!-- Detalles de la orden si se encuentra -->
   <div *ngIf="orden" class="orden-details">
-    <p><strong>Número de Orden:</strong> {{ orden?.NumOrden }}</p>
-    <p><strong></strong> {{ orden?.NombreCliente }}</p>
-    <p><strong></strong> {{ orden?.NombreProyecto }}</p>
+    <p><strong>Número de Orden:</strong> {{ orden.NumOrden }}</p>
+    <p><strong></strong> {{ orden.NombreCliente }}</p>
+    <p><strong></strong> {{ orden.NombreProyecto }}</p>
 
     <!-- Mostrando la introducción del alcance -->
     <p><strong></strong> {{ getAlcanceIntroduccion() }}:</p>
@@ -37,11 +43,11 @@
     </ul>
   </div>
 
-
   <!-- Mensaje de no datos si no se encuentra ninguna orden -->
   <ng-template #noData>
     <div class="no-data-message">
       No hay datos disponibles.
     </div>
   </ng-template>
+
 </div>

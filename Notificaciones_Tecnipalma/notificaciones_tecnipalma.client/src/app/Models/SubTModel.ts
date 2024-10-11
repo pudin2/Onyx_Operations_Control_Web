@@ -1,9 +1,9 @@
 export interface CabSubT {
-  id: number;
+  Id: number;
   OT_Cab_ID: number;
-  descripcion: string;
-  fecha: Date;
-  asignadaA: string;
-  horas: number;
-  porc: number;
+  Descripcion: string;
+  Fecha: Date;
+  AsignadaA: string;
+  Horas: number;
+  Porc: number;
 }

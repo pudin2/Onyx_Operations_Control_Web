@@ -15,4 +15,8 @@ export class OrdenService {
   getOrdenTrabajo(numeroOrden: number): Observable<VwOrdenTrabajo> {
     return this.http.get<VwOrdenTrabajo>(`${this.apiUrl}/${numeroOrden}`);
   }
+
+  getSubTByNumeroOrden(numeroOrden: number): Observable<CabSubT[]> {
+    return this.http.get<CabSubT[]>(`${this.apiUrl}/${numeroOrden}/subt`);
+  }
 }

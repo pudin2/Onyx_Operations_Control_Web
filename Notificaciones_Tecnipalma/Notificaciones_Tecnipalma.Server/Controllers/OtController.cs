@@ -32,7 +32,7 @@ namespace Notificaciones_Tecnipalma.Server.Controllers
         public IActionResult GetSubTByNumeroOrden(int numeroOrden)
         {
             // Primero, buscamos la orden en VW_CabOt
-            var orden = _context.VW_CabOt.FirstOrDefault(o => o.NumOrden == numeroOrden);
+            var orden = _context.VW_CabOt.FirstOrDefault(o => o.NumOrden == numeroOrden );
 
             if (orden == null)
             {
@@ -40,7 +40,7 @@ namespace Notificaciones_Tecnipalma.Server.Controllers
             }
 
             // Usamos el Ot_Id obtenido para buscar los registros en Cab_SubT
-            var SubTareas = _context.CabSubT.Where(s => s.OT_Cab_ID == orden.Ot_Id).ToList();
+            var SubTareas = _context.CabSubT.Where(s => s.OT_Cab_ID == orden.Ot_Id && s.Tipo == "ST").ToList();
 
             if (SubTareas == null || SubTareas.Count == 0)
             {

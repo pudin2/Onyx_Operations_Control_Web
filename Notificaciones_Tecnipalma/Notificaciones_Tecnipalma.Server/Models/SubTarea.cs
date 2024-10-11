@@ -7,6 +7,7 @@ public class Cab_SubT
     public string AsignadaA { get; set; }
     public byte Horas { get; set; }
     public decimal Porc { get; set; }
+    public string Tipo { get; set; }
 
 
     // Agrega otras propiedades según las columnas de la tabla Cab_SubT

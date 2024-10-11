@@ -12,21 +12,24 @@ export class LoginComponent {
   username = '';
   password = '';
   errorMessage: string = '';
+  isLoading: boolean = false; // Variable para controlar la pantalla de carga
 
   constructor(private authService: AuthService, private router: Router) { }
 
   onSubmit(): void {
+    this.isLoading = true; // Mostrar pantalla de carga cuando se envía el formulario
     this.authService.login(this.username, this.password).subscribe(
       response => {
         console.log('Login exitoso', response);
+        
         this.router.navigate(['/menu'])
-        // Maneja el login exitoso aquí, como redirigir a otra página
+        this.isLoading = false;
         this.errorMessage = '';
       },
       error => {
         console.error('Error en el login', error);
         this.errorMessage = 'Usuario o contraseña incorrectos';
-        // Maneja el error aquí, por ejemplo, mostrando un mensaje
+        this.isLoading = false;
       }
     );
   }
@@ -34,5 +37,9 @@ export class LoginComponent {
     this.username = '';
     this.password = '';
     this.errorMessage = '';
+    this.isLoading = false;
   }
+
+
+
 }

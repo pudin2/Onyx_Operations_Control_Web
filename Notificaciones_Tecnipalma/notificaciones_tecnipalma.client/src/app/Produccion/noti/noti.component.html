@@ -44,11 +44,11 @@
     <!-- Agrega más campos si es necesario -->
   
 
-  <h3>Registros Asociados</h3>
+  <h3>SubTareas</h3>
   <table *ngIf="subtRegistros.length > 0" class="subt-table">
     <thead>
       <tr>
-        <th>ID</th>
+       <!-- <th>ID</th>-->
         <th>Descripción</th>
         <th>Fecha</th>
         <th>Asignada A</th>
@@ -58,12 +58,12 @@
     </thead>
     <tbody>
       <tr *ngFor="let subt of subtRegistros">
-         <td>{{ subt.Id }}</td>
+         <!--<td>{{ subt.Id }}</td>-->
           <td>{{ subt.Descripcion }}</td>
           <td>{{ subt.Fecha | date }}</td>
           <td>{{ subt.AsignadaA }}</td>
           <td>{{ subt.Horas }}</td>
-          <td>{{ subt.Porc }}%</td>
+          <td>{{ subt.Porc*100 }}%</td>
         </tr>
       </tbody>
     </table>

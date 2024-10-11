@@ -33,6 +33,7 @@ export class NotiComponent {
     // Limpiar los datos de la orden anterior antes de continuar
     this.orden = null;
     this.noData = false;
+    this.subtRegistros = []; // Limpiar las subtareas
 
     if (isNaN(numeroOrden)) {
       this.errorMessage = 'Ingresa un número de orden válido.';
@@ -83,10 +84,12 @@ export class NotiComponent {
 
 
   onInputChange(): void {
-    // Limpia el mensaje de error cuando el usuario empieza a escribir de nuevo
-    this.errorMessage = '';
+   
+    this.errorMessage = '';  // Limpia el mensaje de error cuando el usuario empieza a escribir de nuevo
     this.orden = null;
     this.noData = false;
+    this.subtRegistros = []; // Limpia las subtareas
+
   }
 
   goBack() {
@@ -98,5 +101,15 @@ export class NotiComponent {
     this.errorMessage = ''; // Limpia cualquier mensaje de error
     this.orden = null; // Limpia los datos de la orden si estaban cargados
     this.noData = false; // Resetea el estado de 'noData'
+    this.subtRegistros = []; // Limpia las subtareas
   }
+
+
+  notificar(subt: any): void {
+    // Aquí puedes añadir la lógica para manejar la notificación
+    // Por ejemplo, podrías mostrar un mensaje en consola o llamar a un servicio
+    console.log(`Notificando a la tarea: ${subt.Descripcion}`);
+    // Lógica adicional para enviar la notificación puede ir aquí
+  }
+
 }

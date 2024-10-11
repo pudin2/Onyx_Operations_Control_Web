@@ -155,8 +155,55 @@ input {
     text-align: justify; /* Justificar el texto de cada elemento de la lista */
   }
 
+.subt-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+  text-align:center;
+  text-align: left;
+  box-shadow: 0px 0px 15px rgba(0, 0, 139, 0.1); /* Sombra azul oscuro suave */
+}
 
+  .subt-table thead tr {
+    background-color: #007bff; /* Azul oscuro para el encabezado */
+    color: white;
+    text-align: center;
+  }
 
+  .subt-table th,
+  .subt-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+  }
+
+  .subt-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2; /* Color de fondo alternativo para filas pares */
+  }
+
+  .subt-table tbody tr:hover {
+    background-color: #cce5ff; /* Fondo azul claro al pasar el cursor por la fila */
+  }
+
+  .subt-table td {
+    vertical-align: middle;
+  }
+
+.btn-notificar {
+  padding: 5px 10px;
+  background-color: #28a745; /* Verde */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+  .btn-notificar:hover {
+    background-color: #218838; /* Verde más oscuro para el hover */
+  }
+
+  /*209627*/
 
 
 /* Media Query para pantallas pequeñas */

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="search-container">
 
-  <!-- Botón de regresar -->
+    <!-- Botón de regresar -->
     <button (click)="goBack()" class="btn-regresar">
       <img src="img/girar-a-la-izquierda.png" alt="Botón Imagen" class="img-boton">
     </button>
@@ -41,39 +41,45 @@
         - {{ item }}
       </li>
     </ul>
-    <!-- Agrega más campos si es necesario -->
-  
 
-  <h3>SubTareas</h3>
-  <table *ngIf="subtRegistros.length > 0" class="subt-table">
-    <thead>
-      <tr>
-       <!-- <th>ID</th>-->
-        <th>Descripción</th>
-        <th>Fecha</th>
-        <th>Asignada A</th>
-        <th>Horas</th>
-        <th>Porcentaje</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let subt of subtRegistros">
-         <!--<td>{{ subt.Id }}</td>-->
+    <!-- Mensaje de no datos si no se encuentra ninguna orden -->
+    <ng-template #noData>
+      <div class="no-data-message">
+        No hay datos disponibles.
+      </div>
+    </ng-template>
+
+  </div>
+
+  <!-- Sección de SubTareas: solo se muestra si hay registros -->
+  <div *ngIf="subtRegistros.length > 0">
+    <h3>SubTareas</h3>
+    <table class="subt-table">
+      <thead>
+        <tr>
+          <th>Descripción</th>
+          <th>Fecha</th>
+          <th>Asignada A</th>
+          <th>Horas</th>
+          <th>Porcentaje</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let subt of subtRegistros">
           <td>{{ subt.Descripcion }}</td>
           <td>{{ subt.Fecha | date }}</td>
           <td>{{ subt.AsignadaA }}</td>
           <td>{{ subt.Horas }}</td>
-          <td>{{ subt.Porc*100 }}%</td>
+          <td>{{ subt.Porc * 100 }}%</td>
+          <td>
+            <button (click)="notificar(subt)" class="btn-notificar">Notificar</button>
+          </td>
         </tr>
       </tbody>
-    </table>
-  </div>
 
-  <!-- Mensaje de no datos si no se encuentra ninguna orden -->
-  <ng-template #noData>
-    <div class="no-data-message">
-      No hay datos disponibles.
-    </div>
-  </ng-template>
+    </table>
+
+  </div>
 
 </div>

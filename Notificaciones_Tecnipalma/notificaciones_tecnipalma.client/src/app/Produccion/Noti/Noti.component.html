@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+<div class="slider-container">
+  <input type="range" min="0" max="100" [(ngModel)]="value" class="slider" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+  <div class="highlight" [ngStyle]="{'width': value + '%', 'opacity': hovered ? 1 : 0}"></div>
+</div>

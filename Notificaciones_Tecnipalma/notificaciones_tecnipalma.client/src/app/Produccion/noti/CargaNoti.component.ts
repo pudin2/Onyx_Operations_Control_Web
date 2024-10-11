@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common'; // Importa CommonModule
 import { CabSubT } from '../../Models/SubTModel';
 
 @Component({
-  selector: 'app-noti',
+  selector: 'app-CargaNoti',
   templateUrl: './CargaNoti.component.html',
   styleUrls: ['./CargaNoti.component.css'],
   standalone: true,

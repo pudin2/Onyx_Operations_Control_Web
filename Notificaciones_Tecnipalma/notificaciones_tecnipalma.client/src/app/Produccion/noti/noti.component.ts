@@ -7,6 +7,7 @@ import { Location } from '@angular/common';
 import { OrdenService } from '../../Servicios/ot.service';
 import { VwOrdenTrabajo } from '../../Models/OtModel'
 import { CommonModule } from '@angular/common'; // Importa CommonModule
+import { CabSubT } from '../../Models/SubTModel';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class NotiComponent implements OnInit {
   //data: any[] = [];
   //filteredData: any[] = [];
   orden: VwOrdenTrabajo | null = null; // Variable para almacenar la orden
+  subtRegistros: CabSubT[] = []; // Variable para almacenar los registros de Cab_SubT
 
   constructor(private location: Location, private ordenService: OrdenService) { }
 
@@ -39,12 +41,27 @@ export class NotiComponent implements OnInit {
 
     this.ordenService.getOrdenTrabajo(numeroOrden).subscribe({
       next: (data) => {
-        this.orden = data;
+        this.orden = data
+        this.getSubTByNumeroOrden(numeroOrden);
       },
       error: (err) => {
         console.error('Error al obtener la orden', err);
         alert('No se encontró la orden con el número proporcionado.');
         this.orden = null; // Resetea la variable si no se encuentra la orden
+        this.subtRegistros = []; // Resetea los registros si no hay orden
+      },
+    });
+  }
+
+  getSubTByNumeroOrden(numeroOrden: number) {
+    this.ordenService.getSubTByNumeroOrden(numeroOrden).subscribe({
+      next: (data) => {
+        this.subtRegistros = data;
+      },
+      error: (err) => {
+        console.error('Error al obtener los registros de subt', err);
+        alert('No se encontraron registros asociados a esta orden.');
+        this.subtRegistros = []; // Resetea los registros si no se encuentran
       },
     });
   }

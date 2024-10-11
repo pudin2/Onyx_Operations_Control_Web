@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { VwOrdenTrabajo } from '../Models/OtModel';
+import { CabSubT } from '../Models/SubTModel';
 
 @Injectable({
   providedIn: 'root'

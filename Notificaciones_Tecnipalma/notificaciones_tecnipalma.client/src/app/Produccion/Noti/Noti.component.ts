@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OrdenService } from '../../Servicios/ot.service';
 import { CabSubT } from '../../Models/SubTModel';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-noti',
@@ -9,13 +10,13 @@ import { CabSubT } from '../../Models/SubTModel';
   styleUrls: ['./Noti.component.css']
 })
 export class NotiComponent implements OnInit {
-  value: number = 0;
-  hovered: boolean = false;
+  isOpen: boolean = false;
   subtarea: CabSubT | null = null; // Variable para almacenar la subtarea
 
   constructor(
     private route: ActivatedRoute, // Inyecta ActivatedRoute para capturar parámetros de la ruta
-    private ordenService: OrdenService // Inyecta el servicio para obtener datos
+    private ordenService: OrdenService, // Inyecta el servicio para obtener datos
+    private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -38,11 +39,21 @@ export class NotiComponent implements OnInit {
     //});
   }
 
-  onMouseEnter(): void {
-    this.hovered = true;
+  // Array de pestañas con etiquetas
+  tabs = [
+    { label: 'Materiales' },
+    { label: 'Mano de Obra' },
+    { label: 'Anexos' }
+  ];
+
+  activeTabIndex: number = 0;
+
+  // Función para seleccionar una pestaña
+  selectTab(index: number): void {
+    this.activeTabIndex = index;
   }
 
-  onMouseLeave(): void {
-    this.hovered = false;
+  goBack() {
+    this.location.back(); // Navega a la página anterior
   }
 }

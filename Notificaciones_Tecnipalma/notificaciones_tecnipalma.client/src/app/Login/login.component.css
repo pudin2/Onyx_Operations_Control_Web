@@ -1,12 +1,15 @@
 .contenedor {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; /* Cambiado de center a flex-start para que el formulario esté arriba */
   height: 100vh;
+  padding-top: 5rem; /* Espacio superior ajustado */
   background-color: #f0f2f5;
 }
 
-.formulario { 
+
+.formulario {
+  margin-top: 5px;
   background-color: white;
   padding: 2rem;
   border-radius: 8px;

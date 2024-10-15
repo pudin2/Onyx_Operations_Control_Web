@@ -25,4 +25,19 @@ public class SubTController : ControllerBase
 
         return Ok(subtarea);
     }
+
+    // Obtener los detalles de la subtarea desde la tabla DetSubT
+    [HttpGet("{id:int}/detalles")]
+    public IActionResult GetDetallesBySubTareaId(int id)
+    {
+        // Obtener los detalles de DetSubT asociados con la subtarea
+        var detallesSubT = _context.DetSubT.Where(d => d.Cab_Id == id).ToList();
+
+        if (detallesSubT == null || !detallesSubT.Any())
+        {
+            return NotFound(new { message = "No se encontraron detalles para la subtarea proporcionada" });
+        }
+
+        return Ok(detallesSubT);
+    }
 }

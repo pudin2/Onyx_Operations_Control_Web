@@ -8,12 +8,14 @@ import { LoginComponent } from './Login/login.component';
 import { MenuComponent } from './Menu/menu.component';
 import { MainLayoutComponent } from './layouts/main_layout/main-layout.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { NotiComponent } from './Produccion/Noti/Noti.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent, 
-    MainLayoutComponent
+    MainLayoutComponent,
+    NotiComponent
   ],
   imports: [
     BrowserModule, FormsModule, HttpClientModule,

@@ -1,12 +1,15 @@
 .contenedor {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; /* Cambiado de center a flex-start para que el formulario esté arriba */
   height: 100vh;
+  padding-top: 5rem; /* Espacio superior ajustado */
   background-color: #f0f2f5;
 }
 
-.formulario { 
+
+.formulario {
+  margin-top: 5px;
   background-color: white;
   padding: 2rem;
   border-radius: 8px;
@@ -97,4 +100,30 @@ input {
   text-align: center;
   font-family: 'Poppins', sans-serif; /* Aplica la fuente específicamente al menú */
 }
+
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 9999;
+}
+
+.loading-gif {
+  width: 160px;
+  height: 120px;
+  margin-bottom: 15px;
+}
+
+.loading-screen p {
+  font-size: 16px;
+  color: #333;
+}
+
 

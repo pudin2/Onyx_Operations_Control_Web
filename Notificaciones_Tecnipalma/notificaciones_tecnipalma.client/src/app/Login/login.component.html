@@ -1,5 +1,5 @@
-<div class="contenedor">
-  
+<div class="contenedor" img src="img/girar-a-la-izquierda.png" alt="Botón Imagen" >
+
   <form (submit)="onSubmit()" class="formulario">
 
     <label class="inicio">Iniciar sesión</label>
@@ -13,7 +13,7 @@
 
     <div class="form-group">
 
-      <label for="password"  class="texto">Contraseña</label>
+      <label for="password" class="texto">Contraseña</label>
 
       <div class="password-input">
         <input type="password" id="password" [(ngModel)]="password" name="password" required placeholder="Ingresar contraseña">
@@ -32,6 +32,13 @@
     </div>
 
   </form>
+
+  <!-- Pantalla de carga -->
+  <div *ngIf="isLoading" class="loading-screen">
+    <img src="img/cargando.gif" alt="Loading..." class="loading-gif">
+    <p>Cargando, por favor espere...</p>
+  </div>
+
 
 </div>
 

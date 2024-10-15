@@ -19,4 +19,5 @@ export class OrdenService {
   getSubTByNumeroOrden(numeroOrden: number): Observable<CabSubT[]> {
     return this.http.get<CabSubT[]>(`${this.apiUrl}/${numeroOrden}/subt`);
   }
+
 }

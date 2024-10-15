@@ -96,6 +96,8 @@
               {
                 "glob": "**/*",
                 "input": "public"
+                
+
               }
             ],
             "styles": [

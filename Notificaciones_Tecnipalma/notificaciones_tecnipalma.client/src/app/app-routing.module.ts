@@ -3,7 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './Login/login.component';
 import { MenuComponent } from './Menu/menu.component';
 import { MainLayoutComponent } from './layouts/main_layout/main-layout.component';
-import { CargaNotiComponent} from './Produccion/Noti/CargaNoti.component'
+import { CargaNotiComponent } from './Produccion/Noti/CargaNoti.component'
+import { NotiComponent } from './Produccion/Noti/Noti.component'; 
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },// Redirige a la página de login por defecto
@@ -12,7 +13,8 @@ const routes: Routes = [
     component: MainLayoutComponent, // Este es el layout que incluye el menú
     children: [
       { path: 'menu', component: MenuComponent },
-      {path: 'Produccion/noti', component: CargaNotiComponent },
+      { path: 'Produccion/noti', component: CargaNotiComponent },
+      { path: 'produccion/noti/:Id', component: NotiComponent },
       { path: '', redirectTo: '/login', pathMatch: 'full' },
       { path: '**', redirectTo: '/login' }// Ruta para la página de menú
     ]

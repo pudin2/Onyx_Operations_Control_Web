@@ -7,7 +7,7 @@
     </button>
 
     <!-- Input de búsqueda -->
-    <input [(ngModel)]="searchTerm" placeholder="Buscar por Número de OT..." class="input-buscar" (input)="onInputChange()">
+    <input [(ngModel)]="searchTerm" placeholder="Buscar por Número de OT..." class="input-buscar" (input)="onInputChange()" (keyup.enter)="buscarOrden()">
 
     <!-- Botón de buscar -->
     <button (click)="buscarOrden()" class="btn-buscar">

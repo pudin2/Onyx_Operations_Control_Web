@@ -17,7 +17,11 @@
   cursor: pointer;
   font-size: 16px;
   flex-shrink: 0; /* Evita que el botón se encoja */
-  margin-right: 3rem;
+  margin-left: 4px;
+  position: fixed; /* Posiciona el botón de manera fija en la pantalla */
+  top: 8rem; /* Ajusta la distancia desde la parte superior */
+  left: 12rem; /* Ajusta la distancia desde el lado izquierdo */
+  
 }
 
 .img-boton {

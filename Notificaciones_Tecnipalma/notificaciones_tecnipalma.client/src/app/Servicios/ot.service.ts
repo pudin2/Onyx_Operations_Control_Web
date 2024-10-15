@@ -3,12 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { VwOrdenTrabajo } from '../Models/OtModel';
 import { CabSubT } from '../Models/SubTModel';
+import { DetSubT } from '../Models/DetSubTModel';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdenService {
   private apiUrl = 'http://localhost:5000/api/ordenes'; // Ajusta la URL a la de tu API
+  private apiUrlSubtareas = 'http://localhost:5000/api/ordenes/subtareas';
 
   constructor(private http: HttpClient) { }
 
@@ -18,6 +20,14 @@ export class OrdenService {
 
   getSubTByNumeroOrden(numeroOrden: number): Observable<CabSubT[]> {
     return this.http.get<CabSubT[]>(`${this.apiUrl}/${numeroOrden}/subt`);
+  }
+
+  getSubTareaById(id: number): Observable<CabSubT> {
+    return this.http.get<CabSubT>(`${this.apiUrl}/subtareas/${id}`);
+  }
+
+  getDetSubTBySubTareaId(subtareaId: number): Observable<DetSubT[]> {
+    return this.http.get<DetSubT[]>(`${this.apiUrl}/subtareas/${subtareaId}/detalles`);
   }
 
 }

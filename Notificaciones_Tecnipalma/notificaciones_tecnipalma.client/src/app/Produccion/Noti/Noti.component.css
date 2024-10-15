@@ -1,52 +1,74 @@
-body {
-  .slider-container
-
-{
-  position: relative;
-  width: 100%;
-  max-width: 500px;
-  margin: 20px auto;
-  height: 30px;
+.titulo {
+  font-size: 2rem; /* Tamaño del texto */
+  font-weight: bold; /* Texto en negrita */
+  color: #333; /* Color del texto (gris oscuro) */
+  text-align: center; /* Centrar el título */
+  margin: 1rem 0; /* Espacio superior e inferior */
+  padding: 0.5rem; /* Espacio interno */
+  border-bottom: 2px solid #007bff; /* Línea inferior azul */
+  text-transform: uppercase; /* Convertir texto a mayúsculas */
+  font-family: 'Poppins', sans-serif; /* Fuente personalizada */
 }
 
-.slider {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  height: 10px;
-  border-radius: 5px;
-  background: #ddd;
-  outline: none;
-  opacity: 0.7;
-  transition: opacity 0.2s;
+.btn-regresar {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 16px;
+  flex-shrink: 0; /* Evita que el botón se encoja */
+  margin-left: 4px;
+  position: fixed; /* Posiciona el botón de manera fija en la pantalla */
+  top: 8rem; /* Ajusta la distancia desde la parte superior */
+  left: 12rem; /* Ajusta la distancia desde el lado izquierdo */
+  
 }
 
-  .slider:hover {
-    opacity: 1; /* Aumenta la opacidad cuando el mouse está sobre el deslizador */
-  }
+.img-boton {
+  width: 50px; /* Ajusta el tamaño según lo que desees */
+  height: 50px;
+  border-radius: 50%; /* Hace que la imagen sea circular */
+  transition: box-shadow 0.3s ease;
+}
 
-  .slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #007bff;
+.btn-regresar:hover .img-boton {
+  box-shadow: 0px 0px 15px rgba(255, 99, 71, 0.7); /* Sombra roja clara */
+}
+.tabs-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: 'Poppins', sans-serif;
+}
+
+.tabs {
+  list-style-type: none;
+  display: flex;
+  border-bottom: 2px solid #ccc;
+  padding: 0;
+  margin: 0;
+}
+
+  .tabs li {
+    padding: 1rem;
     cursor: pointer;
-    transition: background 0.2s;
+    margin-right: 1rem;
+    border-bottom: 2px solid transparent;
+    transition: border-bottom 0.3s;
   }
 
-    .slider::-webkit-slider-thumb:hover {
-      background: #0056b3; /* Cambia el color cuando el mouse está sobre el botón */
+    .tabs li:hover {
+      border-bottom: 2px solid #007bff;
     }
 
-.highlight {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  height: 10px;
-  background: rgba(0, 123, 255, 0.3);
+    .tabs li.active {
+      border-bottom: 2px solid #007bff;
+      font-weight: bold;
+    }
+
+.tab-content {
+  padding: 2rem;
+  border: 1px solid #ccc;
+  margin-top: 1rem;
   border-radius: 5px;
-  transform: translateY(-50%);
-  transition: width 0.2s, opacity 0.2s;
 }

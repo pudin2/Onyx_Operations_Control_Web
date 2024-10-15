@@ -1,7 +1,7 @@
 <div class="tabs-container">
 
   <!-- Botón de regresar -->
-  <h3>Aca va el nombre de la subtarea</h3>
+  <h3 *ngIf="subtarea">Descripción de la Subtarea: {{ subtarea.Descripcion }}</h3>
   <button (click)="goBack()" class="btn-regresar">
     <img src="img/girar-a-la-izquierda.png" alt="Botón Imagen" class="img-boton">
   </button>
@@ -21,11 +21,32 @@
 
   </div>-->
 
-  <div class="tab-content" *ngIf="activeTabIndex === 0">
-    <p>Contenido de la Pestaña 1</p>
+<div class="tab-content" *ngIf="activeTabIndex === 0">
+  <h4>Materiales</h4>
 
-    <!-- Traer listado de materiales  -->
-  </div>
+  <!-- Tabla que muestra los materiales obtenidos de DetSubT -->
+  <table class="table-materiales" *ngIf="materiales.length > 0">
+    <thead>
+      <tr>
+        <th>Descripción</th>
+        <th>Cantidad</th>
+        <th>Real</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let material of materiales">
+        <td>{{ material.CodInventario }}</td>
+        <td>{{ material.Cant }}</td>
+        <!--<td>{{ material.Precio | currency }}</td>-->
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Mensaje si no hay materiales -->
+  <p *ngIf="materiales.length === 0">No se encontraron materiales para esta subtarea.</p>
+
+  <!-- Traer listado de materiales  -->
+</div>
 
   <div class="tab-content" *ngIf="activeTabIndex === 1">
     <p>Contenido de la Pestaña 2</p>

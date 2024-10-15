@@ -2,7 +2,7 @@ using LoginAPI.Data;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
-[Route("api/subtareas")]
+[Route("api/ordenes/subtareas")]
 public class SubTController : ControllerBase
 {
     private readonly ApplicationDbContext _context;

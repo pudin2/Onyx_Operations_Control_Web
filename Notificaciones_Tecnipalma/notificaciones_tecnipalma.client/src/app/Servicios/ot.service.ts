@@ -20,4 +20,8 @@ export class OrdenService {
     return this.http.get<CabSubT[]>(`${this.apiUrl}/${numeroOrden}/subt`);
   }
 
+  getSubTareaById(id: number): Observable<CabSubT> {
+    return this.http.get<CabSubT>(`${this.apiUrl}/subtareas/${id}`);
+  }
+
 }

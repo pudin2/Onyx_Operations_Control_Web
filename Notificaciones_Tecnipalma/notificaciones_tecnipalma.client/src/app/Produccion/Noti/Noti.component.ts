@@ -21,7 +21,7 @@ export class NotiComponent implements OnInit {
 
   ngOnInit(): void {
     // Obtén el ID de la subtarea de los parámetros de la ruta
-    const id = this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('Id');
     if (id) {
       this.getSubTareaById(parseInt(id, 10));
     }
@@ -29,14 +29,14 @@ export class NotiComponent implements OnInit {
 
   getSubTareaById(id: number): void {
     // Llama al servicio para obtener la información de la subtarea basada en el ID
-    //this.ordenService.getSubTareaById(id).subscribe({
-      //next: (data) => {
-       // this.subtarea = data;
-      //},
-      //error: (err) => {
-        //console.error('Error al obtener la subtarea', err);
-     // }
-    //});
+    this.ordenService.getSubTareaById(id).subscribe({
+      next: (data) => {
+       this.subtarea = data;
+      },
+      error: (err) => {
+        console.error('Error al obtener la subtarea', err);
+     }
+    });
   }
 
   // Array de pestañas con etiquetas

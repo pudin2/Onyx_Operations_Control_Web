@@ -13,6 +13,7 @@ import { Location } from '@angular/common';
 export class NotiComponent implements OnInit {
   subtarea: CabSubT | null = null; // Variable para almacenar la subtarea seleccionada
   materiales: DetSubT[] = []; // Variable para almacenar los materiales (detalles de subtarea)
+  isLoading: boolean = false; // Variable para controlar la pantalla de carga
 
   tabs = [
     { label: 'Materiales' },
@@ -40,18 +41,23 @@ export class NotiComponent implements OnInit {
 
   // Obtener la subtarea por su Id
   getSubTareaById(id: number): void {
+    this.isLoading = true; // Activar la carga
     this.ordenService.getSubTareaById(id).subscribe({
       next: (data) => {
         this.subtarea = data; // Asigna la subtarea seleccionada
       },
       error: (err) => {
         console.error('Error al obtener la subtarea', err);
+      },
+      complete: () => {
+        this.isLoading = false; // Desactivar la carga al completar la llamada
       }
     });
   }
 
   // Obtener los detalles de DetSubT (materiales) por Cab_Id (que es el Id de la subtarea)
   getMaterialesByCabId(cabId: number): void {
+    this.isLoading = true; // Activar la carga
     this.ordenService.getDetSubTBySubTareaId(cabId).subscribe({
       next: (data) => {
         console.log('Materiales recibidos:', data);
@@ -59,6 +65,9 @@ export class NotiComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error al obtener los materiales', err);
+      },
+      complete: () => {
+        this.isLoading = false; // Desactivar la carga al completar la llamada
       }
     });
   }

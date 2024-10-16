@@ -28,6 +28,7 @@ export class NotiComponent implements OnInit {
     private location: Location
   ) { }
 
+
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('Id'); // Obtener el ID de la subtarea de la URL
     console.log('Subtarea ID:', id); // Verifica si el ID es correcto
@@ -69,5 +70,18 @@ export class NotiComponent implements OnInit {
   goBack() {
     this.location.back(); // Regresa a la página anterior
   }
+
+  getDescripcionSinGuion(descripcion: string | undefined): string {
+    if (!descripcion) {
+      return ''; // Si la descripción está vacía, retorna una cadena vacía
+    }
+
+    // Elimina un guion si está al inicio (usa trim para evitar espacios)
+    return descripcion.trim().startsWith('-') ? descripcion.trim().substring(1).trim() : descripcion.trim();
+  }
+
+  
+
+
 }
 

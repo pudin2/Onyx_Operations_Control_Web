@@ -1,14 +1,13 @@
 <div class="tabs-container">
+  <!-- Título con descripción de la subtarea -->
+  <h3 *ngIf="subtarea">{{ getDescripcionSinGuion(subtarea?.Descripcion) }}</h3>
 
-  <h3>Nombre de subtarea</h3>
-
-  <!-- Botón de regresar -->
-  <h3 *ngIf="subtarea">Descripción de la Subtarea: {{ subtarea.Descripcion }}</h3>
+  <!-- Botón de regresar con imagen -->
   <button (click)="goBack()" class="btn-regresar">
     <img src="img/girar-a-la-izquierda.png" alt="Botón Imagen" class="img-boton">
   </button>
 
-
+  <!-- Lista de pestañas -->
   <ul class="tabs">
     <li *ngFor="let tab of tabs; let i = index"
         [class.active]="activeTabIndex === i"
@@ -17,46 +16,46 @@
     </li>
   </ul>
 
-  <!--<div *ngIf="subtRegistros" class="titulo">
+  <!-- Contenido de la primera pestaña: Materiales -->
+  <div class="tab-content" *ngIf="activeTabIndex === 0">
+    <h4>Materiales</h4>
 
-    <p><strong></strong> {{ subt.Descripcion }}</p>
+    <!-- Tabla que muestra los materiales obtenidos de DetSubT -->
+    <table class="table-materiales" *ngIf="materiales.length > 0">
+      <thead>
+        <tr>
+          <th>Descripción</th>
+          <th>Cantidad</th>
+          <th>Real</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let material of materiales">
+          <td>{{ material.CodInventario }}</td>
+          <td>{{ material.Cant }}</td>
+          <!-- Input para la columna "Real" -->
+          <td>
 
-  </div>-->
+            <input type="text"  class="custom-input">
 
-<div class="tab-content" *ngIf="activeTabIndex === 0">
-  <h4>Materiales</h4>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-  <!-- Tabla que muestra los materiales obtenidos de DetSubT -->
-  <table class="table-materiales" *ngIf="materiales.length > 0">
-    <thead>
-      <tr>
-        <th>Descripción</th>
-        <th>Cantidad</th>
-        <th>Real</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let material of materiales">
-        <td>{{ material.CodInventario }}</td>
-        <td>{{ material.Cant }}</td>
-        <!--<td>{{ material.Precio | currency }}</td>-->
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- Mensaje si no hay materiales -->
-  <p *ngIf="materiales.length === 0">No se encontraron materiales para esta subtarea.</p>
-
-  <!-- Traer listado de materiales  -->
-</div>
-
-  <div class="tab-content" *ngIf="activeTabIndex === 1">
-    <p>Contenido de la Pestaña 2</p>
-    <!-- Mano de obra adicional selecciona asistente -->
+    <!-- Mensaje si no hay materiales -->
+    <p *ngIf="materiales.length === 0">No se encontraron materiales para esta subtarea.</p>
   </div>
 
+  <!-- Contenido de la segunda pestaña: Mano de obra -->
+  <div class="tab-content" *ngIf="activeTabIndex === 1">
+    <p>Contenido de Mano de Obra</p>
+    <!-- Aquí puedes agregar la funcionalidad para seleccionar asistente, etc. -->
+  </div>
+
+  <!-- Contenido de la tercera pestaña: Anexos -->
   <div class="tab-content" *ngIf="activeTabIndex === 2">
-    <p>Contenido de la Pestaña 3</p>
-    <!-- agregar imagenes o anexos que necesite  -->
+    <p>Contenido de Anexos</p>
+    <!-- Aquí puedes agregar la funcionalidad para imágenes o anexos -->
   </div>
 </div>

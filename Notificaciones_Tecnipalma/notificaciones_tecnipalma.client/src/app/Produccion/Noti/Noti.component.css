@@ -34,6 +34,8 @@
 .btn-regresar:hover .img-boton {
   box-shadow: 0px 0px 15px rgba(255, 99, 71, 0.7); /* Sombra roja clara */
 }
+
+
 .tabs-container {
   width: 100%;
   max-width: 600px;
@@ -71,4 +73,81 @@
   border: 1px solid #ccc;
   margin-top: 1rem;
   border-radius: 5px;
+}
+
+
+/* Contenedor de la tabla */
+.table-materiales {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+  text-align: left;
+  background-color: #f9f9f9; /* Fondo claro */
+}
+
+  /* Encabezados de la tabla */
+  .table-materiales th {
+    background-color: #4CAF50; /* Color de fondo verde */
+    color: white; /* Color del texto blanco */
+    padding: 12px 15px; /* Espaciado interno */
+    border-bottom: 2px solid #ddd; /* Línea inferior */
+    text-align: center;
+  }
+
+  /* Celdas del cuerpo de la tabla */
+  .table-materiales td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+    text-align:center;
+  }
+
+  /* Estilos para las filas impares */
+  .table-materiales tr:nth-child(odd) {
+    background-color: #f2f2f2; /* Alterna el color de fondo */
+  }
+
+  /* Efecto hover sobre las filas */
+  .table-materiales tr:hover {
+    background-color: #ddd; /* Cambia el color al pasar el mouse */
+  }
+
+  /* Estilos para las celdas de cantidad */
+  .table-materiales td:nth-child(2),
+  .table-materiales td:nth-child(3) {
+    text-align: center; /* Alinea al centro las columnas de cantidad */
+  }
+
+.custom-input {
+  width: 29px; /* Ajusta el ancho del input */
+  height: 30px; /* Ajusta la altura del input */
+  background: none; /* Elimina el fondo */
+  border: 1px solid #ccc; /* Un borde suave */
+  padding: 5px; /* Espaciado interno */
+  font-size: 16px; /* Ajusta el tamaño de la fuente */
+  border-radius: 4px; /* Bordes redondeados */
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+  .custom-input:focus {
+    outline: none; /* Elimina el borde resaltado al hacer clic */
+    border-color: #66afe9; /* Color del borde al enfocar */
+  }
+  
+
+
+
+/* Estilos adicionales */
+h4 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Ajusta el ancho de la tabla para pantallas más pequeñas */
+@media (max-width: 600px) {
+  .table-materiales {
+    font-size: 14px;
+  }
 }

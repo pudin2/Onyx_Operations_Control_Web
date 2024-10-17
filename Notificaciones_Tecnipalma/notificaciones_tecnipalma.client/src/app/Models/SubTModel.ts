@@ -6,4 +6,5 @@ export interface CabSubT {
   AsignadaA: string;
   Horas: number;
   Porc: number;
+  Estado: string;
 }

@@ -40,12 +40,12 @@ namespace Notificaciones_Tecnipalma.Server.Controllers
             }
 
             // Usamos el Ot_Id obtenido para buscar los registros en Cab_SubT
-            var SubTareas = _context.CabSubT.Where(s => s.OT_Cab_ID == orden.Ot_Id && s.Tipo == "ST").ToList();
+            var SubTareas = _context.CabSubT.Where(s => s.OT_Cab_ID == orden.Ot_Id && s.Tipo == "ST" /*&& s.Estado=="P"*/).ToList();
 
             if (SubTareas == null || SubTareas.Count == 0)
             {
                 return NotFound(new { message = "No se encontraron registros para el Ot_Id proporcionado" });
-            }
+            } 
 
             return Ok(SubTareas);
         }

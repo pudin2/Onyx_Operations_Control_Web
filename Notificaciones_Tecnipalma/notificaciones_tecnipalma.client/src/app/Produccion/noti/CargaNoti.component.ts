@@ -5,10 +5,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Location } from '@angular/common';
 import { OrdenService } from '../../Servicios/ot.service';
-import { VwOrdenTrabajo } from '../../Models/OtModel'
+import { VwOrdenTrabajo } from '../../Models/OtModel';
 import { CommonModule } from '@angular/common'; // Importa CommonModule
 import { CabSubT } from '../../Models/SubTModel';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+import { SearchService } from '../../Servicios/state.service'; // Importa tu servicio de búsqueda
 
 @Component({
   selector: 'app-carganoti',
@@ -19,20 +20,26 @@ import { Router } from '@angular/router'
 })
 export class CargaNotiComponent {
   searchTerm: string = '';
-  //data: any[] = [];
-  //filteredData: any[] = [];
   orden: VwOrdenTrabajo | null = null; // Variable para almacenar la orden
   subtRegistros: CabSubT[] = []; // Variable para almacenar los registros de Cab_SubT
   errorMessage: string = '';
   noData: boolean = false;
+  isLoading: boolean = false; // Variable para controlar la carga
 
-  constructor(private location: Location, private ordenService: OrdenService, private router:Router) { }
+  constructor(
+    private location: Location,
+    private ordenService: OrdenService,
+    private router: Router,
+    private searchService: SearchService // Inyecta el servicio de búsqueda
+  ) {
+    // Recuperar el valor de búsqueda almacenado
+    this.searchTerm = this.searchService.getSearchQuery();
+  }
 
   buscarOrden(): void {
     const numeroOrden = parseInt(this.searchTerm, 10);
 
-    // Limpiar los datos de la orden anterior antes de continuar
-    this.orden = null;
+    this.orden = null; // Limpiar los datos de la orden anterior antes de continuar
     this.noData = false;
     this.subtRegistros = []; // Limpiar las subtareas
 
@@ -41,6 +48,10 @@ export class CargaNotiComponent {
       this.noData = true;
       return;
     }
+
+    this.searchService.setSearchQuery(this.searchTerm); // Guarda la búsqueda actual
+
+    this.isLoading = true; // Activar la pantalla de carga
 
     this.ordenService.getOrdenTrabajo(numeroOrden).subscribe({
       next: (data) => {
@@ -55,10 +66,14 @@ export class CargaNotiComponent {
         this.orden = null; // Resetea la variable si no se encuentra la orden
         this.subtRegistros = []; // Resetea los registros si no hay orden
       },
+      complete: () => {
+        this.isLoading = false; // Desactivar la pantalla de carga
+      }
     });
   }
 
   getSubTByNumeroOrden(numeroOrden: number) {
+    this.isLoading = true; // Activar la pantalla de carga
     this.ordenService.getSubTByNumeroOrden(numeroOrden).subscribe({
       next: (data) => {
         this.subtRegistros = data;
@@ -68,6 +83,9 @@ export class CargaNotiComponent {
         alert('No se encontraron registros asociados a esta orden.');
         this.subtRegistros = []; // Resetea los registros si no se encuentran
       },
+      complete: () => {
+        this.isLoading = false; // Desactivar la pantalla de carga
+      }
     });
   }
 
@@ -82,22 +100,20 @@ export class CargaNotiComponent {
     return items.map(item => item.trim()).filter(item => item.length > 0);
   }
 
-
-
   onInputChange(): void {
-   
     this.errorMessage = '';  // Limpia el mensaje de error cuando el usuario empieza a escribir de nuevo
     this.orden = null;
     this.noData = false;
     this.subtRegistros = []; // Limpia las subtareas
-
   }
 
   goBack() {
-    this.location.back(); // Navega a la página anterior
+    this.searchService.setSearchQuery(this.searchTerm); // Guarda la búsqueda actual antes de regresar
+    this.location.back(); // Regresa a la página anterior
   }
 
   limpiarInput(): void {
+    this.searchService.clearSearchQuery(); // Limpia el valor almacenado en el servicio
     this.searchTerm = ''; // Limpia el valor del input
     this.errorMessage = ''; // Limpia cualquier mensaje de error
     this.orden = null; // Limpia los datos de la orden si estaban cargados
@@ -105,13 +121,9 @@ export class CargaNotiComponent {
     this.subtRegistros = []; // Limpia las subtareas
   }
 
-
   notificar(subt: CabSubT): void {
     this.router.navigate(['/produccion/noti', subt.Id]);
     // Aquí puedes añadir la lógica para manejar la notificación
-    // Por ejemplo, podrías mostrar un mensaje en consola o llamar a un servicio
     console.log(`Notificando a la tarea: ${subt.Descripcion}`);
-    // Lógica adicional para enviar la notificación puede ir aquí
   }
-
 }

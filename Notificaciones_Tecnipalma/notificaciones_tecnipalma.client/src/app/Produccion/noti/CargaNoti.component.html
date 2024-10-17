@@ -3,22 +3,33 @@
 
     <!-- Botón de regresar -->
     <button (click)="goBack()" class="btn-regresar">
-      <img src="img/girar-a-la-izquierda.png" alt="Botón Imagen" class="img-boton">
+      <img src="img/girar-a-la-izquierda.png" alt="Botón Regresar" class="img-boton">
     </button>
 
     <!-- Input de búsqueda -->
-    <input [(ngModel)]="searchTerm" placeholder="Buscar por Número de OT..." class="input-buscar" (input)="onInputChange()" (keyup.enter)="buscarOrden()">
+    <input
+      [(ngModel)]="searchTerm"
+      placeholder="Buscar por Número de OT..."
+      class="input-buscar"
+      (input)="onInputChange()"
+      (keyup.enter)="buscarOrden()"
+    >
 
     <!-- Botón de buscar -->
     <button (click)="buscarOrden()" class="btn-buscar">
-      <img src="img/busqueda.png" alt="Botón Imagen" class="img-buscar">
+      <img src="img/busqueda.png" alt="Botón Buscar" class="img-buscar">
     </button>
 
     <!-- Botón de limpiar -->
     <button (click)="limpiarInput()" class="btn-limpiar">
-      <img src="img/borrar.png" alt="Botón Imagen" class="img-borrar">
+      <img src="img/borrar.png" alt="Botón Limpiar" class="img-borrar">
     </button>
 
+  </div>
+
+  <!-- GIF de carga -->
+  <div *ngIf="loading" class="loading-container">
+    <img src="path/to/your/loading.gif" alt="Cargando..." class="loading-gif">
   </div>
 
   <!-- Mensaje de error si hay caracteres inválidos o no se encuentra la orden -->
@@ -29,20 +40,17 @@
   <!-- Detalles de la orden si se encuentra -->
   <div *ngIf="orden" class="orden-details">
     <p><strong>Número de Orden:</strong> {{ orden.NumOrden }}</p>
-    <p><strong></strong> {{ orden.NombreCliente }}</p>
-    <p><strong></strong> {{ orden.NombreProyecto }}</p>
+    <p><strong>Nombre del Cliente:</strong> {{ orden.NombreCliente }}</p>
+    <p><strong>Nombre del Proyecto:</strong> {{ orden.NombreProyecto }}</p>
 
-    <!-- Mostrando la introducción del alcance -->
-    <p><strong></strong> {{ getAlcanceIntroduccion() }}:</p>
+    <p><strong>Alcance:</strong> {{ getAlcanceIntroduccion() }}:</p>
 
-    <!-- Lista con viñetas para mostrar los elementos después de los dos puntos -->
     <ul class="alcance-list">
       <li *ngFor="let item of getAlcanceItems()">
         - {{ item }}
       </li>
     </ul>
 
-    <!-- Mensaje de no datos si no se encuentra ninguna orden -->
     <ng-template #noData>
       <div class="no-data-message">
         No hay datos disponibles.
@@ -73,13 +81,10 @@
           <td>{{ subt.Horas }}</td>
           <td>{{ subt.Porc * 100 }}%</td>
           <td>
-            <button (click)="notificar(subt)" class="btn-notificar">Notificar</button> <!--btn buscar-->
+            <button (click)="notificar(subt)" class="btn-notificar">Notificar</button>
           </td>
         </tr>
       </tbody>
-
     </table>
-
   </div>
-
 </div>

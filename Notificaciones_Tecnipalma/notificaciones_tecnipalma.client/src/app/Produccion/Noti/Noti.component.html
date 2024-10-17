@@ -1,6 +1,12 @@
 <div class="tabs-container">
+  <!-- Pantalla de carga -->
+  <div *ngIf="isLoading" class="loading-screen">
+    <img src="img/cargando.gif" alt="Loading..." class="loading-gif">
+    <p>Cargando, por favor espere...</p>
+  </div>
+
   <!-- Título con descripción de la subtarea -->
-  <h3 *ngIf="subtarea">{{ getDescripcionSinGuion(subtarea?.Descripcion) }}</h3>
+  <h3 *ngIf="!isLoading && subtarea">{{ getDescripcionSinGuion(subtarea?.Descripcion) }}</h3>
 
   <!-- Botón de regresar con imagen -->
   <button (click)="goBack()" class="btn-regresar">
@@ -17,7 +23,7 @@
   </ul>
 
   <!-- Contenido de la primera pestaña: Materiales -->
-  <div class="tab-content" *ngIf="activeTabIndex === 0">
+  <div class="tab-content" *ngIf="activeTabIndex === 0 && !isLoading">
     <h4>Materiales</h4>
 
     <!-- Tabla que muestra los materiales obtenidos de DetSubT -->
@@ -35,9 +41,7 @@
           <td>{{ material.Cant }}</td>
           <!-- Input para la columna "Real" -->
           <td>
-
-            <input type="text"  class="custom-input">
-
+            <input type="text" class="custom-input">
           </td>
         </tr>
       </tbody>
@@ -48,13 +52,13 @@
   </div>
 
   <!-- Contenido de la segunda pestaña: Mano de obra -->
-  <div class="tab-content" *ngIf="activeTabIndex === 1">
+  <div class="tab-content" *ngIf="activeTabIndex === 1 && !isLoading">
     <p>Contenido de Mano de Obra</p>
     <!-- Aquí puedes agregar la funcionalidad para seleccionar asistente, etc. -->
   </div>
 
   <!-- Contenido de la tercera pestaña: Anexos -->
-  <div class="tab-content" *ngIf="activeTabIndex === 2">
+  <div class="tab-content" *ngIf="activeTabIndex === 2 && !isLoading">
     <p>Contenido de Anexos</p>
     <!-- Aquí puedes agregar la funcionalidad para imágenes o anexos -->
   </div>

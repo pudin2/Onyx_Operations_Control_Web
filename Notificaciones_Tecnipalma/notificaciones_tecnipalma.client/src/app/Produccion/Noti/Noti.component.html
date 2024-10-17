@@ -52,8 +52,29 @@
   </div>
 
   <!-- Contenido de la segunda pestaña: Mano de obra -->
-  <div class="tab-content" *ngIf="activeTabIndex === 1 && !isLoading">
-    <p>Contenido de Mano de Obra</p>
+  <div class="tab-content" *ngIf="activeTabIndex === 1">
+    <table class="table-materiales" *ngIf="materiales.length > 0">
+      <thead>
+        <tr>
+          <th>Encargado</th>
+          <th>Horas</th>
+          <th>Real</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let material of materiales">
+          <td>{{ subtarea?.AsignadaA }}</td>
+          <td>{{ subtarea?.Horas }}</td>
+          <!-- Input para la columna "Real" -->
+          <td>
+
+            <input type="text" class="custom-input">
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
     <!-- Aquí puedes agregar la funcionalidad para seleccionar asistente, etc. -->
   </div>
 

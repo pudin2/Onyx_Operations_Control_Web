@@ -28,8 +28,9 @@
   </div>
 
   <!-- GIF de carga -->
-  <div *ngIf="loading" class="loading-container">
-    <img src="path/to/your/loading.gif" alt="Cargando..." class="loading-gif">
+  <div *ngIf="isLoading" class="loading-screen">
+    <img src="img/cargando.gif" alt="Loading..." class="loading-gif">
+    <p>Cargando, por favor espere...</p>
   </div>
 
   <!-- Mensaje de error si hay caracteres inválidos o no se encuentra la orden -->

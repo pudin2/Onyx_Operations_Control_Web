@@ -41,10 +41,10 @@
   <!-- Detalles de la orden si se encuentra -->
   <div *ngIf="orden" class="orden-details">
     <p><strong>Número de Orden:</strong> {{ orden.NumOrden }}</p>
-    <p><strong>Nombre del Cliente:</strong> {{ orden.NombreCliente }}</p>
-    <p><strong>Nombre del Proyecto:</strong> {{ orden.NombreProyecto }}</p>
+    <p> {{ orden.NombreCliente }}</p>
+    <p> {{ orden.NombreProyecto }}</p>
 
-    <p><strong>Alcance:</strong> {{ getAlcanceIntroduccion() }}:</p>
+    <p> {{ getAlcanceIntroduccion() }}:</p>
 
     <ul class="alcance-list">
       <li *ngFor="let item of getAlcanceItems()">

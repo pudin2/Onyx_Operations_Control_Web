@@ -6,7 +6,7 @@
   </div>
 
   <!-- Título con descripción de la subtarea -->
-  <h3 *ngIf="!isLoading && subtarea">{{ getDescripcionSinGuion(subtarea?.Descripcion) }}</h3>
+  <h3 *ngIf="!isLoading && subtarea">{{ getDescripcionSinGuion(subtarea.Descripcion) }}</h3>
 
   <!-- Botón de regresar con imagen -->
   <button (click)="goBack()" class="btn-regresar">

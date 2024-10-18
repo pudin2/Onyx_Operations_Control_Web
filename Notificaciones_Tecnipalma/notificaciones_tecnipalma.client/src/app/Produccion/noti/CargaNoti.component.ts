@@ -39,6 +39,7 @@ export class CargaNotiComponent {
   buscarOrden(): void {
     const numeroOrden = parseInt(this.searchTerm, 10);
 
+    this.isLoading = true;
     this.orden = null; // Limpiar los datos de la orden anterior antes de continuar
     this.noData = false;
     this.subtRegistros = []; // Limpiar las subtareas
@@ -46,30 +47,35 @@ export class CargaNotiComponent {
     if (isNaN(numeroOrden)) {
       this.errorMessage = 'Ingresa un número de orden válido.';
       this.noData = true;
+      this.isLoading = false;
       return;
     }
 
     this.searchService.setSearchQuery(this.searchTerm); // Guarda la búsqueda actual
 
-    this.isLoading = true; // Activar la pantalla de carga
+    this.isLoading = true; // Activar el GIF de carga
 
-    this.ordenService.getOrdenTrabajo(numeroOrden).subscribe({
-      next: (data) => {
-        this.orden = data;
-        this.errorMessage = ''; // Limpiar el mensaje de error si se obtiene la orden correctamente
-        this.noData = false; // Hay datos, así que no hay error
-        this.getSubTByNumeroOrden(numeroOrden);
-      },
-      error: (err) => {
-        console.error('Error al obtener la orden', err);
-        this.errorMessage = 'No se encontró la orden con el número proporcionado.';
-        this.orden = null; // Resetea la variable si no se encuentra la orden
-        this.subtRegistros = []; // Resetea los registros si no hay orden
-      },
-      complete: () => {
-        this.isLoading = false; // Desactivar la pantalla de carga
-      }
-    });
+    // Temporizador de 3 segundos antes de realizar la búsqueda
+    setTimeout(() => {
+      this.ordenService.getOrdenTrabajo(numeroOrden).subscribe({
+        next: (data) => {
+          this.orden = data;
+          this.errorMessage = ''; // Limpiar el mensaje de error si se obtiene la orden correctamente
+          this.noData = false; // Hay datos, así que no hay error
+          this.getSubTByNumeroOrden(numeroOrden);
+        },
+        error: (err) => {
+          console.error('Error al obtener la orden', err);
+          this.errorMessage = 'No se encontró la orden con el número proporcionado.';
+          this.orden = null; // Resetea la variable si no se encuentra la orden
+          this.subtRegistros = []; // Resetea los registros si no hay orden
+          this.isLoading = false;
+        },
+        complete: () => {
+          this.isLoading = false; // Desactivar la pantalla de carga después de completar la búsqueda
+        }
+      });
+    }, 1000); // Mantener el GIF durante 3 segundos antes de continuar
   }
 
   getSubTByNumeroOrden(numeroOrden: number) {
@@ -127,3 +133,4 @@ export class CargaNotiComponent {
     console.log(`Notificando a la tarea: ${subt.Descripcion}`);
   }
 }
+

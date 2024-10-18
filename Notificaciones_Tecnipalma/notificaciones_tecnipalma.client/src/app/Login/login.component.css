@@ -4,7 +4,7 @@
   align-items: flex-start; /* Cambiado de center a flex-start para que el formulario esté arriba */
   height: 100vh;
   padding-top: 5rem; /* Espacio superior ajustado */
-  background-color: #f0f2f5;
+  background-color: indianred;
 }
 
 

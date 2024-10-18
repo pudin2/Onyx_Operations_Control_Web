@@ -1,55 +1,57 @@
 <div class="tabs-container">
-  <!-- Pantalla de carga -->
+  <!-- Pantalla de carga (solo se muestra cuando isLoading es true) -->
   <div *ngIf="isLoading" class="loading-screen">
     <img src="img/cargando.gif" alt="Loading..." class="loading-gif">
     <p>Cargando, por favor espere...</p>
   </div>
 
-  <!-- Título con descripción de la subtarea -->
-  <h3 *ngIf="!isLoading && subtarea">{{ getDescripcionSinGuion(subtarea?.Descripcion) }}</h3>
+  <!-- Contenido (solo se muestra cuando isLoading es false) -->
+  <div *ngIf="!isLoading">
+    <!-- Título con descripción de la subtarea -->
+    <h3 *ngIf="subtarea">{{ getDescripcionSinGuion(subtarea?.Descripcion) }}</h3>
 
-  <!-- Botón de regresar con imagen -->
-  <button (click)="goBack()" class="btn-regresar">
-    <img src="img/girar-a-la-izquierda.png" alt="Botón Imagen" class="img-boton">
-  </button>
+    <!-- Botón de regresar con imagen -->
+    <button (click)="goBack()" class="btn-regresar">
+      <img src="img/girar-a-la-izquierda.png" alt="Botón Imagen" class="img-boton">
+    </button>
 
-  <!-- Lista de pestañas -->
-  <ul class="tabs">
-    <li *ngFor="let tab of tabs; let i = index"
-        [class.active]="activeTabIndex === i"
-        (click)="selectTab(i)">
-      {{ tab.label }}
-    </li>
-  </ul>
+    <!-- Lista de pestañas -->
+    <ul class="tabs">
+      <li *ngFor="let tab of tabs; let i = index"
+          [class.active]="activeTabIndex === i"
+          (click)="selectTab(i)">
+        {{ tab.label }}
+      </li>
+    </ul>
 
-  <!-- Contenido de la primera pestaña: Materiales -->
-  <div class="tab-content" *ngIf="activeTabIndex === 0 && !isLoading">
-    <h4>Materiales</h4>
+    <!-- Contenido de la primera pestaña: Materiales -->
+    <div class="tab-content" *ngIf="activeTabIndex === 0">
+      <h4>Materiales</h4>
 
-    <!-- Tabla que muestra los materiales obtenidos de DetSubT -->
-    <table class="table-materiales" *ngIf="materiales.length > 0">
-      <thead>
-        <tr>
-          <th>Descripción</th>
-          <th>Cantidad</th>
-          <th>Real</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let material of materiales">
-          <td>{{ material.CodInventario }}</td>
-          <td>{{ material.Cant }}</td>
-          <!-- Input para la columna "Real" -->
-          <td>
-            <input type="text" class="custom-input">
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <!-- Tabla que muestra los materiales obtenidos de DetSubT -->
+      <table class="table-materiales" *ngIf="materiales.length > 0">
+        <thead>
+          <tr>
+            <th>Descripción</th>
+            <th>Cantidad</th>
+            <th>Real</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let material of materiales">
+            <td>{{ material.CodInventario }}</td>
+            <td>{{ material.Cant }}</td>
+            <!-- Input para la columna "Real" -->
+            <td>
+              <input type="text" class="custom-input">
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-    <!-- Mensaje si no hay materiales -->
-    <p *ngIf="materiales.length === 0">No se encontraron materiales para esta subtarea.</p>
-  </div>
+      <!-- Mensaje si no hay materiales -->
+      <p *ngIf="materiales.length === 0">No se encontraron materiales para esta subtarea.</p>
+    </div>
 
   <!-- Contenido de la segunda pestaña: Mano de obra -->
   <div class="tab-content" *ngIf="activeTabIndex === 1">
@@ -75,12 +77,19 @@
       </tbody>
     </table>
 
-    <!-- Aquí puedes agregar la funcionalidad para seleccionar asistente, etc. -->
-  </div>
+      <button class=" btn-agregar">Agregar</button>
+    </div>
 
-  <!-- Contenido de la tercera pestaña: Anexos -->
-  <div class="tab-content" *ngIf="activeTabIndex === 2 && !isLoading">
-    <p>Contenido de Anexos</p>
-    <!-- Aquí puedes agregar la funcionalidad para imágenes o anexos -->
+    <!-- Contenido de la tercera pestaña: Anexos -->
+    <div class="tab-content" *ngIf="activeTabIndex === 2">
+      <h4>Anexos</h4>
+      <table>
+
+
+
+      </table>
+    </div>
+
+    <button class="btn_guardarc">Guardar</button>
   </div>
 </div>

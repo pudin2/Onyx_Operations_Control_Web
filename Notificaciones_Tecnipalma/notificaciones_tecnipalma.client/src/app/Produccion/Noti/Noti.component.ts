@@ -4,6 +4,7 @@ import { OrdenService } from '../../Servicios/ot.service';
 import { CabSubT } from '../../Models/SubTModel';
 import { DetSubT } from '../../Models/DetSubTModel';
 import { Location } from '@angular/common';
+import { forkJoin } from 'rxjs'; // Importar forkJoin para ejecutar solicitudes en paralelo
 
 @Component({
   selector: 'app-noti',
@@ -29,49 +30,39 @@ export class NotiComponent implements OnInit {
     private location: Location
   ) { }
 
-
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('Id'); // Obtener el ID de la subtarea de la URL
     console.log('Subtarea ID:', id); // Verifica si el ID es correcto
+
     if (id) {
-      this.getSubTareaById(parseInt(id, 10)); // Cargar la subtarea
-      this.getMaterialesByCabId(parseInt(id, 10)); // Cargar los detalles de la subtarea (Materiales)
+      const subtareaId = parseInt(id, 10);
+      this.loadSubtareaAndMateriales(subtareaId); // Cargar subtarea y materiales en paralelo
     }
   }
 
-  // Obtener la subtarea por su Id
-  getSubTareaById(id: number): void {
-    this.isLoading = true; // Activar la carga
-    this.ordenService.getSubTareaById(id).subscribe({
-      next: (data) => {
-        this.subtarea = data; // Asigna la subtarea seleccionada
+  // Cargar subtarea y materiales en paralelo y manejar la pantalla de carga de manera adecuada
+  loadSubtareaAndMateriales(id: number): void {
+    this.isLoading = true; // Activar la pantalla de carga
+
+    // Ejecutar las dos solicitudes en paralelo
+    forkJoin({
+      subtarea: this.ordenService.getSubTareaById(id),
+      materiales: this.ordenService.getDetSubTBySubTareaId(id)
+    }).subscribe({
+      next: (results) => {
+        this.subtarea = results.subtarea; // Asignar la subtarea recibida
+        this.materiales = results.materiales; // Asignar los materiales recibidos
       },
       error: (err) => {
-        console.error('Error al obtener la subtarea', err);
+        console.error('Error al cargar los datos', err);
       },
       complete: () => {
-        this.isLoading = false; // Desactivar la carga al completar la llamada
+        this.isLoading = false; // Desactivar la pantalla de carga cuando ambas solicitudes se completen
       }
     });
   }
 
-  // Obtener los detalles de DetSubT (materiales) por Cab_Id (que es el Id de la subtarea)
-  getMaterialesByCabId(cabId: number): void {
-    this.isLoading = true; // Activar la carga
-    this.ordenService.getDetSubTBySubTareaId(cabId).subscribe({
-      next: (data) => {
-        console.log('Materiales recibidos:', data);
-        this.materiales = data; // Asigna los materiales que coinciden con el Cab_Id
-      },
-      error: (err) => {
-        console.error('Error al obtener los materiales', err);
-      },
-      complete: () => {
-        this.isLoading = false; // Desactivar la carga al completar la llamada
-      }
-    });
-  }
-
+  // Control de pestañas
   selectTab(index: number): void {
     this.activeTabIndex = index;
   }
@@ -84,13 +75,7 @@ export class NotiComponent implements OnInit {
     if (!descripcion) {
       return ''; // Si la descripción está vacía, retorna una cadena vacía
     }
-
     // Elimina un guion si está al inicio (usa trim para evitar espacios)
     return descripcion.trim().startsWith('-') ? descripcion.trim().substring(1).trim() : descripcion.trim();
   }
-
-  
-
-
 }
-

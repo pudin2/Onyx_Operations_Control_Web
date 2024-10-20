@@ -12,7 +12,7 @@ namespace LoginAPI.Data
         public DbSet<VwOrdenTrabajo> VW_CabOt { get; set; }
         public DbSet<Cab_SubT> CabSubT { get; set; }
         public DbSet<DetSubT> DetSubT { get; set; }
-        public DbSet<Operarios> Operarios { get; set; }
+        public DbSet<Operarios> VW_Operarios { get; set; }
 
         //Configuración del modelo
         protected override void OnModelCreating(ModelBuilder modelBuilder)

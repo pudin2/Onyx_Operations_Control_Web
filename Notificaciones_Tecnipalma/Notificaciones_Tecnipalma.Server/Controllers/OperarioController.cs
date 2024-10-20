@@ -16,7 +16,7 @@ public class OperariosController : ControllerBase
     [HttpGet]
     public IActionResult GetOperarios()
     {
-        var operarios = _context.Operarios.ToList();
+        var operarios = _context.VW_Operarios.Where(s=> s.Estado=="A").ToList();
 
         if (!operarios.Any())
         {

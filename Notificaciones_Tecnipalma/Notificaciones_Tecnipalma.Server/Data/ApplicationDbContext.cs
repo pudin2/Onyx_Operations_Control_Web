@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using LoginAPI.Models;
+using Azure;
 
 namespace LoginAPI.Data
 {
@@ -10,7 +11,8 @@ namespace LoginAPI.Data
         public DbSet<Usuarios> Usuarios { get; set; }
         public DbSet<VwOrdenTrabajo> VW_CabOt { get; set; }
         public DbSet<Cab_SubT> CabSubT { get; set; }
-        public DbSet<DetSubT> DetSubT { get; set; } 
+        public DbSet<DetSubT> DetSubT { get; set; }
+        public DbSet<Operarios> Operarios { get; set; }
 
         //Configuración del modelo
         protected override void OnModelCreating(ModelBuilder modelBuilder)

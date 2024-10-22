@@ -30,4 +30,8 @@ export class OrdenService {
     return this.http.get<DetSubT[]>(`${this.apiUrl}/subtareas/${subtareaId}/detalles`);
   }
 
+  getOperarios(): Observable<Operario[]> {
+    return this.http.get<Operario[]>(`${this.apiUrl}/operarios`);
+  }
+
 }

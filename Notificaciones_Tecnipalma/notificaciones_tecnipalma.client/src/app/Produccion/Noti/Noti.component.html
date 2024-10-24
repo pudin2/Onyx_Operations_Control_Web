@@ -8,7 +8,7 @@
   <!-- Contenido (solo se muestra cuando isLoading es false) -->
   <div *ngIf="!isLoading">
     <!-- Título con descripción de la subtarea -->
-    <h3 *ngIf="subtarea">{{ getDescripcionSinGuion(subtarea?.Descripcion) }}</h3>
+    <h3 *ngIf="subtarea">{{ getDescripcionSinGuion(subtarea.Descripcion) }}</h3>
 
     <!-- Botón de regresar con imagen -->
     <button (click)="goBack()" class="btn-regresar">
@@ -54,30 +54,51 @@
     </div>
 
   <!-- Contenido de la segunda pestaña: Mano de obra -->
-  <div class="tab-content" *ngIf="activeTabIndex === 1">
-    <table class="table-materiales" *ngIf="subtarea">
-      <thead>
-        <tr>
-          <th>Encargado</th>
-          <th>Horas</th>
-          <th>Real</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngIf="subtarea">
-          <td>{{ subtarea?.AsignadaA }}</td>
-          <td>{{ subtarea?.Horas }}</td>
-          <!-- Input para la columna "Real" -->
-          <td>
+    <div class="tab-content" *ngIf="activeTabIndex === 1">
+      <table class="table-materiales" *ngIf="subtarea">
+        <thead>
+          <tr>
+            <th>Encargado</th>
+            <th>Horas</th>
+            <th>Real</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="subtarea">
+            <td>{{ subtarea.AsignadaA }}</td>
+            <td>{{ subtarea.Horas }}</td>
+            <!-- Input para la columna "Real" -->
+            <td>
 
-            <input type="text" class="custom-input">
+              <input type="text" class="custom-input">
 
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-      <button class=" btn-agregar">Agregar</button>
+      <button (click)="cargarOperarios()" class="btn-agregar">Agregar Operario</button>
+
+      <!-- Mostrar la lista de operarios cargados -->
+      <div *ngIf="operarios.length > 0">
+        <h5>Seleccionar Operario:</h5>
+        <table class="table-operarios">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Accion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let operario of operarios">
+              <td>{{ operario.NombreMostrar }}</td>
+              <td>
+                <button (click)="seleccionarOperario(operario)">Seleccionar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- Contenido de la tercera pestaña: Anexos -->

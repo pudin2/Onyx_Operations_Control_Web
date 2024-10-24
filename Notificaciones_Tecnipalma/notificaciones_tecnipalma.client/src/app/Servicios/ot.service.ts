@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 import { VwOrdenTrabajo } from '../Models/OtModel';
 import { CabSubT } from '../Models/SubTModel';
 import { DetSubT } from '../Models/DetSubTModel';
-
+import {Operario } from '../Models/OperarioModel'
+ 
 @Injectable({
   providedIn: 'root'
 })
@@ -28,6 +29,10 @@ export class OrdenService {
 
   getDetSubTBySubTareaId(subtareaId: number): Observable<DetSubT[]> {
     return this.http.get<DetSubT[]>(`${this.apiUrl}/subtareas/${subtareaId}/detalles`);
+  }
+
+  getOperarios(): Observable<Operario[]> {
+    return this.http.get<Operario[]>(`${this.apiUrl}/operarios`);
   }
 
 }

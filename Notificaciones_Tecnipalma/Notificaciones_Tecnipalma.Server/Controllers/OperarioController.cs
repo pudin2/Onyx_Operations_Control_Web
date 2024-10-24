@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using LoginAPI.Data; // Asegúrate de ajustar la referencia al contexto adecuado
 
 [ApiController]
-[Route("api/operarios")]
+[Route("api/ordenes/operarios")]
 public class OperariosController : ControllerBase
 {
     private readonly ApplicationDbContext _context;

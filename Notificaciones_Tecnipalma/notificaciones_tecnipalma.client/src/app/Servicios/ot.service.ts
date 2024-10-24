@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 import { VwOrdenTrabajo } from '../Models/OtModel';
 import { CabSubT } from '../Models/SubTModel';
 import { DetSubT } from '../Models/DetSubTModel';
-
+import {Operario } from '../Models/OperarioModel'
+ 
 @Injectable({
   providedIn: 'root'
 })

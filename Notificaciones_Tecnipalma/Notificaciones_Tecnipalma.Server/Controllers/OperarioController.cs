@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using LoginAPI.Data; // Asegúrate de ajustar la referencia al contexto adecuado
 
 [ApiController]
-[Route("api/operarios")]
+[Route("api/ordenes/operarios")]
 public class OperariosController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
@@ -16,7 +16,7 @@ public class OperariosController : ControllerBase
     [HttpGet]
     public IActionResult GetOperarios()
     {
-        var operarios = _context.Operarios.ToList();
+        var operarios = _context.VW_Operarios.Where(s=> s.Estado=="A").ToList();
 
         if (!operarios.Any())
         {

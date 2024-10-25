@@ -5,6 +5,7 @@ import { CabSubT } from '../../Models/SubTModel';
 import { DetSubT } from '../../Models/DetSubTModel';
 import { Location } from '@angular/common';
 import { forkJoin } from 'rxjs'; // Importar forkJoin para ejecutar solicitudes en paralelo
+import { Operario } from '../../Models/OperarioModel'; // Modelo de operario
 
 @Component({
   selector: 'app-noti',
@@ -15,6 +16,10 @@ export class NotiComponent implements OnInit {
   subtarea: CabSubT | null = null; // Variable para almacenar la subtarea seleccionada
   materiales: DetSubT[] = []; // Variable para almacenar los materiales (detalles de subtarea)
   isLoading: boolean = false; // Variable para controlar la pantalla de carga
+  operarios: Operario[] = []; // Lista de operarios
+  selectedOperario: Operario | null = null; // Operario seleccionado
+
+
 
   tabs = [
     { label: 'Materiales' },
@@ -61,6 +66,21 @@ export class NotiComponent implements OnInit {
       }
     });
   }
+
+  cargarOperarios() {
+    this.ordenService.getOperarios().subscribe((data: Operario[]) => {
+      this.operarios = data;
+    }, error => {
+      console.error('Error al cargar operarios:', error);
+    });
+  }
+
+  // Método para seleccionar un operario
+  seleccionarOperario(operario: Operario) {
+    this.selectedOperario = operario;
+    console.log('Operario seleccionado:', operario);
+  }
+
 
   // Control de pestañas
   selectTab(index: number): void {

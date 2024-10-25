@@ -4,8 +4,8 @@ import { OrdenService } from '../../Servicios/ot.service';
 import { CabSubT } from '../../Models/SubTModel';
 import { DetSubT } from '../../Models/DetSubTModel';
 import { Location } from '@angular/common';
-import { forkJoin } from 'rxjs'; // Importar forkJoin para ejecutar solicitudes en paralelo
-import { Operario } from '../../Models/OperarioModel'; // Modelo de operario
+import { forkJoin } from 'rxjs';
+import { Operario } from '../../Models/OperarioModel';
 
 @Component({
   selector: 'app-noti',
@@ -13,13 +13,12 @@ import { Operario } from '../../Models/OperarioModel'; // Modelo de operario
   styleUrls: ['./Noti.component.css']
 })
 export class NotiComponent implements OnInit {
-  subtarea: CabSubT | null = null; // Variable para almacenar la subtarea seleccionada
-  materiales: DetSubT[] = []; // Variable para almacenar los materiales (detalles de subtarea)
-  isLoading: boolean = false; // Variable para controlar la pantalla de carga
-  operarios: Operario[] = []; // Lista de operarios
-  selectedOperario: Operario | null = null; // Operario seleccionado
-
-
+  subtarea: CabSubT | null = null;
+  materiales: DetSubT[] = [];
+  isLoading: boolean = false;
+  operarios: Operario[] = []; // Lista de operarios disponibles
+  operariosSeleccionados: { Encargado: string, Horas: number, Real: string }[] = []; // Lista de operarios adicionales seleccionados
+  mostrarTablaOperarios: boolean = false; // Controla la visibilidad de la tabla de operarios
 
   tabs = [
     { label: 'Materiales' },
@@ -27,7 +26,7 @@ export class NotiComponent implements OnInit {
     { label: 'Anexos' }
   ];
 
-  activeTabIndex: number = 0; // Control which tab is active
+  activeTabIndex: number = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,66 +35,85 @@ export class NotiComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('Id'); // Obtener el ID de la subtarea de la URL
-    console.log('Subtarea ID:', id); // Verifica si el ID es correcto
-
+    const id = this.route.snapshot.paramMap.get('Id');
     if (id) {
       const subtareaId = parseInt(id, 10);
-      this.loadSubtareaAndMateriales(subtareaId); // Cargar subtarea y materiales en paralelo
+      this.loadSubtareaAndMateriales(subtareaId);
     }
   }
 
-  // Cargar subtarea y materiales en paralelo y manejar la pantalla de carga de manera adecuada
+  // Cargar subtarea y materiales en paralelo, incluyendo el operario asignado originalmente
   loadSubtareaAndMateriales(id: number): void {
-    this.isLoading = true; // Activar la pantalla de carga
+    this.isLoading = true;
 
-    // Ejecutar las dos solicitudes en paralelo
     forkJoin({
       subtarea: this.ordenService.getSubTareaById(id),
       materiales: this.ordenService.getDetSubTBySubTareaId(id)
     }).subscribe({
       next: (results) => {
-        this.subtarea = results.subtarea; // Asignar la subtarea recibida
-        this.materiales = results.materiales; // Asignar los materiales recibidos
+        this.subtarea = results.subtarea;
+        this.materiales = results.materiales;
+
+        // Agregar el operario asignado inicialmente a la subtarea como el primer operario en la tabla
+        if (this.subtarea?.AsignadaA) {
+          this.operariosSeleccionados.push({
+            Encargado: this.subtarea.AsignadaA, // Nombre del operario asignado
+            Horas: this.subtarea.Horas || 0, // Horas asignadas originalmente
+            Real: '' // Campo real editable
+          });
+        }
       },
       error: (err) => {
         console.error('Error al cargar los datos', err);
       },
       complete: () => {
-        this.isLoading = false; // Desactivar la pantalla de carga cuando ambas solicitudes se completen
+        this.isLoading = false;
       }
     });
   }
 
-  cargarOperarios() {
-    this.ordenService.getOperarios().subscribe((data: Operario[]) => {
-      this.operarios = data;
-    }, error => {
-      console.error('Error al cargar operarios:', error);
+  // Cargar operarios disponibles desde el servicio
+  cargarOperarios(): void {
+    this.ordenService.getOperarios().subscribe({
+      next: (data: Operario[]) => {
+        this.operarios = data;
+        this.mostrarTablaOperarios = true; // Mostrar tabla al cargar operarios
+      },
+      error: (error) => {
+        console.error('Error al cargar operarios:', error);
+      }
     });
   }
 
-  // Método para seleccionar un operario
-  seleccionarOperario(operario: Operario) {
-    this.selectedOperario = operario;
-    console.log('Operario seleccionado:', operario);
-  }
+  // Método para seleccionar un nuevo operario y agregarlo a la lista de mano de obra adicional
+  seleccionarOperario(operario: Operario): void {
+    const operarioExistente = this.operariosSeleccionados.find(o => o.Encargado === operario.NombreMostrar);
 
+    if (!operarioExistente) {
+      this.operariosSeleccionados.push({
+        Encargado: operario.NombreMostrar, // Nombre del operario
+        Horas: 0, // Inicializar horas a 0 para mano de obra adicional
+        Real: '' // Campo real editable
+      });
+      this.mostrarTablaOperarios = false; // Ocultar tabla después de seleccionar
+    }
+  }
 
   // Control de pestañas
   selectTab(index: number): void {
     this.activeTabIndex = index;
   }
 
-  goBack() {
-    this.location.back(); // Regresa a la página anterior
+  // Regresar a la página anterior
+  goBack(): void {
+    this.location.back();
   }
 
+  // Eliminar guion en la descripción
   getDescripcionSinGuion(descripcion: string | undefined): string {
     if (!descripcion) {
-      return ''; // Si la descripción está vacía, retorna una cadena vacía
+      return '';
     }
-    // Elimina un guion si está al inicio (usa trim para evitar espacios)
     return descripcion.trim().startsWith('-') ? descripcion.trim().substring(1).trim() : descripcion.trim();
   }
 }

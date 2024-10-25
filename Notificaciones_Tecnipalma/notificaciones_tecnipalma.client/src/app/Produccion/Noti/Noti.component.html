@@ -53,9 +53,9 @@
       <p *ngIf="materiales.length === 0">No se encontraron materiales para esta subtarea.</p>
     </div>
 
-  <!-- Contenido de la segunda pestaña: Mano de obra -->
+    <!-- Contenido de la segunda pestaña: Mano de obra -->
     <div class="tab-content" *ngIf="activeTabIndex === 1">
-      <table class="table-materiales" *ngIf="subtarea">
+      <table class="table-materiales">
         <thead>
           <tr>
             <th>Encargado</th>
@@ -64,50 +64,45 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngIf="subtarea">
-            <td>{{ subtarea.AsignadaA }}</td>
-            <td>{{ subtarea.Horas }}</td>
-            <!-- Input para la columna "Real" -->
-            <td>
-
-              <input type="text" class="custom-input">
-
-            </td>
+          <!-- Mostrar operario asignado inicialmente y mano de obra adicional -->
+          <tr *ngFor="let operario of operariosSeleccionados">
+            <td>{{ operario.Encargado }}</td>
+            <td>{{ operario.Horas }}</td>
+            <td><input type="text" [(ngModel)]="operario.Real" class="custom-input"></td>
           </tr>
         </tbody>
       </table>
 
       <button (click)="cargarOperarios()" class="btn-agregar">Agregar Operario</button>
 
-      <!-- Mostrar la lista de operarios cargados -->
-      <div *ngIf="operarios.length > 0">
-        <h5>Seleccionar Operario:</h5>
+      <!-- Lista de operarios para seleccionar -->
+      <div *ngIf="mostrarTablaOperarios && operarios.length > 0" class="operarios-container">
+        <h5 class="operarios-title">Seleccionar Operario:</h5>
         <table class="table-operarios">
           <thead>
             <tr>
               <th>Nombre</th>
-              <th>Accion</th>
+              <th>Acción</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let operario of operarios">
+            <tr *ngFor="let operario of operarios" class="operarios-row">
               <td>{{ operario.NombreMostrar }}</td>
               <td>
-                <button (click)="seleccionarOperario(operario)">Seleccionar</button>
+                <button (click)="seleccionarOperario(operario)" class="select-button">Seleccionar</button>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
+
     </div>
+
 
     <!-- Contenido de la tercera pestaña: Anexos -->
     <div class="tab-content" *ngIf="activeTabIndex === 2">
       <h4>Anexos</h4>
       <table>
-
-
-
       </table>
     </div>
 

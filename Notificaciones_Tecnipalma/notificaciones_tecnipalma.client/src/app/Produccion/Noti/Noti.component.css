@@ -52,6 +52,67 @@
   }
 
 
+/* Contenedor principal */
+.operarios-container {
+  margin: 20px 0;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+/* Título */
+.operarios-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Tabla */
+.table-operarios {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+  .table-operarios thead {
+    background-color: #007bff;
+    color: white;
+  }
+
+  .table-operarios th,
+  .table-operarios td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .table-operarios th {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+/* Filas de la tabla */
+.operarios-row:hover {
+  background-color: #f1f1f1;
+}
+
+/* Botón */
+.select-button {
+  padding: 6px 12px;
+  font-size: 14px;
+  color: white;
+  background-color: #28a745;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+  .select-button:hover {
+    background-color: #218838;
+  }
+
 
 
 .tabs-container {

@@ -61,14 +61,23 @@
             <th>Encargado</th>
             <th>Horas</th>
             <th>Real</th>
+            <!--<th>Eliminar</th>-->
+            <th *ngIf="operariosSeleccionados.length > 1">Eliminar</th> <!-- Solo muestra la columna si hay adicionales -->
           </tr>
         </thead>
+
         <tbody>
           <!-- Mostrar operario asignado inicialmente y mano de obra adicional -->
-          <tr *ngFor="let operario of operariosSeleccionados">
+          <tr *ngFor="let operario of operariosSeleccionados; let i = index">
             <td>{{ operario.Encargado }}</td>
             <td>{{ operario.Horas }}</td>
             <td><input type="text" [(ngModel)]="operario.Real" class="custom-input"></td>
+            <td *ngIf="i > 0">
+              <!-- Mostrar el botón solo para operarios adicionales -->
+              <button (click)="eliminarOperario(operario)" class="btn_borrar">
+                <img src="img/borrar.png" alt="Botón Limpiar" class="img-borrar">
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>

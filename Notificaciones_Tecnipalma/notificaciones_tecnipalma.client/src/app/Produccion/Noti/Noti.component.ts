@@ -99,6 +99,11 @@ export class NotiComponent implements OnInit {
     }
   }
 
+  // Método para eliminar un operario adicional de la lista de seleccionados
+  eliminarOperario(operario: { Encargado: string, Horas: number, Real: string }): void {
+    this.operariosSeleccionados = this.operariosSeleccionados.filter(o => o !== operario);
+  }
+
   // Control de pestañas
   selectTab(index: number): void {
     this.activeTabIndex = index;

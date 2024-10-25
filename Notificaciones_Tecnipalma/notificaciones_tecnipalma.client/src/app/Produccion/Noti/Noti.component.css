@@ -13,14 +13,10 @@
 .btn-regresar {
   background: none;
   border: none;
-  padding: 0;
-  cursor: pointer;
-  font-size: 16px;
   flex-shrink: 0; /* Evita que el botón se encoja */
-  margin-left: 4px;
   position: fixed; /* Posiciona el botón de manera fija en la pantalla */
   top: 8rem; /* Ajusta la distancia desde la parte superior */
-  left: 12rem; /* Ajusta la distancia desde el lado izquierdo */
+  left: 8rem; /* Ajusta la distancia desde el lado izquierdo */
   
 }
 
@@ -51,6 +47,21 @@
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.5);
   }
 
+.btn_borrar {
+  background: none;
+  border: none;
+}
+
+.img-borrar {
+  width: 45px; /* Ajusta el tamaño según lo que desees */
+  height: 45px;
+  border-radius: 48%; /* Hace que la imagen sea circular */
+  transition: box-shadow 0.3s ease;
+}
+
+.btn_borrar:hover .img-borrar {
+  box-shadow: 0px 0px 15px rgba(255, 99, 71, 0.7); /* Sombra roja clara */
+}
 
 /* Contenedor principal */
 .operarios-container {
@@ -99,6 +110,7 @@
 
 /* Botón */
 .select-button {
+  font-family: 'Poppins', sans-serif;
   padding: 6px 12px;
   font-size: 14px;
   color: white;
@@ -117,7 +129,7 @@
 
 .tabs-container {
   width: 100%;
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
   font-family: 'Poppins', sans-serif;
 }

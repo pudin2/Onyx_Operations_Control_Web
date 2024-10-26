@@ -43,7 +43,7 @@
             <td>{{ material.Cant }}</td>
             <!-- Input para la columna "Real" -->
             <td>
-              <input type="text" class="custom-input">
+              <input type="text" [(ngModel)]="material.CantReal" class="custom-input">
             </td>
           </tr>
         </tbody>
@@ -115,6 +115,6 @@
       </table>
     </div>
 
-    <button class="btn_guardarc">Guardar</button>
+    <button (click)="guardarValores()" class="btn_guardarc">Guardar</button>
   </div>
 </div>

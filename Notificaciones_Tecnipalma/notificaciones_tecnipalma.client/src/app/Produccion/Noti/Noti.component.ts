@@ -17,7 +17,7 @@ export class NotiComponent implements OnInit {
   materiales: DetSubT[] = [];
   isLoading: boolean = false;
   operarios: Operario[] = []; // Lista de operarios disponibles
-  operariosSeleccionados: { Encargado: string, Horas: number, Real: string }[] = []; // Lista de operarios adicionales seleccionados
+  operariosSeleccionados: { Id: number, Encargado: string, Horas: number, Real: string }[] = []; // Lista de operarios adicionales seleccionados
   mostrarTablaOperarios: boolean = false; // Controla la visibilidad de la tabla de operarios
 
   tabs = [
@@ -57,6 +57,7 @@ export class NotiComponent implements OnInit {
         // Agregar el operario asignado inicialmente a la subtarea como el primer operario en la tabla
         if (this.subtarea?.AsignadaA) {
           this.operariosSeleccionados.push({
+            Id: 0,
             Encargado: this.subtarea.AsignadaA, // Nombre del operario asignado
             Horas: this.subtarea.Horas || 0, // Horas asignadas originalmente
             Real: '' // Campo real editable
@@ -89,8 +90,9 @@ export class NotiComponent implements OnInit {
   seleccionarOperario(operario: Operario): void {
     const operarioExistente = this.operariosSeleccionados.find(o => o.Encargado === operario.NombreMostrar);
 
-    if (!operarioExistente) {
+    if (!operarioExistente && this.subtarea?.AsignadaA !== operario.NombreMostrar) {
       this.operariosSeleccionados.push({
+        Id: operario.Id,
         Encargado: operario.NombreMostrar, // Nombre del operario
         Horas: 0, // Inicializar horas a 0 para mano de obra adicional
         Real: '' // Campo real editable
@@ -104,6 +106,45 @@ export class NotiComponent implements OnInit {
     this.operariosSeleccionados = this.operariosSeleccionados.filter(o => o !== operario);
   }
 
+  guardarValores(): void {
+    // Crear el array de materiales con valores reales ingresados
+    const materialesReales = this.materiales.map(material => ({
+      noti_CodigoInventario: material.CodInventario,
+      noti_InventarioID: material.Inventario_ID,
+      noti_Cant: parseFloat( material.CantReal),  // Asegúrate de que el campo "Cant" se esté actualizando en el input
+      noti_Unidad_Id: material.Unidad_Id,
+      noti_Estado: material.Estado,
+      noti_DetCotizacion_Id: material.DetCotizacion_Id,
+      noti_Tipo: 1
+    }));
+
+    // Crear el array de operarios con valores reales ingresados solo para mano de obra adicional se encesita este proceso
+    const operariosReales = this.operariosSeleccionados.filter(op => op.Id !== 0).map(operario => ({
+      CodInventario: operario.Encargado, // Usa el ID del operario si lo tienes en lugar del nombre
+      Cant: parseFloat(operario.Real),
+      Tipo: 2,
+      Estado: 'A',
+      Unidad_Id: 1,
+      DetCotizacion_Id: 0,
+      Inventario_Id:operario.Id  
+    }));
+
+    const { Id, ...subtareaCopia } = this.subtarea!;
+    subtareaCopia.Tipo = 'NT'
+    // Convierte "Real" a número y asigna a Horas
+    subtareaCopia.Horas = this.operariosSeleccionados[0]?.Real
+      ? parseFloat(this.operariosSeleccionados[0].Real)
+      : subtareaCopia.Horas;
+    
+
+    // Mostrar los datos en la consola
+    console.log('Materiales Reales:', materialesReales);
+    console.log('Operarios Reales:', operariosReales);
+    console.log('Subtarea copia:', subtareaCopia)
+
+    // Puedes agregar una alerta o mensaje en la consola para confirmar que se guardó
+    console.log("Datos preparados para guardado.");
+  }
   // Control de pestañas
   selectTab(index: number): void {
     this.activeTabIndex = index;

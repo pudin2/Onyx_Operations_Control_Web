@@ -35,4 +35,8 @@ export class OrdenService {
     return this.http.get<Operario[]>(`${this.apiUrl}/operarios`);
   }
 
+  guardarDuplicados(datos: { materiales: DetSubT[]; manoDeObra: { Encargado: string; Horas: number; Real: string }[] }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/guardar-duplicados`, datos);
+  }
+
 }

@@ -1,96 +1,119 @@
+/* Contenedor principal */
 .contenedor {
   display: flex;
+  padding-top: 1px;
   justify-content: center;
-  align-items: flex-start; /* Cambiado de center a flex-start para que el formulario esté arriba */
-  height: 100vh;
-  padding-top: 5rem; /* Espacio superior ajustado */
-  
+  align-items: center;
+  height: 100vh; /* Centrado vertical y horizontal */
+  background-color: white; /* Fondo opcional para la pantalla completa */
 }
 
-
 .formulario {
-  margin-top: 5px;
-  background-color: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.95); /* Fondo blanco con un poco más de opacidad */
+  padding: 3rem 1rem; /* Más espacio interior */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
   width: 100%;
-  max-width: 400px;
+  max-width: 450px; /* Ancho máximo aumentado */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
 }
 
 .inicio {
   text-align: center;
-  font-family: 'Poppins', sans-serif; /* Aplica la fuente específicamente al menú */
-  font-size: 30px;
-}
-
-.texto {
-  display: flex;
-  margin-bottom: 0.8rem;
-  color: #555;
-  text-align: center;
-  font-size: 20px;
-  font-family: 'Poppins', sans-serif; /* Aplica la fuente específicamente al menú */
-}
-
-input {
-  width: 100%;
-  padding: 0.5rem;
-  margin-bottom: 0.8rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-family: 'Poppins', sans-serif; /* Aplica la fuente específicamente al menú */
-}
-
-.password-input {
-  position: relative;
-}
-
-.toggle-password {
-  position: absolute;
-  right: 0.5rem;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-
-.form-actions {
-  display: flex;
-  justify-content: flex-start;
-  gap: 10px;
-}
-
-.btn-cancel, .btn-submit {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
-  font-family: 'Poppins', sans-serif; /* Aplica la fuente específicamente al menú */
-}
-
-.btn-cancel {
-  background-color: #f0f0f0;
+  font-family: 'Poppins', sans-serif;
+  font-size: 32px; /* Tamaño de fuente aumentado */
+  margin-bottom: 1rem; /* Espacio adicional debajo del título */
   color: #333;
 }
 
-  .btn-cancel:hover {
-    background-color: #E0390B;
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.5);
+.form-group {
+  position: relative;
+  margin: 20px 0; /* Más espacio entre los campos */
+  width: 100%;
+}
+
+  .form-group input {
+    padding: 12px 10px; /* Más espacio interior en el input */
+    font-size: 18px; /* Tamaño de fuente ajustado */
+    font-family: 'Poppins', sans-serif;
+    border-radius: 5px;
+    border: 2px solid #acacac;
+    background-color: transparent;
+    color: #333; /* Color de texto negro */
+    width: 70%;
+    transition: border-color 0.3s ease, color 0.3s ease;
   }
+
+    .form-group input:focus {
+      border-color: #666; /* Color de borde más oscuro */
+    }
+
+    .form-group input::placeholder {
+      color: transparent;
+    }
+
+  .form-group .texto-label {
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    position: absolute;
+    top: 12px;
+    left: 65px;
+    padding: 0 5px;
+    background-color: transparent;
+    color: #acacac;
+    pointer-events: none;
+    transition: 0.3s ease;
+  }
+
+  .form-group input:focus + .texto-label,
+  .form-group input:not(:placeholder-shown) + .texto-label {
+    transform: translate(0, -28px); /* Posición ajustada cuando sube */
+    background-color: #fff; /* Fondo blanco cuando sube */
+    font-size: 14px;
+    color: #333; /* Texto oscuro para mejor legibilidad */
+    padding: 0 5px;
+  }
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 1rem; /* Espacio superior */
+  width: 100%;
+}
+
+.btn-submit, .btn-cancel {
+  padding: 0.6rem; /* Más espacio interior en los botones */
+  font-size: 16px; /* Tamaño de fuente aumentado */
+  font-family: 'Poppins', sans-serif;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
 .btn-submit {
   background-color: #1877f2;
   color: white;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
   .btn-submit:hover {
     background-color: #0056b3;
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+  }
+
+.btn-cancel {
+  background-color: #f0f0f0;
+  color: #333;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+  .btn-cancel:hover {
+    background-color: #e0e0e0;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
   }
 
 .error-message {
@@ -114,7 +137,6 @@ input {
   background-color: rgba(255, 255, 255, 0.8);
   z-index: 9999;
 }
-
 .loading-gif {
   width: 160px;
   height: 120px;
@@ -123,7 +145,5 @@ input {
 
 .loading-screen p {
   font-size: 16px;
-  color: #333;
+  color:#333;
 }
-
-

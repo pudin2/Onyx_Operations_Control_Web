@@ -14,10 +14,10 @@
   background: none;
   border: none;
   flex-shrink: 0; /* Evita que el botón se encoja */
-  position: fixed; /* Posiciona el botón de manera fija en la pantalla */
+  cursor: pointer;
+  position: absolute; /* Posición absoluta respecto a su contenedor relativo */
   top: 8rem; /* Ajusta la distancia desde la parte superior */
-  left: 8rem; /* Ajusta la distancia desde el lado izquierdo */
-  
+  left: 8rem; /* Ajusta para alinear al lado izquierdo de la pantalla */
 }
 
 .img-boton {

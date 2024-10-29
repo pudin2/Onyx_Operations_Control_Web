@@ -2,7 +2,8 @@
 
   <form (submit)="onSubmit()" class="formulario">
 
-    <label class="inicio">Iniciar sesión</label>
+    <img src="img/aguila.png" class="aguila">
+    <!--<label class="inicio">Iniciar sesión</label>-->
 
     <div class="form-group">
 
@@ -23,7 +24,7 @@
     </div>
     <div class="form-actions">
 
-      <button type="submit" class="btn-submit">Iniciar Sesión</button>
+      <button type="submit" class="btn-submit">Ingresar</button>
       <button type="button" class="btn-cancel" (click)="resetForm()">Cancelar</button>
 
 
@@ -33,7 +34,7 @@
 
   <!-- Pantalla de carga -->
   <div *ngIf="isLoading" class="loading-screen">
-    <img src="img/cargando.gif" alt="Loading..." class="loading-gif">
+    <img src="img/tuercas.gif" alt="Loading..." class="loading-gif">
     <p>Cargando, por favor espere...</p>
   </div>
 

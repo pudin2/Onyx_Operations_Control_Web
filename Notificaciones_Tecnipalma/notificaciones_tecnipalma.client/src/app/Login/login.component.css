@@ -1,24 +1,33 @@
 /* Contenedor principal */
 .contenedor {
+  margin-top: 1.5rem;
+  
   display: flex;
-  padding-top: 1px;
+  /*padding-top: 1px;*/
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Centrado vertical y horizontal */
+  /*height: 100vh; *//* Centrado vertical y horizontal */
   background-color: white; /* Fondo opcional para la pantalla completa */
 }
 
 .formulario {
   background-color: rgba(255, 255, 255, 0.95); /* Fondo blanco con un poco más de opacidad */
-  padding: 3rem 1rem; /* Más espacio interior */
+  padding: 1rem 0.5rem; /* Más espacio interior */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   border-radius: 12px;
-  width: 100%;
+  width: 80%;
   max-width: 450px; /* Ancho máximo aumentado */
   display: flex;
   justify-content: center;
   align-items: center;
   flex-flow: column;
+}
+
+.aguila{
+    margin-top: 1px;
+    width: 250px;
+    height:auto;
+    align-self:center;
 }
 
 .inicio {
@@ -43,7 +52,8 @@
     border: 2px solid #acacac;
     background-color: transparent;
     color: #333; /* Color de texto negro */
-    width: 70%;
+    width: 50%;
+    height:20px;
     transition: border-color 0.3s ease, color 0.3s ease;
   }
 
@@ -59,8 +69,8 @@
     font-size: 20px;
     font-family: 'Poppins', sans-serif;
     position: absolute;
-    top: 12px;
-    left: 65px;
+    top: 10px;
+    left: 110px;
     padding: 0 5px;
     background-color: transparent;
     color: #acacac;
@@ -80,18 +90,19 @@
 .form-actions {
   display: flex;
   justify-content: center;
-  gap: 5px;
+  gap: 10px;
   margin-top: 1rem; /* Espacio superior */
   width: 100%;
 }
 
 .btn-submit, .btn-cancel {
   padding: 0.6rem; /* Más espacio interior en los botones */
-  font-size: 16px; /* Tamaño de fuente aumentado */
+  font-size: 14px; /* Tamaño de fuente aumentado */
   font-family: 'Poppins', sans-serif;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  height: 35px;
 }
 
 .btn-submit {
@@ -112,7 +123,7 @@
 }
 
   .btn-cancel:hover {
-    background-color: #e0e0e0;
+    background-color: #D92414;
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
   }
 
@@ -147,3 +158,44 @@
   font-size: 16px;
   color:#333;
 }
+
+/* Estilos por defecto para pantallas grandes (escritorios) */
+/* Tu CSS existente va aquí */
+
+/* Estilos para pantallas medianas (tabletas) */
+@media (max-width: 768px) {
+  .formulario {
+    width: 90%; /* Hace el formulario más ancho en tabletas */
+    padding: 2rem; /* Ajusta el espacio interior */
+  }
+
+  .form-group input, .form-group .texto-label {
+    width: 100%; /* Ajusta el ancho del input y label */
+  }
+}
+
+/* Estilos para pantallas pequeñas (móviles) */
+@media (max-width: 480px) {
+  .inicio {
+    font-size: 24px; /* Reduce el tamaño del texto para móviles */
+    align-content: center;
+  }
+
+  .form-group {
+    margin: 15px 0; /* Reduce el espacio entre campos */
+  }
+
+    .form-group input {
+      font-size: 16px; /* Reduce el tamaño de fuente del input */
+    }
+
+    .form-group .texto-label {
+      font-size: 16px; /* Reduce el tamaño del texto del label */
+    }
+
+  .btn-submit, .btn-cancel {
+    padding: 0.8rem; /* Ajusta el relleno para facilitar el clic */
+    font-size: 14px; /* Reduce el tamaño de fuente de los botones */
+  }
+}
+

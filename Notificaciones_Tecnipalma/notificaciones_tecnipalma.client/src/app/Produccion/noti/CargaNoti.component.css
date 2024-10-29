@@ -71,7 +71,7 @@ input {
   border: none;
   padding: 0;
   cursor: pointer;
-  font-size: 16px;
+  
   flex-shrink: 0; /* Evita que el botón se encoja */
   margin-right: 3rem;
 }

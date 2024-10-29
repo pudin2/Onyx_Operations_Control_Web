@@ -1,4 +1,3 @@
-using System.Numerics;
 
 public class DetSubT
 {

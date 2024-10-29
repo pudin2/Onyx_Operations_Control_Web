@@ -109,13 +109,13 @@ export class NotiComponent implements OnInit {
   guardarValores(): void {
     // Crear el array de materiales con valores reales ingresados
     const materialesReales = this.materiales.map(material => ({
-      noti_CodigoInventario: material.CodInventario,
-      noti_InventarioID: material.Inventario_ID,
-      noti_Cant: parseFloat( material.CantReal),  // Asegúrate de que el campo "Cant" se esté actualizando en el input
-      noti_Unidad_Id: material.Unidad_Id,
-      noti_Estado: material.Estado,
-      noti_DetCotizacion_Id: material.DetCotizacion_Id,
-      noti_Tipo: 1
+      CodInventario: material.CodInventario,
+      Inventario_ID: material.Inventario_ID,
+      Cant: parseFloat( material.CantReal),  // Asegúrate de que el campo "Cant" se esté actualizando en el input
+      Unidad_Id: material.Unidad_Id,
+      Estado: material.Estado,
+      DetCotizacion_Id: material.DetCotizacion_Id,
+      Tipo: 1
     }));
 
     // Crear el array de operarios con valores reales ingresados solo para mano de obra adicional se encesita este proceso

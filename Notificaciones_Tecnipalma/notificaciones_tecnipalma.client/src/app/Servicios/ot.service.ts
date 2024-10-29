@@ -39,4 +39,11 @@ export class OrdenService {
     return this.http.post(`${this.apiUrl}/guardar-duplicados`, datos);
   }
 
+  // En OrdenService
+  guardarDatos(datos: any): Observable<any> {
+    const url = 'http://localhost:5000/api/subtareas/guardarDatos'; // Ajusta la URL según sea necesario
+    return this.http.post(url, datos);
+  }
+
+
 }

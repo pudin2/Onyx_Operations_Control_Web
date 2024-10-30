@@ -115,14 +115,14 @@ export class NotiComponent implements OnInit {
       Unidad_Id: material.Unidad_Id,
       Estado: material.Estado,
       DetCotizacion_Id: material.DetCotizacion_Id,
-      Tipo: '1'
+      Tipo: 1
     }));
 
     // Crear el array de operarios con valores reales ingresados solo para mano de obra adicional se encesita este proceso
     const operariosReales = this.operariosSeleccionados.filter(op => op.Id !== 0).map(operario => ({
       CodInventario: operario.Encargado, // Usa el ID del operario si lo tienes en lugar del nombre
       Cant: parseFloat(operario.Real),
-      Tipo: '2',
+      Tipo: 2,
       Estado: 'A',
       Unidad_Id: 1,
       DetCotizacion_Id: 0,

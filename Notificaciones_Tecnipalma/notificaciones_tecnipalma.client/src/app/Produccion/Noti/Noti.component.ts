@@ -115,18 +115,18 @@ export class NotiComponent implements OnInit {
       Unidad_Id: material.Unidad_Id,
       Estado: material.Estado,
       DetCotizacion_Id: material.DetCotizacion_Id,
-      Tipo: 1
+      Tipo: '1'
     }));
 
     // Crear el array de operarios con valores reales ingresados solo para mano de obra adicional se encesita este proceso
     const operariosReales = this.operariosSeleccionados.filter(op => op.Id !== 0).map(operario => ({
       CodInventario: operario.Encargado, // Usa el ID del operario si lo tienes en lugar del nombre
       Cant: parseFloat(operario.Real),
-      Tipo: 2,
+      Tipo: '2',
       Estado: 'A',
       Unidad_Id: 1,
       DetCotizacion_Id: 0,
-      Inventario_Id:operario.Id  
+      Inventario_Id:operario.Id.toString()  
     }));
 
     const { Id, ...subtareaCopia } = this.subtarea!;
@@ -135,8 +135,23 @@ export class NotiComponent implements OnInit {
     subtareaCopia.Horas = this.operariosSeleccionados[0]?.Real
       ? parseFloat(this.operariosSeleccionados[0].Real)
       : subtareaCopia.Horas;
-    
 
+    const datosParaGuardar = {
+      MaterialesReales: materialesReales,
+      OperariosReales: operariosReales,
+      CopiaSubtarea: subtareaCopia
+    };
+
+    // Llamar al servicio para enviar datos al backend
+    this.ordenService.guardarValores(datosParaGuardar).subscribe({
+      next: (response) => {
+        console.log("Respuesta del backend:", response);
+      },
+      error: (error) => {
+        console.error("Error al guardar datos en el backend:", error);
+      }
+    });
+    
     // Mostrar los datos en la consola
     console.log('Materiales Reales:', materialesReales);
     console.log('Operarios Reales:', operariosReales);

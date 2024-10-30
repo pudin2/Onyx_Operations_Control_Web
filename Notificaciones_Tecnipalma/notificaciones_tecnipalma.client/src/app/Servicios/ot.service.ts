@@ -35,15 +35,13 @@ export class OrdenService {
     return this.http.get<Operario[]>(`${this.apiUrl}/operarios`);
   }
 
-  guardarDuplicados(datos: { materiales: DetSubT[]; manoDeObra: { Encargado: string; Horas: number; Real: string }[] }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/guardar-duplicados`, datos);
-  }
+  //guardarDuplicados(datos: { materiales: DetSubT[]; manoDeObra: { Encargado: string; Horas: number; Real: string }[] }): Observable<any> {
+  //  return this.http.post(`${this.apiUrl}/guardar`, datos);
+  //}
 
-  // En OrdenService
-  guardarDatos(datos: any): Observable<any> {
-    const url = 'http://localhost:5000/api/subtareas/guardarDatos'; // Ajusta la URL según sea necesario
-    return this.http.post(url, datos);
+  guardarValores(datos: any): Observable<any> {
+    //const url = 'http://localhost:5000/api/subtareas/guardar'; // Ajusta la URL según sea necesario
+    return this.http.post(`${this.apiUrl}/guardar`, datos);
   }
-
 
 }

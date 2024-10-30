@@ -1,42 +1,24 @@
-﻿using LoginAPI.Data;
-using Microsoft.AspNetCore.Mvc;
-
+﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 [ApiController]
-[Route("api/subtareas")]
+[Route("api/ordenes")]
 public class SubTCopyController : ControllerBase
 {
     [HttpPost("guardar")]
-    public IActionResult RecibirDatos([FromBody] SaveRequest request)
+    public IActionResult GuardarDatos([FromBody] SaveRequest datos)
     {
-        if (request == null)
+        if (datos == null)
         {
-            return BadRequest("La solicitud no contiene datos válidos.");
+            return BadRequest(new { message = "No se recibieron datos" });
         }
 
-        try
-        {
-            // Mostrar los datos recibidos en la consola o en los logs
-            Console.WriteLine("Operarios Reales:");
-            foreach (var operario in request.OperariosReales)
-            {
-                Console.WriteLine($" - Encargado: {operario.CodInventario}, Cant: {operario.Cant}, Unidad_Id: {operario.Unidad_Id}");
-            }
+        // Muestra los datos en la consola como JSON
+        Console.WriteLine("Materiales Reales: " + JsonConvert.SerializeObject(datos.MaterialesReales));
+        Console.WriteLine("Operarios Reales: " + JsonConvert.SerializeObject(datos.OperariosReales));
+        Console.WriteLine("Copia Subtarea: " + JsonConvert.SerializeObject(datos.CopiaSubtarea));
 
-            Console.WriteLine("Materiales Reales:");
-            foreach (var material in request.MaterialesReales)
-            {
-                Console.WriteLine($" - CodigoInventario: {material.CodInventario}, Cantidad: {material.Cant}, Unidad_Id: {material.Unidad_Id}, Estado: {material.Estado},Cotizacion ID:{material.DetCotizacion_Id},Tipo: {material.Tipo}");
-            }
-
-            Console.WriteLine("Copia de la Subtarea:");
-            Console.WriteLine($" - Descripcion: {request.CopiaSubtarea.Descripcion}, Horas: {request.CopiaSubtarea.Horas}, Estado: {request.CopiaSubtarea.Estado}");
-
-            return Ok("Datos recibidos correctamente.");
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, $"Ocurrió un error al procesar los datos: {ex.Message}");
-        }
+        return Ok(new { message = "Datos recibidos correctamente" });
     }
+
 }

@@ -11,7 +11,7 @@
 }
 
 .formulario {
-  background-color: rgba(255, 255, 255, 0.95); /* Fondo blanco con un poco más de opacidad */
+  background-color: #ececec;
   padding: 1rem 0.5rem; /* Más espacio interior */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   border-radius: 12px;
@@ -49,20 +49,21 @@
     font-size: 18px; /* Tamaño de fuente ajustado */
     font-family: 'Poppins', sans-serif;
     border-radius: 5px;
-    border: 2px solid #acacac;
+    border: 2px solid #a3a3a3;
     background-color: transparent;
     color: #333; /* Color de texto negro */
     width: 50%;
-    height:20px;
+    height: 20px;
     transition: border-color 0.3s ease, color 0.3s ease;
   }
 
     .form-group input:focus {
-      border-color: #666; /* Color de borde más oscuro */
+      border-color: black; /* Color de borde más oscuro */
     }
 
     .form-group input::placeholder {
       color: transparent;
+
     }
 
   .form-group .texto-label {
@@ -73,15 +74,15 @@
     left: 110px;
     padding: 0 5px;
     background-color: transparent;
-    color: #acacac;
+    color: #a3a3a3;
     pointer-events: none;
     transition: 0.3s ease;
   }
 
   .form-group input:focus + .texto-label,
   .form-group input:not(:placeholder-shown) + .texto-label {
-    transform: translate(0, -28px); /* Posición ajustada cuando sube */
-    background-color: #fff; /* Fondo blanco cuando sube */
+    transform: translate(0, -26px); /* Posición ajustada cuando sube */
+    background-color: #ececec; /* Fondo blanco cuando sube----- */
     font-size: 14px;
     color: #333; /* Texto oscuro para mejor legibilidad */
     padding: 0 5px;
@@ -106,7 +107,7 @@
 }
 
 .btn-submit {
-  background-color: #1877f2;
+  background-color: #1e90ff;
   color: white;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
@@ -117,8 +118,8 @@
   }
 
 .btn-cancel {
-  background-color: #f0f0f0;
-  color: #333;
+  background-color: #555555;
+  color: white;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 

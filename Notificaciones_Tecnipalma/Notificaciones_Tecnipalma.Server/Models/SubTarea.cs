@@ -11,6 +11,8 @@ public class Cab_SubT
     public string? Estado { get; set; }
     public int? Operario_Id { get; set; }
     public string? Observacion { get; set; }
+    public byte? Item { get; set; }
+    public int? SubT_Cab_Id { get; set; }
 
 
     // Agrega otras propiedades según las columnas de la tabla Cab_SubT

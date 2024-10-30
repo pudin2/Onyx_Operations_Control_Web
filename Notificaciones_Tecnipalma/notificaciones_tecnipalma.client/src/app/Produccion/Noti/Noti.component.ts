@@ -117,13 +117,22 @@ export class NotiComponent implements OnInit {
   onFileChange(event: Event): void {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.anexos.push(e.target.result);  // Guardar la URL de la imagen en el array de anexos
-      };
-      reader.readAsDataURL(file);
+      const formData = new FormData();
+      formData.append('file', file);
+
+      // Llama al servicio para enviar la imagen al backend
+      this.ordenService.guardarAnexo(formData).subscribe({
+        next: (response) => {
+          console.log("Imagen guardada temporalmente en el servidor:", response.filePath);
+          this.anexos.push(response.filePath);  // Guardar la ruta temporal en el array de anexos
+        },
+        error: (error) => {
+          console.error("Error al guardar el anexo:", error);
+        }
+      });
     }
   }
+
 
   guardarValores(): void {
     // Crear el array de materiales con valores reales ingresados
@@ -159,7 +168,6 @@ export class NotiComponent implements OnInit {
       MaterialesReales: materialesReales,
       OperariosReales: operariosReales,
       CopiaSubtarea: subtareaCopia,
-      Anexos: this.anexos
     };
 
     // Llamar al servicio para enviar datos al backend

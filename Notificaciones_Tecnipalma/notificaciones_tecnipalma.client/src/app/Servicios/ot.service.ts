@@ -40,8 +40,11 @@ export class OrdenService {
   //}
 
   guardarValores(datos: any): Observable<any> {
-    //const url = 'http://localhost:5000/api/subtareas/guardar'; // Ajusta la URL según sea necesario
     return this.http.post(`${this.apiUrl}/guardar`, datos);
+  }
+
+  guardarAnexo(fileData: FormData): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/guardar-anexo`, fileData);
   }
 
 }

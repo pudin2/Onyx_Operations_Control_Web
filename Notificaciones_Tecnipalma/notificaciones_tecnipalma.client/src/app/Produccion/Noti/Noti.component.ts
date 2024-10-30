@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OrdenService } from '../../Servicios/ot.service';
 import { CabSubT } from '../../Models/SubTModel';
@@ -13,6 +13,8 @@ import { Operario } from '../../Models/OperarioModel';
   styleUrls: ['./Noti.component.css']
 })
 export class NotiComponent implements OnInit {
+  @ViewChild('fileInput') fileInput!: ElementRef;
+  anexos: string[] = [];  // Array para almacenar las URLs de los anexos
   subtarea: CabSubT | null = null;
   materiales: DetSubT[] = [];
   isLoading: boolean = false;
@@ -106,6 +108,23 @@ export class NotiComponent implements OnInit {
     this.operariosSeleccionados = this.operariosSeleccionados.filter(o => o !== operario);
   }
 
+  // Abrir el selector de archivos al hacer clic en "Agregar Anexo"
+  onFileSelect(): void {
+    this.fileInput.nativeElement.click();
+  }
+
+  // Manejar el cambio de archivo al seleccionar una imagen
+  onFileChange(event: Event): void {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.anexos.push(e.target.result);  // Guardar la URL de la imagen en el array de anexos
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
   guardarValores(): void {
     // Crear el array de materiales con valores reales ingresados
     const materialesReales = this.materiales.map(material => ({
@@ -139,7 +158,8 @@ export class NotiComponent implements OnInit {
     const datosParaGuardar = {
       MaterialesReales: materialesReales,
       OperariosReales: operariosReales,
-      CopiaSubtarea: subtareaCopia
+      CopiaSubtarea: subtareaCopia,
+      Anexos: this.anexos
     };
 
     // Llamar al servicio para enviar datos al backend
@@ -155,7 +175,8 @@ export class NotiComponent implements OnInit {
     // Mostrar los datos en la consola
     console.log('Materiales Reales:', materialesReales);
     console.log('Operarios Reales:', operariosReales);
-    console.log('Subtarea copia:', subtareaCopia)
+    console.log('Subtarea copia:', subtareaCopia);
+    console.log('Anexos:', this.anexos )
 
     // Puedes agregar una alerta o mensaje en la consola para confirmar que se guardó
     console.log("Datos preparados para guardado.");

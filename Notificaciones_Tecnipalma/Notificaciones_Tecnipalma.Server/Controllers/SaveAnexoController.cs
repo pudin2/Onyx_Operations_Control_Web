@@ -19,12 +19,12 @@ public class AnexoController : ControllerBase
     }
 
     [HttpPost("guardar-anexo")]
-    public async Task<IActionResult> GuardarAnexo([FromForm] IFormFile file)
+    public async Task<IActionResult> GuardarAnexo([FromForm] IFormFile file, [FromForm] string numOrden)
     {
         if (file == null || file.Length == 0)
             return BadRequest(new { message = "No se recibió ningún archivo" });
 
-        var nombreArchivo = $"{Guid.NewGuid()}_{file.FileName}";
+        var nombreArchivo = $"{numOrden}_{file.FileName}";
         var rutaArchivo = Path.Combine(_rutaTemporal, nombreArchivo);
 
         try

@@ -13,6 +13,7 @@ import { Operario } from '../../Models/OperarioModel';
   styleUrls: ['./Noti.component.css']
 })
 export class NotiComponent implements OnInit {
+  numOrden: string | null = null;
   @ViewChild('fileInput') fileInput!: ElementRef;
   anexosPreview: string[] = []; // Lista para URLs de previsualización
   anexosServidor: string[] = []; // Lista para URLs del servidor
@@ -39,6 +40,10 @@ export class NotiComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.numOrden = params['numOrden'];
+    });
+    console.log('Número de Orden:', this.numOrden); // Verifica que el número de orden se reciba correctamente
     const id = this.route.snapshot.paramMap.get('Id');
     if (id) {
       const subtareaId = parseInt(id, 10);
@@ -118,7 +123,7 @@ export class NotiComponent implements OnInit {
   // Manejar el cambio de archivo al seleccionar una imagen
   onFileChange(event: Event): void {
     const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
+    if (file && this.numOrden) {
       // Previsualización de la imagen en el frontend
       const reader = new FileReader();
       reader.onload = (e: any) => {
@@ -128,6 +133,7 @@ export class NotiComponent implements OnInit {
         // Guardar la imagen en el backend
         const formData = new FormData();
         formData.append('file', file);
+        formData.append('numOrden', this.numOrden?.toString() || ''); // Añade `numOrden` como parámetro adicional
 
         // Llamada al servicio para guardar la imagen en el backend
         this.ordenService.guardarAnexo(formData).subscribe({

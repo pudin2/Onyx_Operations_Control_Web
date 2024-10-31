@@ -128,9 +128,10 @@ export class CargaNotiComponent {
   }
 
   notificar(subt: CabSubT): void {
-    this.router.navigate(['/produccion/noti', subt.Id]);
-    // Aquí puedes añadir la lógica para manejar la notificación
-    console.log(`Notificando a la tarea: ${subt.Descripcion}`);
+    if (this.orden) { // Asegúrate de que `orden` tenga un valor válido
+      this.router.navigate(['/produccion/noti', subt.Id], { queryParams: { numOrden: this.orden.NumOrden } });
+      console.log(`Notificando a la tarea: ${subt.Descripcion} con número de orden: ${this.orden.NumOrden}`);
+    }
   }
 }
 

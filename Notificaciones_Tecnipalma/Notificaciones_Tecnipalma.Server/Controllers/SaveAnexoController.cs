@@ -19,9 +19,9 @@ public class AnexoController : ControllerBase
     }
 
     [HttpPost("guardar-anexo")]
-    public async Task<IActionResult> GuardarAnexo([FromForm] IFormFile file, [FromForm] string numOrden)
+    public async Task<IActionResult> GuardarAnexo([FromForm] List<IFormFile> files, [FromForm] string numOrden)
     {
-        if (file == null || file.Length == 0)
+        if (files == null || files.Count == 0)
             return BadRequest(new { message = "No se recibió ningún archivo" });
 
         if (string.IsNullOrEmpty(numOrden))
@@ -36,21 +36,30 @@ public class AnexoController : ControllerBase
             Directory.CreateDirectory(rutaConFecha);
         }
 
-        var nombreArchivo = $"{numOrden}_{file.FileName}";
-        var rutaArchivo = Path.Combine(rutaConFecha, nombreArchivo);
+        var filePaths = new List<string>(); // Lista para almacenar las rutas de los archivos guardados
 
         try
         {
-            using (var stream = new FileStream(rutaArchivo, FileMode.Create))
+            foreach (var file in files)
             {
-                await file.CopyToAsync(stream);  // Guardar archivo en la carpeta temporal
+                var nombreArchivo = $"{numOrden}_{file.FileName}";
+                var rutaArchivo = Path.Combine(rutaConFecha, nombreArchivo);
+
+                using (var stream = new FileStream(rutaArchivo, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+                filePaths.Add(rutaArchivo); // Agrega la ruta del archivo a la lista
             }
 
-            return Ok(new { filePath = rutaArchivo });
+            // Retornar las rutas de los archivos guardados si todo fue exitoso
+            return Ok(new { filePaths });
         }
         catch (Exception ex)
         {
+            // Manejar cualquier excepción que ocurra durante el proceso
             return StatusCode(500, new { message = "Error al guardar el archivo", error = ex.Message });
         }
     }
+
 }

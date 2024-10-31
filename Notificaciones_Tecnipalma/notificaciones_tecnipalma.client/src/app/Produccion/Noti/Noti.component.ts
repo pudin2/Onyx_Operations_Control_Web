@@ -16,7 +16,7 @@ export class NotiComponent implements OnInit {
   numOrden: string | null = null;
   @ViewChild('fileInput') fileInput!: ElementRef;
   anexosPreview: string[] = []; // Lista para URLs de previsualización
-  anexosFiles: File[] = []; // Lista para URLs del servidor
+  anexosFile: File[] = []; // Lista para URLs del servidor
   anexos: string[] = [];  // Array para almacenar las URLs de los anexos
   subtarea: CabSubT | null = null;
   materiales: DetSubT[] = [];
@@ -126,9 +126,8 @@ export class NotiComponent implements OnInit {
     if (file) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        const previewUrl = e.target.result;
-        this.anexosPreview.push(previewUrl);  // Agrega la URL de previsualización
-        this.anexosFiles.push(file);          // Agrega el archivo de imagen a anexosFiles
+        this.anexosPreview.push(e.target.result);  // Agrega la URL de previsualización
+        this.anexosFile.push(file);          // Agrega el archivo de imagen a anexosFiles
       };
       reader.readAsDataURL(file);
     }
@@ -170,14 +169,6 @@ export class NotiComponent implements OnInit {
       CopiaSubtarea: subtareaCopia,
     };
 
-    const formData = new FormData();
-    formData.append('datos', JSON.stringify(datosParaGuardar));
-
-    // Añadir cada archivo de anexo en el FormData
-    this.anexosFiles.forEach((file, index) => {
-      formData.append(`file${index}`, file);
-    });
-
     // Llamar al servicio para enviar datos al backend
     this.ordenService.guardarValores(datosParaGuardar).subscribe({
       next: (response) => {
@@ -188,15 +179,27 @@ export class NotiComponent implements OnInit {
       }
     });
 
+    const formData = new FormData();
+    formData.append('numOrden', this.numOrden?? '');
+
+    // Agregar todos los archivos seleccionados al FormData
+    this.anexosFile.forEach((file, index) => {
+      formData.append(`files`, file);
+    });
+
+    formData.forEach((value, key) => {
+      console.log(key, value);
+    });
+
+    // Enviar al backend para almacenar temporalmente
     this.ordenService.guardarAnexo(formData).subscribe({
       next: (response) => {
-        console.log("Respuesta del backend:", response);
-        // Limpiar arrays de imágenes una vez guardadas exitosamente
+        console.log("Imagen guardada temporalmente en el servidor:", response.filePath);
         this.anexosPreview = [];
-        this.anexosFiles = [];
+        this.anexosFile = []; // Limpia los archivos locales después de guardar
       },
       error: (error) => {
-        console.error("Error al guardar datos y anexos en el backend:", error);
+        console.error("Error al guardar el anexo en el backend:", error);
       }
     });
     

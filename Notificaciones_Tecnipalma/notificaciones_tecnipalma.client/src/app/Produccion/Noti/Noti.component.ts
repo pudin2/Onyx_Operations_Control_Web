@@ -6,6 +6,7 @@ import { DetSubT } from '../../Models/DetSubTModel';
 import { Location } from '@angular/common';
 import { forkJoin } from 'rxjs';
 import { Operario } from '../../Models/OperarioModel';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-noti',
@@ -36,7 +37,8 @@ export class NotiComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private ordenService: OrdenService,
-    private location: Location
+    private location: Location,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -170,36 +172,53 @@ export class NotiComponent implements OnInit {
     };
 
     // Llamar al servicio para enviar datos al backend
+    // Llamar al servicio para enviar datos al backend
     this.ordenService.guardarValores(datosParaGuardar).subscribe({
       next: (response) => {
-        console.log("Respuesta del backend:", response);
+        console.log("Datos guardados en el backend:", response);
+
+        // Si los datos se guardaron correctamente, intenta guardar las imágenes
+        const formData = new FormData();
+        formData.append('numOrden', this.numOrden ?? '');
+
+        // Agregar todos los archivos seleccionados al FormData
+        this.anexosFile.forEach((file) => {
+          formData.append('files', file);
+        });
+
+        // Enviar al backend para almacenar temporalmente las imágenes
+        this.ordenService.guardarAnexo(formData).subscribe({
+          next: (response) => {
+            console.log("Imagen guardada temporalmente en el servidor:", response.filePath);
+
+            // Mostrar mensaje de éxito al usuario después de ambas operaciones exitosas
+            this.snackBar.open('Datos y anexos guardados correctamente', 'Cerrar', {
+              duration: 3000,
+              horizontalPosition: 'center',
+              verticalPosition: 'top'
+            });
+
+            // Limpia las previsualizaciones y los archivos
+            this.anexosPreview = [];
+            this.anexosFile = [];
+          },
+          error: (error) => {
+            console.error("Error al guardar el anexo en el backend:", error);
+            this.snackBar.open('Error al guardar el anexo', 'Cerrar', {
+              duration: 3000,
+              horizontalPosition: 'center',
+              verticalPosition: 'top'
+            });
+          }
+        });
       },
       error: (error) => {
         console.error("Error al guardar datos en el backend:", error);
-      }
-    });
-
-    const formData = new FormData();
-    formData.append('numOrden', this.numOrden?? '');
-
-    // Agregar todos los archivos seleccionados al FormData
-    this.anexosFile.forEach((file, index) => {
-      formData.append(`files`, file);
-    });
-
-    formData.forEach((value, key) => {
-      console.log(key, value);
-    });
-
-    // Enviar al backend para almacenar temporalmente
-    this.ordenService.guardarAnexo(formData).subscribe({
-      next: (response) => {
-        console.log("Imagen guardada temporalmente en el servidor:", response.filePath);
-        this.anexosPreview = [];
-        this.anexosFile = []; // Limpia los archivos locales después de guardar
-      },
-      error: (error) => {
-        console.error("Error al guardar el anexo en el backend:", error);
+        this.snackBar.open('Error al guardar los datos', 'Cerrar', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top'
+        });
       }
     });
     

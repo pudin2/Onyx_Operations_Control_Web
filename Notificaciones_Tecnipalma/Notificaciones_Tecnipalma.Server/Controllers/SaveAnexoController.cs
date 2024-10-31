@@ -53,7 +53,7 @@ public class AnexoController : ControllerBase
             }
 
             // Retornar las rutas de los archivos guardados si todo fue exitoso
-            return Ok(new { filePaths });
+            return Ok(new { message = "Anexos guardados correctamente." });
         }
         catch (Exception ex)
         {

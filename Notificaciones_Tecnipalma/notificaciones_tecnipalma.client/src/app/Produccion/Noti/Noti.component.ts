@@ -14,6 +14,8 @@ import { Operario } from '../../Models/OperarioModel';
 })
 export class NotiComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef;
+  anexosPreview: string[] = []; // Lista para URLs de previsualización
+  anexosServidor: string[] = []; // Lista para URLs del servidor
   anexos: string[] = [];  // Array para almacenar las URLs de los anexos
   subtarea: CabSubT | null = null;
   materiales: DetSubT[] = [];
@@ -117,21 +119,31 @@ export class NotiComponent implements OnInit {
   onFileChange(event: Event): void {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
-      const formData = new FormData();
-      formData.append('file', file);
+      // Previsualización de la imagen en el frontend
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const previewUrl = e.target.result;
+        this.anexosPreview.push(previewUrl); // Agrega la URL de previsualización
 
-      // Llama al servicio para enviar la imagen al backend
-      this.ordenService.guardarAnexo(formData).subscribe({
-        next: (response) => {
-          console.log("Imagen guardada temporalmente en el servidor:", response.filePath);
-          this.anexos.push(response.filePath);  // Guardar la ruta temporal en el array de anexos
-        },
-        error: (error) => {
-          console.error("Error al guardar el anexo:", error);
-        }
-      });
+        // Guardar la imagen en el backend
+        const formData = new FormData();
+        formData.append('file', file);
+
+        // Llamada al servicio para guardar la imagen en el backend
+        this.ordenService.guardarAnexo(formData).subscribe({
+          next: (response) => {
+            console.log("Imagen guardada temporalmente en el servidor:", response.filePath);
+            this.anexosServidor.push(response.filePath); // Agrega la URL del servidor
+          },
+          error: (error) => {
+            console.error("Error al guardar el anexo:", error);
+          }
+        });
+      };
+      reader.readAsDataURL(file); // Lee la imagen como URL de datos para previsualización
     }
   }
+
 
 
   guardarValores(): void {

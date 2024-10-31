@@ -113,14 +113,14 @@
       <h4>Anexos</h4>
       <button class="btn-agregar" (click)="onFileSelect()">Agregar Anexo</button>
 
-      <!-- Input de archivo para seleccionar una imagen -->
+      <!-- Input de archivo oculto para seleccionar una imagen -->
       <input type="file" accept="image/*" (change)="onFileChange($event)" style="display: none" #fileInput>
 
-      <!-- Mostrar la lista de anexos -->
-      <div *ngIf="anexos.length > 0">
+      <!-- Previsualizar la lista de anexos en el frontend -->
+      <div *ngIf="anexosPreview.length > 0">
         <ul>
-          <li *ngFor="let anexo of anexos">
-            <img [src]="anexo" alt="Imagen de Anexo" style="width: 100px; height: auto;">
+          <li *ngFor="let anexo of anexosPreview">
+            <img [src]="anexo" alt="Previsualización de Anexo" style="width: 100px; height: auto;">
           </li>
         </ul>
       </div>

@@ -1,9 +1,12 @@
 using LoginAPI.Data;
 using LoginAPI.Services;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configurar la sección "AppSettings" para que esté disponible en toda la aplicación
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 
 //soluciona el problema de cors
 builder.Services.AddCors(options =>

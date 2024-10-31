@@ -1,17 +1,17 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.IO;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 [ApiController]
 [Route("api/ordenes")]
 public class AnexoController : ControllerBase
 {
-    private readonly string _rutaTemporal = Path.Combine(Directory.GetCurrentDirectory(), "tempUploads");
+    private readonly string _rutaTemporal;
 
-    public AnexoController()
+    public AnexoController(IOptions<AppSettings> appSettings)
     {
+        // Obtener la ruta temporal desde la configuración
+        _rutaTemporal = appSettings.Value.RutaTmp ?? Path.Combine(Directory.GetCurrentDirectory(), "tempUploads");
+
         if (!Directory.Exists(_rutaTemporal))
         {
             Directory.CreateDirectory(_rutaTemporal);  // Crear carpeta si no existe

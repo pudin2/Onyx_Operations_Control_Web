@@ -24,8 +24,20 @@ public class AnexoController : ControllerBase
         if (file == null || file.Length == 0)
             return BadRequest(new { message = "No se recibió ningún archivo" });
 
+        if (string.IsNullOrEmpty(numOrden))
+            return BadRequest(new { message = "Número de orden no proporcionado" });
+
+        var año = DateTime.Now.Year;
+        var mes = DateTime.Now.Month.ToString("D2");  // Agrega el cero a la izquierda si es necesario (e.g., 01 para enero)
+        var rutaConFecha = Path.Combine(_rutaTemporal, año.ToString(), mes);
+
+        if (!Directory.Exists(rutaConFecha))
+        {
+            Directory.CreateDirectory(rutaConFecha);
+        }
+
         var nombreArchivo = $"{numOrden}_{file.FileName}";
-        var rutaArchivo = Path.Combine(_rutaTemporal, nombreArchivo);
+        var rutaArchivo = Path.Combine(rutaConFecha, nombreArchivo);
 
         try
         {

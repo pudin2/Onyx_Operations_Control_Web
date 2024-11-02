@@ -33,7 +33,6 @@ export class NotiComponent implements OnInit {
   ];
 
   activeTabIndex: number = 0;
-
   constructor(
     private route: ActivatedRoute,
     private ordenService: OrdenService,
@@ -64,7 +63,7 @@ export class NotiComponent implements OnInit {
       next: (results) => {
         this.subtarea = results.subtarea;
         this.materiales = results.materiales;
-
+        
         // Agregar el operario asignado inicialmente a la subtarea como el primer operario en la tabla
         if (this.subtarea?.AsignadaA) {
           this.operariosSeleccionados.push({
@@ -172,7 +171,6 @@ export class NotiComponent implements OnInit {
     };
 
     // Llamar al servicio para enviar datos al backend
-    // Llamar al servicio para enviar datos al backend
     this.ordenService.guardarValores(datosParaGuardar).subscribe({
       next: (response) => {
         console.log("Datos guardados en el backend:", response);
@@ -180,6 +178,12 @@ export class NotiComponent implements OnInit {
         // Si los datos se guardaron correctamente, intenta guardar las imágenes
         const formData = new FormData();
         formData.append('numOrden', this.numOrden ?? '');
+
+        // Suponiendo que solo hay un valor de Cab_Id para todos los materiales
+        const cabId = this.materiales[0]?.Cab_Id;
+        if (cabId) {
+          formData.append('Cab_Id', cabId.toString()); // Añade Cab_Id al FormData
+        }
 
         // Agregar todos los archivos seleccionados al FormData
         this.anexosFile.forEach((file) => {

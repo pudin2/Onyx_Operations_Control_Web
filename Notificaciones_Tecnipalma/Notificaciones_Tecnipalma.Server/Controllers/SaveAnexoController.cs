@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LoginAPI.Data;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
 [ApiController]
@@ -6,11 +7,13 @@ using Microsoft.Extensions.Options;
 public class AnexoController : ControllerBase
 {
     private readonly string _rutaTemporal;
+    private readonly ApplicationDbContext _context;
 
-    public AnexoController(IOptions<AppSettings> appSettings)
+    public AnexoController(IOptions<AppSettings> appSettings, ApplicationDbContext context)
     {
         // Obtener la ruta temporal desde la configuración
         _rutaTemporal = appSettings.Value.RutaTmp ?? Path.Combine(Directory.GetCurrentDirectory(), "tempUploads");
+        _context= context;
 
         if (!Directory.Exists(_rutaTemporal))
         {
@@ -19,7 +22,7 @@ public class AnexoController : ControllerBase
     }
 
     [HttpPost("guardar-anexo")]
-    public async Task<IActionResult> GuardarAnexo([FromForm] List<IFormFile> files, [FromForm] string numOrden)
+    public async Task<IActionResult> GuardarAnexo([FromForm] List<IFormFile> files, [FromForm] string numOrden, [FromForm] int Cab_Id)
     {
         if (files == null || files.Count == 0)
             return BadRequest(new { message = "No se recibió ningún archivo" });
@@ -50,7 +53,21 @@ public class AnexoController : ControllerBase
                     await file.CopyToAsync(stream);
                 }
                 filePaths.Add(rutaArchivo); // Agrega la ruta del archivo a la lista
+                
+                // Crear un nuevo registro en la tabla AnexosNotificacion
+                var anexo = new Anexo_Notificacion
+                {
+                    Cab_Id = Cab_Id,
+                    RutaArchivo = rutaArchivo,
+                    MGuid = numOrden,
+                    Estado = "A"
+                };
+                // Agregar el registro a la base de datos
+                _context.AnexosNotificacion.Add(anexo);
             }
+
+            // Guardar todos los cambios en la base de datos
+            await _context.SaveChangesAsync();
 
             // Retornar las rutas de los archivos guardados si todo fue exitoso
             return Ok(new { message = "Anexos guardados correctamente." });

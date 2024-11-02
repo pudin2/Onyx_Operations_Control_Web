@@ -43,7 +43,7 @@
             <td>{{ material.Cant }}</td>
             <!-- Input para la columna "Real" -->
             <td>
-              <input type="text" class="custom-input">
+              <input type="text" [(ngModel)]="material.CantReal" class="custom-input">
             </td>
           </tr>
         </tbody>
@@ -111,10 +111,21 @@
     <!-- Contenido de la tercera pestaña: Anexos -->
     <div class="tab-content" *ngIf="activeTabIndex === 2">
       <h4>Anexos</h4>
-      <table>
-      </table>
+      <button class="btn-agregar" (click)="onFileSelect()">Agregar Anexo</button>
+
+      <!-- Input de archivo oculto para seleccionar una imagen -->
+      <input type="file" accept="image/*" (change)="onFileChange($event)" style="display: none" #fileInput>
+
+      <!-- Previsualizar la lista de anexos en el frontend -->
+      <div *ngIf="anexosPreview.length > 0">
+        <ul>
+          <li *ngFor="let anexo of anexosPreview">
+            <img [src]="anexo" alt="Previsualización de Anexo" style="width: 100px; height: auto;">
+          </li>
+        </ul>
+      </div>
     </div>
 
-    <button class="btn_guardarc">Guardar</button>
+    <button (click)="guardarValores()" class="btn_guardarc">Guardar</button>
   </div>
 </div>

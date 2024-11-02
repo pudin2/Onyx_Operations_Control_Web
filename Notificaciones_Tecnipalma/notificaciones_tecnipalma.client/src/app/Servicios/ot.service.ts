@@ -35,4 +35,12 @@ export class OrdenService {
     return this.http.get<Operario[]>(`${this.apiUrl}/operarios`);
   }
 
+  guardarValores(datos: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/guardar`, datos);
+  }
+
+  guardarAnexo(formData: FormData): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/guardar-anexo`, formData);
+  }
+
 }

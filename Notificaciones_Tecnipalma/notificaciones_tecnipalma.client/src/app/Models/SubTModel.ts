@@ -7,4 +7,9 @@ export interface CabSubT {
   Horas: number;
   Porc: number;
   Estado: string;
+  Operario_Id: number;
+  Oservacion: string;
+  Tipo: string;
+  SubT_Cab_Id: number;
+  Item: number;
 }

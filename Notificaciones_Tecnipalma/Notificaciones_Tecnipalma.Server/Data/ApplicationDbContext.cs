@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using LoginAPI.Models;
-using Azure;
 
 namespace LoginAPI.Data
 {
@@ -13,6 +12,7 @@ namespace LoginAPI.Data
         public DbSet<Cab_SubT> CabSubT { get; set; }
         public DbSet<DetSubT> DetSubT { get; set; }
         public DbSet<Operarios> VW_Operarios { get; set; }
+        public DbSet <Anexo_Notificacion> AnexosNotificacion { get; set; }
 
         //Configuración del modelo
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -1,0 +1,5 @@
+.full-image {
+  width: 100%; /* Utiliza todo el ancho disponible del modal */
+  height: auto; /* Mantiene la proporción de la imagen */
+  max-height: 80vh; /* Limita la altura de la imagen al 90% de la altura de la ventana */
+}

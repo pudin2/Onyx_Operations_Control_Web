@@ -15,6 +15,9 @@
       <img src="img/girar-a-la-izquierda.png" alt="Botón Imagen" class="img-boton">
     </button>
 
+    <!-- Botón de guardar-->
+    <button (click)="guardarValores()" class="btn_guardarc">Guardar</button>
+
     <!-- Lista de pestañas -->
     <ul class="tabs">
       <li *ngFor="let tab of tabs; let i = index"
@@ -113,19 +116,25 @@
       <h4>Anexos</h4>
       <button class="btn-agregar" (click)="onFileSelect()">Agregar Anexo</button>
 
-      <!-- Input de archivo oculto para seleccionar una imagen -->
       <input type="file" accept="image/*" (change)="onFileChange($event)" style="display: none" #fileInput>
 
-      <!-- Previsualizar la lista de anexos en el frontend -->
-      <div *ngIf="anexosPreview.length > 0">
-        <ul>
-          <li *ngFor="let anexo of anexosPreview">
-            <img [src]="anexo" alt="Previsualización de Anexo" style="width: 100px; height: auto;">
-          </li>
-        </ul>
+      <div *ngIf="successMessage" class="message-success active">
+        Datos y anexos guardados correctamente.
       </div>
+
+      <div *ngIf="errorMessage" class="message-error">
+        Error al subir datos.
+      </div>
+
+
+      <!-- Previsualizar los Anexos -->
+
+      <div *ngFor="let anexo of anexosPreview" class="anexos-container">
+        <img [src]="anexo" (click)="openPreview(anexo)" alt="Previsualización de Anexo" class="img-anexo">
+      </div>
+
     </div>
 
-    <button (click)="guardarValores()" class="btn_guardarc">Guardar</button>
+
   </div>
 </div>

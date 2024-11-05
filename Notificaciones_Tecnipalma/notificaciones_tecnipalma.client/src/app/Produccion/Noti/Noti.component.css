@@ -31,6 +31,34 @@
   box-shadow: 0px 0px 15px rgba(255, 99, 71, 0.7); /* Sombra roja clara */
 }
 
+.btn_guardarc {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: block; /* Cambiado de 'center' a 'block' */
+  position: absolute; /* Posición absoluta respecto a su contenedor relativo */
+  top: 8.3rem; /* Ajusta la distancia desde la parte superior */
+  left: 14rem; /* Ajusta para alinear al lado izquierdo de la pantalla */
+  transition: background-color 0.3s, transform 0.2s;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn_guardarc:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn_guardarc:active {
+  transform: scale(0.95);
+}
 .btn-agregar {
   font-family: 'Poppins', sans-serif;
   background-color: #f0f0f0;
@@ -288,35 +316,56 @@
   margin-bottom: 15px;
 }
 
-.btn_guardarc {
-  background-color: #4CAF50; /* Color de fondo */
-  color: white; /* Color del texto */
-  border: none; /* Sin borde */
-  padding: 10px 20px; /* Espaciado interior: 10px arriba y abajo, 20px a los lados */
-  text-align: center; /* Centrar el texto */
-  text-decoration: none; /* Sin subrayado */
-  font-size: 16px; /* Tamaño de fuente */
-  border-radius: 5px; /* Bordes redondeados */
-  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-  display: center; /* Para que el botón respete el tamaño delcontenido */
-  justify-content: center; /* Centra horizontalmente */
-  margin-top: 30px;
-  transition: background-color 0.3s, transform 0.2s; /* Transiciones suaves */
-  font-family: 'Poppins', sans-serif; /* Fuente personalizada */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+.anexos-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Ajusta el tamaño mínimo de la columna y llena el espacio disponible */
+  gap: 10px; /* Espacio entre las imágenes */
+  padding: 10px; /* Espacio alrededor del contenedor */
 }
 
-  /* Efecto al pasar el mouse */
-  .btn_guardarc:hover {
-    background-color: #45a049; /* Color de fondo al pasar el mouse */
-    transform: scale(1.05); /* Aumentar ligeramente el tamaño */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Sombra más intensa al pasar el mouse */
+.img-anexo {
+  width: 100%; /* O el porcentaje que mejor se adapte a tu diseño */
+  max-width: 300px; /* Establece un ancho máximo para las imágenes */
+  height: auto; /* Mantiene la relación de aspecto */
+  border-radius: 4px; /* Opcional: para bordes redondeados */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* Opcional: para sombra ligera */
+}
+
+  .img-anexo:hover {
+    transform: scale(1.1); /* Efecto de zoom al pasar el mouse */
   }
 
-  /* Efecto al hacer clic */
-  .btn_guardarc:active {
-    transform: scale(0.95); /* Disminuir ligeramente el tamaño al hacer clic */
+.custom-modalbox .mat-dialog-container {
+  padding: 0;
+}
+
+.message-success {
+  color: #4CAF50; /* Color de texto para el éxito */
+  background-color: #e8f5e9; /* Color de fondo claro */
+  padding: 8px 16px;
+  margin-top: 10px;
+  border-radius: 4px;
+  font-size: 16px;
+  text-align: center;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0; /* Inicialmente invisible */
+}
+
+  .message-success.active {
+    opacity: 1; /* Completamente visible cuando está activo */
   }
+
+.message-error {
+  color: #f44336; /* Color de texto para error */
+  background-color: #ffdde0; /* Color de fondo suave para error */
+  padding: 8px 16px;
+  margin-top: 10px;
+  border-radius: 4px;
+  font-size: 16px;
+  text-align: center;
+}
+
+
 
 
 

@@ -7,6 +7,8 @@ import { Location } from '@angular/common';
 import { forkJoin } from 'rxjs';
 import { Operario } from '../../Models/OperarioModel';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ImagePreviewComponent } from '../ImagePreviewComponent/ImagePreviewComponent';
 
 @Component({
   selector: 'app-noti',
@@ -16,35 +18,38 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class NotiComponent implements OnInit {
   numOrden: string | null = null;
   @ViewChild('fileInput') fileInput!: ElementRef;
-  anexosPreview: string[] = []; // Lista para URLs de previsualización
-  anexosFile: File[] = []; // Lista para URLs del servidor
-  anexos: string[] = [];  // Array para almacenar las URLs de los anexos
+  anexosPreview: string[] = [];
+  anexosFile: File[] = [];
+  anexos: string[] = [];
   subtarea: CabSubT | null = null;
   materiales: DetSubT[] = [];
   isLoading: boolean = false;
-  operarios: Operario[] = []; // Lista de operarios disponibles
-  operariosSeleccionados: { Id: number, Encargado: string, Horas: number, Real: string }[] = []; // Lista de operarios adicionales seleccionados
-  mostrarTablaOperarios: boolean = false; // Controla la visibilidad de la tabla de operarios
+  operarios: Operario[] = [];
+  operariosSeleccionados: { Id: number, Encargado: string, Horas: number, Real: string }[] = [];
+  mostrarTablaOperarios: boolean = false;
+  successMessage = false;
+  errorMessage = false;
 
   tabs = [
     { label: 'Materiales' },
     { label: 'Mano de Obra' },
     { label: 'Anexos' }
   ];
-
   activeTabIndex: number = 0;
+
   constructor(
     private route: ActivatedRoute,
     private ordenService: OrdenService,
     private location: Location,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.numOrden = params['numOrden'];
     });
-    console.log('Número de Orden:', this.numOrden); // Verifica que el número de orden se reciba correctamente
+    console.log('Número de Orden:', this.numOrden);
     const id = this.route.snapshot.paramMap.get('Id');
     if (id) {
       const subtareaId = parseInt(id, 10);
@@ -52,10 +57,8 @@ export class NotiComponent implements OnInit {
     }
   }
 
-  // Cargar subtarea y materiales en paralelo, incluyendo el operario asignado originalmente
   loadSubtareaAndMateriales(id: number): void {
     this.isLoading = true;
-
     forkJoin({
       subtarea: this.ordenService.getSubTareaById(id),
       materiales: this.ordenService.getDetSubTBySubTareaId(id)
@@ -63,14 +66,12 @@ export class NotiComponent implements OnInit {
       next: (results) => {
         this.subtarea = results.subtarea;
         this.materiales = results.materiales;
-        
-        // Agregar el operario asignado inicialmente a la subtarea como el primer operario en la tabla
         if (this.subtarea?.AsignadaA) {
           this.operariosSeleccionados.push({
             Id: 0,
-            Encargado: this.subtarea.AsignadaA, // Nombre del operario asignado
-            Horas: this.subtarea.Horas || 0, // Horas asignadas originalmente
-            Real: '' // Campo real editable
+            Encargado: this.subtarea.AsignadaA,
+            Horas: this.subtarea.Horas || 0,
+            Real: ''
           });
         }
       },
@@ -83,12 +84,11 @@ export class NotiComponent implements OnInit {
     });
   }
 
-  // Cargar operarios disponibles desde el servicio
   cargarOperarios(): void {
     this.ordenService.getOperarios().subscribe({
       next: (data: Operario[]) => {
         this.operarios = data;
-        this.mostrarTablaOperarios = true; // Mostrar tabla al cargar operarios
+        this.mostrarTablaOperarios = true;
       },
       error: (error) => {
         console.error('Error al cargar operarios:', error);
@@ -96,73 +96,63 @@ export class NotiComponent implements OnInit {
     });
   }
 
-  // Método para seleccionar un nuevo operario y agregarlo a la lista de mano de obra adicional
   seleccionarOperario(operario: Operario): void {
     const operarioExistente = this.operariosSeleccionados.find(o => o.Encargado === operario.NombreMostrar);
-
     if (!operarioExistente && this.subtarea?.AsignadaA !== operario.NombreMostrar) {
       this.operariosSeleccionados.push({
         Id: operario.Id,
-        Encargado: operario.NombreMostrar, // Nombre del operario
-        Horas: 0, // Inicializar horas a 0 para mano de obra adicional
-        Real: '' // Campo real editable
+        Encargado: operario.NombreMostrar,
+        Horas: 0,
+        Real: ''
       });
-      this.mostrarTablaOperarios = false; // Ocultar tabla después de seleccionar
+      this.mostrarTablaOperarios = false;
     }
   }
 
-  // Método para eliminar un operario adicional de la lista de seleccionados
   eliminarOperario(operario: { Encargado: string, Horas: number, Real: string }): void {
     this.operariosSeleccionados = this.operariosSeleccionados.filter(o => o !== operario);
   }
 
-  // Abrir el selector de archivos al hacer clic en "Agregar Anexo"
   onFileSelect(): void {
     this.fileInput.nativeElement.click();
   }
 
-  // Manejar el cambio de archivo al seleccionar una imagen
   onFileChange(event: Event): void {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        this.anexosPreview.push(e.target.result);  // Agrega la URL de previsualización
-        this.anexosFile.push(file);          // Agrega el archivo de imagen a anexosFiles
+        this.anexosPreview.push(e.target.result);
+        this.anexosFile.push(file);
       };
       reader.readAsDataURL(file);
     }
   }
 
   guardarValores(): void {
-    // Crear el array de materiales con valores reales ingresados
     const materialesReales = this.materiales.map(material => ({
       CodInventario: material.CodInventario,
       Inventario_ID: material.Inventario_ID,
-      Cant: parseFloat( material.CantReal),  // Asegúrate de que el campo "Cant" se esté actualizando en el input
+      Cant: parseFloat(material.CantReal),
       Unidad_Id: material.Unidad_Id,
       Estado: material.Estado,
       DetCotizacion_Id: material.DetCotizacion_Id,
       Tipo: 1
     }));
 
-    // Crear el array de operarios con valores reales ingresados solo para mano de obra adicional se encesita este proceso
     const operariosReales = this.operariosSeleccionados.filter(op => op.Id !== 0).map(operario => ({
-      CodInventario: operario.Encargado, // Usa el ID del operario si lo tienes en lugar del nombre
+      CodInventario: operario.Encargado,
       Cant: parseFloat(operario.Real),
       Tipo: 2,
       Estado: 'A',
       Unidad_Id: 1,
       DetCotizacion_Id: 0,
-      Inventario_Id:operario.Id.toString()  
+      Inventario_Id: operario.Id.toString()
     }));
 
     const { Id, ...subtareaCopia } = this.subtarea!;
-    subtareaCopia.Tipo = 'NT'
-    // Convierte "Real" a número y asigna a Horas
-    subtareaCopia.Horas = this.operariosSeleccionados[0]?.Real
-      ? parseFloat(this.operariosSeleccionados[0].Real)
-      : subtareaCopia.Horas;
+    subtareaCopia.Tipo = 'NT';
+    subtareaCopia.Horas = this.operariosSeleccionados[0]?.Real ? parseFloat(this.operariosSeleccionados[0].Real) : subtareaCopia.Horas;
 
     const datosParaGuardar = {
       MaterialesReales: materialesReales,
@@ -170,54 +160,47 @@ export class NotiComponent implements OnInit {
       CopiaSubtarea: subtareaCopia,
     };
 
-    // Llamar al servicio para enviar datos al backend
     this.ordenService.guardarValores(datosParaGuardar).subscribe({
       next: (response) => {
         console.log("Datos guardados en el backend:", response);
-
-        // Si los datos se guardaron correctamente, intenta guardar las imágenes
         const formData = new FormData();
         formData.append('numOrden', this.numOrden ?? '');
-
-        // Suponiendo que solo hay un valor de Cab_Id para todos los materiales
         const cabId = this.materiales[0]?.Cab_Id;
         if (cabId) {
-          formData.append('Cab_Id', cabId.toString()); // Añade Cab_Id al FormData
+          formData.append('Cab_Id', cabId.toString());
         }
-
-        // Agregar todos los archivos seleccionados al FormData
         this.anexosFile.forEach((file) => {
           formData.append('files', file);
         });
 
-        // Enviar al backend para almacenar temporalmente las imágenes
         this.ordenService.guardarAnexo(formData).subscribe({
           next: (response) => {
             console.log("Imagen guardada temporalmente en el servidor:", response.filePath);
-
-            // Mostrar mensaje de éxito al usuario después de ambas operaciones exitosas
             this.snackBar.open('Datos y anexos guardados correctamente', 'Cerrar', {
               duration: 3000,
               horizontalPosition: 'center',
-              verticalPosition: 'top'
+              verticalPosition: 'top',
+              panelClass: ['custom-snackbar']
             });
-
-            // Limpia las previsualizaciones y los archivos
+            this.successMessage = true;  // Mostrar el mensaje de éxito
+            setTimeout(() => this.successMessage = false, 5000);  // Ocultar mensaje después de 3 segundos
             this.anexosPreview = [];
             this.anexosFile = [];
           },
           error: (error) => {
+            this.errorMessage = true;  // Mostrar el mensaje de éxito
+            setTimeout(() => this.errorMessage = false, 5000);  // Ocultar mensaje después de 3 segundos
             console.error("Error al guardar el anexo en el backend:", error);
-            this.snackBar.open('Error al guardar el anexo', 'Cerrar', {
-              duration: 3000,
-              horizontalPosition: 'center',
-              verticalPosition: 'top'
-            });
+            //this.snackBar.open('Error al guardar el anexo', 'Cerrar', {
+            //  duration: 3000,
+            //  horizontalPosition: 'center',
+            //  verticalPosition: 'top'
+            //});
           }
         });
       },
       error: (error) => {
-        console.error("Error al guardar datos en el backend:", error);
+        console.error("Error al guardar datos en el backend 1111:", error);
         this.snackBar.open('Error al guardar los datos', 'Cerrar', {
           duration: 3000,
           horizontalPosition: 'center',
@@ -225,27 +208,29 @@ export class NotiComponent implements OnInit {
         });
       }
     });
-    
-    // Mostrar los datos en la consola
+
     console.log('Materiales Reales:', materialesReales);
     console.log('Operarios Reales:', operariosReales);
     console.log('Subtarea copia:', subtareaCopia);
-    console.log('Anexos:', this.anexos )
-
-    // Puedes agregar una alerta o mensaje en la consola para confirmar que se guardó
-    console.log("Datos preparados para guardado.");
+    console.log('Anexos:', this.anexos);
   }
-  // Control de pestañas
+
   selectTab(index: number): void {
     this.activeTabIndex = index;
   }
 
-  // Regresar a la página anterior
   goBack(): void {
     this.location.back();
   }
 
-  // Eliminar guion en la descripción
+  openPreview(imageSrc: string): void {
+    this.dialog.open(ImagePreviewComponent, {
+      width: 'auto',
+      data: { imgSrc: imageSrc },
+      panelClass: 'custom-modalbox'
+    });
+  }
+
   getDescripcionSinGuion(descripcion: string | undefined): string {
     if (!descripcion) {
       return '';

@@ -9,6 +9,7 @@ import { MenuComponent } from './Menu/menu.component';
 import { MainLayoutComponent } from './layouts/main_layout/main-layout.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { NotiComponent } from './Produccion/Noti/Noti.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { NotiComponent } from './Produccion/Noti/Noti.component';
   ],
   imports: [
     BrowserModule, FormsModule, HttpClientModule,
-    AppRoutingModule, MenuComponent
+    AppRoutingModule, MenuComponent, MatDialogModule
   ],
   providers: [
     provideAnimationsAsync()

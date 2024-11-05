@@ -9,5 +9,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="src\app\layouts\main_layout\" />
+    <Folder Include="src\app\Produccion\ImagePreviewComponent\" />
   </ItemGroup>
 </Project>

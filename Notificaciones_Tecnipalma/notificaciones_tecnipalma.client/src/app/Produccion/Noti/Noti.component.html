@@ -46,7 +46,7 @@
             <td>{{ material.Cant }}</td>
             <!-- Input para la columna "Real" -->
             <td>
-              <input type="text" [(ngModel)]="material.CantReal" class="custom-input">
+              <input type="text" [(ngModel)]="material.CantReal" (input)="validarCantidadMaterial(material)" class="custom-input">
             </td>
           </tr>
         </tbody>
@@ -74,7 +74,7 @@
           <tr *ngFor="let operario of operariosSeleccionados; let i = index">
             <td>{{ operario.Encargado }}</td>
             <td>{{ operario.Horas }}</td>
-            <td><input type="text" [(ngModel)]="operario.Real" class="custom-input"></td>
+            <td><input type="text" [(ngModel)]="operario.Real" (input)="validarHorasOperario(operario)" class="custom-input"></td>
             <td *ngIf="i > 0">
               <!-- Mostrar el botón solo para operarios adicionales -->
               <button (click)="eliminarOperario(operario)" class="btn_borrar">

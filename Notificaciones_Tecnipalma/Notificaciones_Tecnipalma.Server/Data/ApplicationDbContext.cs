@@ -31,6 +31,10 @@ namespace LoginAPI.Data
                 .Property(o => o.NumOrden)
                 .HasColumnType("int"); // Esto asegura que la columna se trata como int
 
+            modelBuilder.Entity<Anexo_Notificacion>()
+                .HasIndex(a => a.RutaArchivo)
+                .IsUnique();
+
             // Puedes agregar más configuraciones de entidades aquí si es necesario
         }
 

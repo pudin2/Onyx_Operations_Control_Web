@@ -57,6 +57,29 @@ export class NotiComponent implements OnInit {
     }
   }
 
+  validarCantidadMaterial(material: DetSubT): void {
+    if (parseFloat(material.CantReal) > material.Cant) {
+      material.CantReal = material.Cant.toString(); // Limita al valor máximo permitido
+      this.snackBar.open('La cantidad real no puede ser mayor que la cantidad disponible.', 'Cerrar', {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'top'
+      });
+    }
+  }
+
+  // Método de validación para la cantidad real de operarios
+  validarHorasOperario(operario: { Id: number, Encargado: string, Horas: number, Real: string }): void {
+    if (parseFloat(operario.Real) > operario.Horas) {
+      operario.Real = operario.Horas.toString(); // Limita al valor máximo permitido
+      this.snackBar.open('Las horas reales no pueden ser mayores que las horas asignadas.', 'Cerrar', {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'top'
+      });
+    }
+  }
+
   loadSubtareaAndMateriales(id: number): void {
     this.isLoading = true;
     forkJoin({

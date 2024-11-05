@@ -47,23 +47,28 @@ public class AnexoController : ControllerBase
             {
                 var nombreArchivo = $"{numOrden}_{file.FileName}";
                 var rutaArchivo = Path.Combine(rutaConFecha, nombreArchivo);
+                // Verificar si el archivo ya existe en la base de datos
+                var existeAnexo = _context.AnexosNotificacion.Any(a => a.RutaArchivo == rutaArchivo);
 
-                using (var stream = new FileStream(rutaArchivo, FileMode.Create))
+                //si no existe, Crear un nuevo registro en la tabla AnexosNotificacion
+                if (!existeAnexo)
                 {
-                    await file.CopyToAsync(stream);
+                    using (var stream = new FileStream(rutaArchivo, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+                    filePaths.Add(rutaArchivo); // Agrega la ruta del archivo a la lista
+
+                    var anexo = new Anexo_Notificacion
+                    {
+                        Cab_Id = Cab_Id,
+                        RutaArchivo = rutaArchivo,
+                        MGuid = numOrden,
+                        Estado = "A"
+                    };
+                    // Agregar el registro a la base de datos
+                    _context.AnexosNotificacion.Add(anexo);
                 }
-                filePaths.Add(rutaArchivo); // Agrega la ruta del archivo a la lista
-                
-                // Crear un nuevo registro en la tabla AnexosNotificacion
-                var anexo = new Anexo_Notificacion
-                {
-                    Cab_Id = Cab_Id,
-                    RutaArchivo = rutaArchivo,
-                    MGuid = numOrden,
-                    Estado = "A"
-                };
-                // Agregar el registro a la base de datos
-                _context.AnexosNotificacion.Add(anexo);
             }
 
             // Guardar todos los cambios en la base de datos

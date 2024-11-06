@@ -16,8 +16,8 @@
   flex-shrink: 0; /* Evita que el botón se encoja */
   cursor: pointer;
   position: absolute; /* Posición absoluta respecto a su contenedor relativo */
-  top: 8rem; /* Ajusta la distancia desde la parte superior */
-  left: 8rem; /* Ajusta para alinear al lado izquierdo de la pantalla */
+  top: 11rem; /* Ajusta la distancia desde la parte superior */
+  left: 5rem; /* Ajusta para alinear al lado izquierdo de la pantalla */
 }
 
 .img-boton {
@@ -31,34 +31,34 @@
   box-shadow: 0px 0px 15px rgba(255, 99, 71, 0.7); /* Sombra roja clara */
 }
 
+
+/* Estilo base para el botón */
 .btn_guardarc {
-  background-color: #4CAF50;
-  color: white;
+  background: none;
   border: none;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 16px;
-  border-radius: 5px;
+  flex-shrink: 0;
   cursor: pointer;
-  display: block; /* Cambiado de 'center' a 'block' */
-  position: absolute; /* Posición absoluta respecto a su contenedor relativo */
-  top: 8.3rem; /* Ajusta la distancia desde la parte superior */
-  left: 14rem; /* Ajusta para alinear al lado izquierdo de la pantalla */
-  transition: background-color 0.3s, transform 0.2s;
-  font-family: 'Poppins', sans-serif;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 11.3rem;
+  left: 10rem;
 }
 
-.btn_guardarc:hover {
-  background-color: #45a049;
-  transform: scale(1.05);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+/* Estilo base para la imagen dentro del botón */
+.img-Guardar {
+  width: 45px;
+  height: 45px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Agregué transform para un efecto adicional */
 }
 
-.btn_guardarc:active {
-  transform: scale(0.95);
+/* Efecto hover para el botón que afecta la imagen dentro */
+.btn_guardarc:hover .img-Guardar {
+  transform: scale(1.1); /* Escala la imagen al hacer hover */
+  
 }
+
+
+
+
 .btn-agregar {
   font-family: 'Poppins', sans-serif;
   background-color: #f0f0f0;
@@ -297,23 +297,28 @@
   }
 
 .loading-screen {
-  position: fixed; /* Fija la pantalla de carga en el centro de la ventana */
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 1000; /* Asegúrate de que esté por encima de otros contenidos */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 9999;
 }
 
 .loading-gif {
   width: 160px;
   height: 120px;
   margin-bottom: 15px;
+}
+
+.loading-screen p {
+  font-size: 16px;
+  color: #333;
 }
 
 .anexos-container {
@@ -325,9 +330,9 @@
 
 .img-anexo {
   width: 100%; /* O el porcentaje que mejor se adapte a tu diseño */
-  max-width: 300px; /* Establece un ancho máximo para las imágenes */
+  max-width: 500px; /* Establece un ancho máximo para las imágenes */
   height: auto; /* Mantiene la relación de aspecto */
-  border-radius: 4px; /* Opcional: para bordes redondeados */
+  border-radius: 2px; /* Opcional: para bordes redondeados */
   box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* Opcional: para sombra ligera */
 }
 

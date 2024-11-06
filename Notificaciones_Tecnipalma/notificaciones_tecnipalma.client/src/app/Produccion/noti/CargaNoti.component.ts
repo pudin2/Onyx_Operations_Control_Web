@@ -85,12 +85,14 @@ export class CargaNotiComponent {
         this.subtRegistros = data;
       },
       error: (err) => {
+
+        this.errorMessage = 'No se encontraron registros asociados a esta orden.';
         console.error('Error al obtener los registros de subt', err);
-        alert('No se encontraron registros asociados a esta orden.');
         this.subtRegistros = []; // Resetea los registros si no se encuentran
       },
       complete: () => {
         this.isLoading = false; // Desactivar la pantalla de carga
+
       }
     });
   }

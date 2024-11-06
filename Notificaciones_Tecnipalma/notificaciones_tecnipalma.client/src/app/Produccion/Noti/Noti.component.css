@@ -56,9 +56,6 @@
   
 }
 
-
-
-
 .btn-agregar {
   font-family: 'Poppins', sans-serif;
   background-color: #f0f0f0;
@@ -153,8 +150,6 @@
     background-color: #218838;
   }
 
-
-
 .tabs-container {
   width: 100%;
   max-width: 800px;
@@ -193,7 +188,6 @@
   margin-top: 1rem;
   border-radius: 5px;
 }
-
 
 /* Contenedor de la tabla */
 .table-materiales {
@@ -277,7 +271,6 @@
   .table-mano td:nth-child(3) {
     text-align: center; /* Alinea al centro las columnas de cantidad */
   }
-
 
 .custom-input {
   width: 29px; /* Ajusta el ancho del input */
@@ -369,10 +362,6 @@
   font-size: 16px;
   text-align: center;
 }
-
-
-
-
 
 /* Estilos adicionales */
 h4 {

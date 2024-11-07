@@ -23,7 +23,10 @@ namespace LoginAPI.Controllers
             if (!isValidUser)
                 return Unauthorized(new { message = "Credenciales inválidas" });
 
-            return Ok(new { message = "Inicio de sesión exitoso" });
+            // Genera el token JWT
+            var token = _authService.GenerateToken(usuarioModel.Usuario);
+
+            return Ok(new { token = token, message = "Inicio de sesión exitoso" });
         }
     }
 

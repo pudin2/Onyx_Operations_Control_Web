@@ -7,6 +7,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatRipple } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../Servicios/auth.service';
 
 interface MenuItem {
   title: string;
@@ -62,14 +63,11 @@ export class MenuComponent {
     console.log(`Navegando a: ${url}`);
   }
 
-
-
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService: AuthService) { }
 
   logout(): void {
-    // Aquí puedes limpiar la información del usuario y redirigirlo al login
-    console.log('Cerrando sesión...');
-    this.router.navigate(['/login']);
+    this.authService.logout();  // Llama a logout en AuthService para cerrar sesión
+    this.router.navigate(['/login']);  // Redirige a la página de login
   }
 }
 

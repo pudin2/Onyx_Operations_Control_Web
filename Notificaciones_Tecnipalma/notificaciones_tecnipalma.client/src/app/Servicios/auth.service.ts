@@ -20,10 +20,14 @@ export class AuthService {
       tap(response => {
         if (response && response.token) {
           localStorage.setItem(this.tokenKey, response.token);
+          console.log('Token guardado en localStorage:', response.token);
+        }else {
+          console.warn('Token no encontrado en la respuesta'); // Mensaje si no encuentra el token
         }
       })
     );
   }
+
   isAuthenticated(): boolean {
     return !!localStorage.getItem(this.tokenKey); // Devuelve true si hay un token
   }

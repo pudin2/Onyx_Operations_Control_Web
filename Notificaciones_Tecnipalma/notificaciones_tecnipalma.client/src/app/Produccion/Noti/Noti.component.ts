@@ -29,6 +29,8 @@ export class NotiComponent implements OnInit {
   mostrarTablaOperarios: boolean = false;
   successMessage = false;
   errorMessage = false;
+  error2Message = false;
+  cantidadMessage = false;
 
   tabs = [
     { label: 'Materiales' },
@@ -60,25 +62,18 @@ export class NotiComponent implements OnInit {
   validarCantidadMaterial(material: DetSubT): void {
     if (parseFloat(material.CantReal) > material.Cant) {
       material.CantReal = material.Cant.toString(); // Limita al valor máximo permitido
-      this.snackBar.open('La cantidad real no puede ser mayor que la cantidad disponible.', 'Cerrar', {
-        duration: 3000,
-        horizontalPosition: 'center',
-        verticalPosition: 'top'
-      });
+
+      this.cantidadMessage = true;  // Mostrar el mensaje de éxito
+      setTimeout(() => this.cantidadMessage = false, 5000);  // Ocultar mensaje después de 3 segundos
+
+      //this.snackBar.open('La cantidad real no puede ser mayor que la cantidad disponible.', 'Cerrar', {
+      //  duration: 3000,
+      //  horizontalPosition: 'center',
+      //  verticalPosition: 'top'
+      //});
     }
   }
 
-  // Método de validación para la cantidad real de operarios
-  validarHorasOperario(operario: { Id: number, Encargado: string, Horas: number, Real: string }): void {
-    if (parseFloat(operario.Real) > operario.Horas) {
-      operario.Real = operario.Horas.toString(); // Limita al valor máximo permitido
-      this.snackBar.open('Las horas reales no pueden ser mayores que las horas asignadas.', 'Cerrar', {
-        duration: 3000,
-        horizontalPosition: 'center',
-        verticalPosition: 'top'
-      });
-    }
-  }
 
   loadSubtareaAndMateriales(id: number): void {
     this.isLoading = true;
@@ -153,6 +148,9 @@ export class NotiComponent implements OnInit {
   }
 
   guardarValores(): void {
+
+    this.isLoading = true;
+
     const materialesReales = this.materiales.map(material => ({
       CodInventario: material.CodInventario,
       Inventario_ID: material.Inventario_ID,
@@ -199,21 +197,24 @@ export class NotiComponent implements OnInit {
         this.ordenService.guardarAnexo(formData).subscribe({
           next: (response) => {
             console.log("Imagen guardada temporalmente en el servidor:", response.filePath);
-            this.snackBar.open('Datos y anexos guardados correctamente', 'Cerrar', {
-              duration: 3000,
-              horizontalPosition: 'center',
-              verticalPosition: 'top',
-              panelClass: ['custom-snackbar']
-            });
+
+            //this.snackBar.open('Datos y anexos guardados correctamente', 'Cerrar', {
+            //  duration: 3000,
+            //  horizontalPosition: 'center',
+            //  verticalPosition: 'top',
+            //  panelClass: ['custom-snackbar']
+            //});
+
             this.successMessage = true;  // Mostrar el mensaje de éxito
             setTimeout(() => this.successMessage = false, 5000);  // Ocultar mensaje después de 3 segundos
             this.anexosPreview = [];
             this.anexosFile = [];
           },
           error: (error) => {
-            this.errorMessage = true;  // Mostrar el mensaje de éxito
+            this.errorMessage = true;  // Mostrar el mensaje 
             setTimeout(() => this.errorMessage = false, 5000);  // Ocultar mensaje después de 3 segundos
             console.error("Error al guardar el anexo en el backend:", error);
+
             //this.snackBar.open('Error al guardar el anexo', 'Cerrar', {
             //  duration: 3000,
             //  horizontalPosition: 'center',
@@ -222,20 +223,30 @@ export class NotiComponent implements OnInit {
           }
         });
       },
+
       error: (error) => {
+        this.error2Message = true;  // Mostrar el mensaje 
+        setTimeout(() => this.error2Message = false, 5000);  // Ocultar mensaje después de 3 segundos
         console.error("Error al guardar datos en el backend 1111:", error);
-        this.snackBar.open('Error al guardar los datos', 'Cerrar', {
-          duration: 3000,
-          horizontalPosition: 'center',
-          verticalPosition: 'top'
-        });
+
+        //this.snackBar.open('Error al guardar los datos', 'Cerrar', {
+        //  duration: 3000,
+        //  horizontalPosition: 'center',
+        //  verticalPosition: 'top'
+        //});
+      },
+
+        complete: () => {
+        this.isLoading = false; // Desactivar la pantalla de carga
       }
+
     });
 
     console.log('Materiales Reales:', materialesReales);
     console.log('Operarios Reales:', operariosReales);
     console.log('Subtarea copia:', subtareaCopia);
     console.log('Anexos:', this.anexos);
+
   }
 
   selectTab(index: number): void {

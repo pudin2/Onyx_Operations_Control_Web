@@ -1,4 +1,5 @@
 <div class="tabs-container">
+
   <!-- Pantalla de carga (solo se muestra cuando isLoading es true) -->
   <div *ngIf="isLoading" class="loading-screen">
     <img src="img/tuercas.gif" alt="Loading..." class="loading-gif">
@@ -7,6 +8,7 @@
 
   <!-- Contenido (solo se muestra cuando isLoading es false) -->
   <div *ngIf="!isLoading">
+
     <!-- Título con descripción de la subtarea -->
     <h3 *ngIf="subtarea">{{ getDescripcionSinGuion(subtarea.Descripcion) }}</h3>
 
@@ -15,8 +17,33 @@
       <img src="img/girar-a-la-izquierda.png" alt="Botón Imagen" class="img-boton">
     </button>
 
-    <!-- Botón de guardar-->
-    <button (click)="guardarValores()" class="btn_guardarc">Guardar</button>
+    
+    <!-- Botón de guardar -->
+    <button (click)="guardarValores()" [disabled]="isLoading" class="btn_guardarc">
+
+      <img src="img/guardar.png" alt="Botón Imagen" class="img-Guardar">
+
+      <div *ngIf="isLoading" class="loading-indicator">
+        Cargando, por favor espere...
+      </div>
+    </button>
+
+    <!-- Mensajes de error-->
+    <div *ngIf="successMessage" class="message-success active">
+      Datos y anexos guardados correctamente.
+    </div>
+
+    <div *ngIf="errorMessage" class="message-error">
+      Error al guardar el anexo.
+    </div>
+
+    <div *ngIf="error2Message" class="message-error">
+      Error al subir datos.
+    </div>
+
+    <div *ngIf="cantidadMessage" class="message-error">
+      La cantidad real no puede ser mayor que la cantidad disponible.
+    </div>
 
     <!-- Lista de pestañas -->
     <ul class="tabs">
@@ -28,10 +55,12 @@
     </ul>
 
     <!-- Contenido de la primera pestaña: Materiales -->
+
     <div class="tab-content" *ngIf="activeTabIndex === 0">
       <h4>Materiales</h4>
 
       <!-- Tabla que muestra los materiales obtenidos de DetSubT -->
+
       <table class="table-materiales" *ngIf="materiales.length > 0">
         <thead>
           <tr>
@@ -44,6 +73,7 @@
           <tr *ngFor="let material of materiales">
             <td>{{ material.CodInventario }}</td>
             <td>{{ material.Cant }}</td>
+
             <!-- Input para la columna "Real" -->
             <td>
               <input type="text" [(ngModel)]="material.CantReal" (input)="validarCantidadMaterial(material)" class="custom-input">
@@ -53,10 +83,12 @@
       </table>
 
       <!-- Mensaje si no hay materiales -->
+
       <p *ngIf="materiales.length === 0">No se encontraron materiales para esta subtarea.</p>
     </div>
 
     <!-- Contenido de la segunda pestaña: Mano de obra -->
+
     <div class="tab-content" *ngIf="activeTabIndex === 1">
       <table class="table-materiales">
         <thead>
@@ -70,13 +102,17 @@
         </thead>
 
         <tbody>
+
           <!-- Mostrar operario asignado inicialmente y mano de obra adicional -->
+
           <tr *ngFor="let operario of operariosSeleccionados; let i = index">
             <td>{{ operario.Encargado }}</td>
             <td>{{ operario.Horas }}</td>
-            <td><input type="text" [(ngModel)]="operario.Real" (input)="validarHorasOperario(operario)" class="custom-input"></td>
+            <td><input type="text" [(ngModel)]="operario.Real" class="custom-input"></td>
             <td *ngIf="i > 0">
+
               <!-- Mostrar el botón solo para operarios adicionales -->
+
               <button (click)="eliminarOperario(operario)" class="btn_borrar">
                 <img src="img/borrar.png" alt="Botón Limpiar" class="img-borrar">
               </button>
@@ -88,6 +124,7 @@
       <button (click)="cargarOperarios()" class="btn-agregar">Agregar Operario</button>
 
       <!-- Lista de operarios para seleccionar -->
+
       <div *ngIf="mostrarTablaOperarios && operarios.length > 0" class="operarios-container">
         <h5 class="operarios-title">Seleccionar Operario:</h5>
         <table class="table-operarios">
@@ -112,19 +149,14 @@
 
 
     <!-- Contenido de la tercera pestaña: Anexos -->
+
     <div class="tab-content" *ngIf="activeTabIndex === 2">
       <h4>Anexos</h4>
       <button class="btn-agregar" (click)="onFileSelect()">Agregar Anexo</button>
 
       <input type="file" accept="image/*" (change)="onFileChange($event)" style="display: none" #fileInput>
 
-      <div *ngIf="successMessage" class="message-success active">
-        Datos y anexos guardados correctamente.
-      </div>
 
-      <div *ngIf="errorMessage" class="message-error">
-        Error al subir datos.
-      </div>
 
 
       <!-- Previsualizar los Anexos -->
@@ -134,7 +166,6 @@
       </div>
 
     </div>
-
 
   </div>
 </div>

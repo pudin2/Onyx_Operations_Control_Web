@@ -82,8 +82,24 @@
           <td>{{ subt.AsignadaA }}</td>
           <td>{{ subt.Horas }}</td>
           <td>{{ subt.Porc * 100 }}%</td>
+
           <td>
-            <button (click)="notificar(subt)" class="btn-notificar">Notificar</button>
+
+            <!-- Botón que desencadena el menú con mejor accesibilidad -->
+            <button mat-button [matMenuTriggerFor]="menu" aria-haspopup="true" aria-expanded="false">Opciones</button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="notificar(subt)">
+                Notificar
+              </button>
+              <button mat-menu-item>
+                Cerrar
+              </button>
+            </mat-menu>
+
+
+
+            <!--<button (click)="notificar(subt)" class="btn-notificar">Notificar</button>-->
+
           </td>
         </tr>
       </tbody>

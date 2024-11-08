@@ -10,13 +10,14 @@ import { CommonModule } from '@angular/common'; // Importa CommonModule
 import { CabSubT } from '../../Models/SubTModel';
 import { Router } from '@angular/router';
 import { SearchService } from '../../Servicios/state.service'; // Importa tu servicio de búsqueda
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-carganoti',
   templateUrl: './CargaNoti.component.html',
   styleUrls: ['./CargaNoti.component.css'],
   standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, FormsModule, CommonModule],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, FormsModule, CommonModule, MatMenuModule],
 })
 export class CargaNotiComponent {
   searchTerm: string = '';
@@ -118,6 +119,7 @@ export class CargaNotiComponent {
   goBack() {
     this.searchService.setSearchQuery(this.searchTerm); // Guarda la búsqueda actual antes de regresar
     this.location.back(); // Regresa a la página anterior
+    this.searchService.clearSearchQuery();
   }
 
   limpiarInput(): void {

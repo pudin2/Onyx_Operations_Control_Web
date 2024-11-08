@@ -1,4 +1,3 @@
-// search.service.ts
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -6,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class SearchService {
   private searchQuery: string = '';
+  private orderData: any = null;
 
   setSearchQuery(query: string): void {
     this.searchQuery = query;
@@ -17,5 +17,14 @@ export class SearchService {
 
   clearSearchQuery(): void {
     this.searchQuery = '';
+    this.orderData = null;
+  }
+
+  setOrderData(order: any): void {
+    this.orderData = order;
+  }
+
+  getOrderData(): any {
+    return this.orderData;
   }
 }

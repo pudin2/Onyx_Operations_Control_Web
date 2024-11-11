@@ -35,6 +35,11 @@ export class CargaNotiComponent {
   ) {
     // Recuperar el valor de búsqueda almacenado
     this.searchTerm = this.searchService.getSearchQuery();
+    const storedOrderData = this.searchService.getOrderData();
+    if (storedOrderData) {
+      this.orden = storedOrderData;
+      this.getSubTByNumeroOrden(storedOrderData.NumOrden); // Carga los registros de subtareas
+    }
   }
 
   buscarOrden(): void {
@@ -61,6 +66,7 @@ export class CargaNotiComponent {
       this.ordenService.getOrdenTrabajo(numeroOrden).subscribe({
         next: (data) => {
           this.orden = data;
+          this.searchService.setOrderData(data); // Guarda los datos de la orden en el servicio
           this.errorMessage = ''; // Limpiar el mensaje de error si se obtiene la orden correctamente
           this.noData = false; // Hay datos, así que no hay error
           this.getSubTByNumeroOrden(numeroOrden);

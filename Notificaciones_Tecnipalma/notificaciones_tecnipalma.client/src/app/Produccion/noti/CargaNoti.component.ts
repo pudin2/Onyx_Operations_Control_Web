@@ -93,7 +93,7 @@ export class CargaNotiComponent {
       },
       error: (err) => {
 
-        this.errorMessage = 'No se encontraron registros asociados a esta orden.';
+        this.errorMessage = 'No se encontraron subtareas programadas a esta orden.';
         console.error('Error al obtener los registros de subt', err);
         this.subtRegistros = []; // Resetea los registros si no se encuentran
       },

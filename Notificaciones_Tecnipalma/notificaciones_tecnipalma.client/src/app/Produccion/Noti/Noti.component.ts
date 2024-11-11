@@ -31,6 +31,7 @@ export class NotiComponent implements OnInit {
   errorMessage = false;
   error2Message = false;
   cantidadMessage = false;
+  porcentajeavance: string = "";
 
   tabs = [
     { label: 'Materiales' },
@@ -175,6 +176,7 @@ export class NotiComponent implements OnInit {
     const { Id, ...subtareaCopia } = this.subtarea!;
     subtareaCopia.Tipo = 'NT';
     subtareaCopia.Horas = this.operariosSeleccionados[0]?.Real ? parseFloat(this.operariosSeleccionados[0].Real) : subtareaCopia.Horas;
+    //subtareaCopia.Porc = parseFloat(this.porcentajeavance)
 
     const datosParaGuardar = {
       MaterialesReales: materialesReales,

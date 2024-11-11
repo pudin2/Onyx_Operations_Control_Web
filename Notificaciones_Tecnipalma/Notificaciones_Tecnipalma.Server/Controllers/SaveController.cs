@@ -1,7 +1,6 @@
 ﻿using LoginAPI.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
 using System.Data;
 
 [ApiController]

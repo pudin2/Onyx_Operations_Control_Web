@@ -40,6 +40,10 @@
 
   <!-- Detalles de la orden si se encuentra -->
   <div *ngIf="orden" class="orden-details">
+    <div *ngIf="error2Message" class="error2-message">
+      {{ error2Message }}
+    </div>
+
     <p><strong>Número de Orden:</strong> {{ orden.NumOrden }}</p>
     <p> {{ orden.NombreCliente }}</p>
     <p> {{ orden.NombreProyecto }}</p>

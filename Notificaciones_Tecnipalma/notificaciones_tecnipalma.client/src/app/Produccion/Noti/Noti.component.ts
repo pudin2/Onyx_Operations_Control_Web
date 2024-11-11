@@ -35,7 +35,8 @@ export class NotiComponent implements OnInit {
   tabs = [
     { label: 'Materiales' },
     { label: 'Mano de Obra' },
-    { label: 'Anexos' }
+    { label: 'Anexos' },
+    { label: 'Porcentaje' }
   ];
   activeTabIndex: number = 0;
 

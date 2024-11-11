@@ -176,7 +176,7 @@ export class NotiComponent implements OnInit {
     const { Id, ...subtareaCopia } = this.subtarea!;
     subtareaCopia.Tipo = 'NT';
     subtareaCopia.Horas = this.operariosSeleccionados[0]?.Real ? parseFloat(this.operariosSeleccionados[0].Real) : subtareaCopia.Horas;
-    //subtareaCopia.Porc = parseFloat(this.porcentajeavance)
+    subtareaCopia.Porc = parseFloat(this.porcentajeavance)
 
     const datosParaGuardar = {
       MaterialesReales: materialesReales,
@@ -230,7 +230,7 @@ export class NotiComponent implements OnInit {
       error: (error) => {
         this.error2Message = true;  // Mostrar el mensaje 
         setTimeout(() => this.error2Message = false, 5000);  // Ocultar mensaje después de 3 segundos
-        console.error("Error al guardar datos en el backend 1111:", error);
+        console.error("Error al guardar con el procedimiento almacenado:", error);
 
         //this.snackBar.open('Error al guardar los datos', 'Cerrar', {
         //  duration: 3000,

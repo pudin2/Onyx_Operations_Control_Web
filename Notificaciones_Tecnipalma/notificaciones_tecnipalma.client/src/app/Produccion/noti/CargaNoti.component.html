@@ -7,13 +7,11 @@
     </button>
 
     <!-- Input de búsqueda -->
-    <input
-      [(ngModel)]="searchTerm"
-      placeholder="Buscar por Número de OT..."
-      class="input-buscar"
-      (input)="onInputChange()"
-      (keyup.enter)="buscarOrden()"
-    >
+    <input [(ngModel)]="searchTerm"
+           placeholder="Buscar por Número de OT..."
+           class="input-buscar"
+           (input)="onInputChange()"
+           (keyup.enter)="buscarOrden()">
 
     <!-- Botón de buscar -->
     <button (click)="buscarOrden()" class="btn-buscar">
@@ -37,6 +35,15 @@
   <div *ngIf="errorMessage" class="error-message">
     {{ errorMessage }}
   </div>
+
+  <div *ngIf="successSubMessage" class="message-success active">
+    Subtarea cerrada exitosamente
+  </div>
+
+  <div *ngIf="errorSubMessage" class="error-message">
+    Error al cerrar la subtarea
+  </div>
+
 
   <!-- Detalles de la orden si se encuentra -->
   <div *ngIf="orden" class="orden-details">
@@ -92,15 +99,15 @@
             <!-- Botón que desencadena el menú con mejor accesibilidad -->
             <button mat-button [matMenuTriggerFor]="menu" aria-haspopup="true" aria-expanded="false">Opciones</button>
             <mat-menu #menu="matMenu">
+
               <button mat-menu-item (click)="notificar(subt)">
                 Notificar
               </button>
-              <button mat-menu-item>
-                Cerrar
+
+              <button mat-menu-item (click)="cerrarSubtarea(subt.Id)">
+                Cerrar SubTarea
               </button>
             </mat-menu>
-
-
 
             <!--<button (click)="notificar(subt)" class="btn-notificar">Notificar</button>-->
 

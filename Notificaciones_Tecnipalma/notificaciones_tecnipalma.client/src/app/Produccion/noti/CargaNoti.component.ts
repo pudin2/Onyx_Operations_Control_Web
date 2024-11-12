@@ -27,6 +27,8 @@ export class CargaNotiComponent {
   error2Message: string = '';
   noData: boolean = false;
   isLoading: boolean = false; // Variable para controlar la carga
+  successSubMessage = false;
+  errorSubMessage = false;
 
   constructor(
     private location: Location,
@@ -153,5 +155,32 @@ export class CargaNotiComponent {
       console.log(`Notificando a la tarea: ${subt.Descripcion} con número de orden: ${this.orden.NumOrden}`);
     }
   }
-}
 
+  cerrarSubtarea(subtareaId: number): void {
+    this.ordenService.cerrarSubtarea(subtareaId).subscribe({
+      next: (response) => {
+
+        this.successSubMessage = true;  // Mostrar el mensaje 
+        setTimeout(() => this.successSubMessage = false, 5000);  // Ocultar mensaje después de 3 segundos
+
+        //this.snackBar.open('Subtarea cerrada exitosamente', 'Cerrar', {
+        //  duration: 3000,
+        //});
+        // Opcional: actualiza la lista de subtareas después de cerrar una subtarea
+        this.buscarOrden();
+      },
+      error: (err) => {
+
+        this.successSubMessage = true;  // Mostrar el mensaje 
+        setTimeout(() => this.successSubMessage = false, 5000);  // Ocultar mensaje después de 3 segundos
+
+
+        console.error('Error al cerrar la subtarea:', err);
+        //this.snackBar.open('Error al cerrar la subtarea', 'Cerrar', {
+        //  duration: 3000,
+        //});
+      }
+    });
+  }
+
+}

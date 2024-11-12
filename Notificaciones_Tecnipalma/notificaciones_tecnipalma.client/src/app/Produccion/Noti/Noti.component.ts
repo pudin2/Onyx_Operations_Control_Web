@@ -230,6 +230,7 @@ export class NotiComponent implements OnInit {
       error: (error) => {
         this.error2Message = true;  // Mostrar el mensaje 
         setTimeout(() => this.error2Message = false, 5000);  // Ocultar mensaje después de 3 segundos
+
         console.error("Error al guardar con el procedimiento almacenado:", error);
 
         //this.snackBar.open('Error al guardar los datos', 'Cerrar', {

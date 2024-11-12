@@ -29,7 +29,7 @@ export class CargaNotiComponent {
   isLoading: boolean = false; // Variable para controlar la carga
   successSubMessage = false;
   errorSubMessage = false;
-  isSubtareaCerrada: boolean = false;
+
 
   constructor(
     private location: Location,
@@ -102,6 +102,7 @@ export class CargaNotiComponent {
     this.isLoading = true; // Activar la pantalla de carga
     this.ordenService.getSubTByNumeroOrden(numeroOrden).subscribe({
       next: (data) => {
+        this.subtRegistros = data.map(subt => ({ ...subt, isClosed: false }));
         this.subtRegistros = data;
       },
       error: (err) => {
@@ -157,18 +158,20 @@ export class CargaNotiComponent {
     }
   }
 
-  cerrarSubtarea(subtareaId: number): void {
+  cerrarSubtarea(subtareaId: number ): void {
     
     this.ordenService.cerrarSubtarea(subtareaId).subscribe({
       next: (response) => {
 
+        const subtarea = this.subtRegistros.find(subt => subt.Id === subtareaId);
+        if (subtarea) {
+          subtarea.Estado = 'C';  // Cambiar el estado a cerrado
+        }
+
         this.successSubMessage = true;  // Mostrar el mensaje 
         setTimeout(() => this.successSubMessage = false, 5000);  // Ocultar mensaje después de 3 segundos
-        this.isSubtareaCerrada = true;
-        //this.snackBar.open('Subtarea cerrada exitosamente', 'Cerrar', {
-        //  duration: 3000,
-        //});
-        // Opcional: actualiza la lista de subtareas después de cerrar una subtarea
+
+
         this.buscarOrden();
       },
       error: (err) => {

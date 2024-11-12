@@ -66,8 +66,14 @@ input {
 }
 
 .btn-cerrado {
-  background-color: #d32f2f; /* Rojo para indicar cerrado */
-  color: white; /* Texto blanco para mejor contraste */
+  color: black; /* Texto blanco para mayor contraste */
+  background-color: red; /* Fondo rojo */
+}
+
+button[disabled] {
+  opacity: 0.8;
+  color: black; 
+  cursor: not-allowed;
 }
 
 

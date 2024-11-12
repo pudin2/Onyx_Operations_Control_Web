@@ -95,24 +95,29 @@
           <td>{{ subt.Porc * 100 }}%</td>
 
           <td>
-
-            <!-- Botón que desencadena el menú con mejor accesibilidad -->
-            <button mat-button [matMenuTriggerFor]="menu" aria-haspopup="true" aria-expanded="false"
-                    [ngClass]="{'btn-cerrado': isSubtareaCerrada}">
-              {{ isSubtareaCerrada ? 'Cerrado' : 'Opciones' }}
+        
+          
+            <button mat-button [matMenuTriggerFor]="menu" [disabled]="subt.Estado === 'C'"
+                    [ngClass]="{'btn-cerrado': subt.Estado === 'C'}">
+              {{ subt.Estado === 'C' ? 'Cerrado' : 'Opciones' }}
             </button>
+
             <mat-menu #menu="matMenu">
-              <button mat-menu-item (click)="notificar(subt)">
+              <button mat-menu-item (click)="notificar(subt)" [disabled]="subt.Estado === 'C'">
                 Notificar
               </button>
-              <button mat-menu-item (click)="cerrarSubtarea(subt.Id)">
+              <button mat-menu-item (click)="cerrarSubtarea(subt.Id)" [disabled]="subt.Estado === 'C'">
                 Cerrar SubTarea
               </button>
             </mat-menu>
-
-            <!--<button (click)="notificar(subt)" class="btn-notificar">Notificar</button>-->
-
           </td>
+      
+
+
+
+
+        <!--<button (click)="notificar(subt)" class="btn-notificar">Notificar</button>-->
+       
         </tr>
       </tbody>
     </table>

@@ -97,13 +97,14 @@
           <td>
 
             <!-- Botón que desencadena el menú con mejor accesibilidad -->
-            <button mat-button [matMenuTriggerFor]="menu" aria-haspopup="true" aria-expanded="false">Opciones</button>
+            <button mat-button [matMenuTriggerFor]="menu" aria-haspopup="true" aria-expanded="false"
+                    [ngClass]="{'btn-cerrado': isSubtareaCerrada}">
+              {{ isSubtareaCerrada ? 'Cerrado' : 'Opciones' }}
+            </button>
             <mat-menu #menu="matMenu">
-
               <button mat-menu-item (click)="notificar(subt)">
                 Notificar
               </button>
-
               <button mat-menu-item (click)="cerrarSubtarea(subt.Id)">
                 Cerrar SubTarea
               </button>

@@ -29,6 +29,7 @@ export class CargaNotiComponent {
   isLoading: boolean = false; // Variable para controlar la carga
   successSubMessage = false;
   errorSubMessage = false;
+  isSubtareaCerrada: boolean = false;
 
   constructor(
     private location: Location,
@@ -157,12 +158,13 @@ export class CargaNotiComponent {
   }
 
   cerrarSubtarea(subtareaId: number): void {
+    
     this.ordenService.cerrarSubtarea(subtareaId).subscribe({
       next: (response) => {
 
         this.successSubMessage = true;  // Mostrar el mensaje 
         setTimeout(() => this.successSubMessage = false, 5000);  // Ocultar mensaje después de 3 segundos
-
+        this.isSubtareaCerrada = true;
         //this.snackBar.open('Subtarea cerrada exitosamente', 'Cerrar', {
         //  duration: 3000,
         //});

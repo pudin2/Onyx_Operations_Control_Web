@@ -43,4 +43,8 @@ export class OrdenService {
     return this.http.post<any>(`${this.apiUrl}/guardar-anexo`, formData);
   }
 
+  cerrarSubtarea(subtareaId: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/cerrar-subtarea`, { subtareaId } );
+  }
+
 }

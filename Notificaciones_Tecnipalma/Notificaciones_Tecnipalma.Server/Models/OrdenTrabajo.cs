@@ -6,4 +6,5 @@ public class VwOrdenTrabajo
     public string? NombreCliente { get; set; }
     public string? NombreProyecto { get; set; }
     public string? OT_Alcance { get; set; }
+    public string? Estado {  get; set; }
 }

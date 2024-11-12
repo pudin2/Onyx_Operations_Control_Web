@@ -10,21 +10,25 @@ import { CommonModule } from '@angular/common'; // Importa CommonModule
 import { CabSubT } from '../../Models/SubTModel';
 import { Router } from '@angular/router';
 import { SearchService } from '../../Servicios/state.service'; // Importa tu servicio de búsqueda
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-carganoti',
   templateUrl: './CargaNoti.component.html',
   styleUrls: ['./CargaNoti.component.css'],
   standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, FormsModule, CommonModule],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, FormsModule, CommonModule, MatMenuModule],
 })
 export class CargaNotiComponent {
   searchTerm: string = '';
   orden: VwOrdenTrabajo | null = null; // Variable para almacenar la orden
   subtRegistros: CabSubT[] = []; // Variable para almacenar los registros de Cab_SubT
   errorMessage: string = '';
+  error2Message: string = '';
   noData: boolean = false;
   isLoading: boolean = false; // Variable para controlar la carga
+  successSubMessage = false;
+  errorSubMessage = false;
 
   constructor(
     private location: Location,
@@ -34,6 +38,11 @@ export class CargaNotiComponent {
   ) {
     // Recuperar el valor de búsqueda almacenado
     this.searchTerm = this.searchService.getSearchQuery();
+    const storedOrderData = this.searchService.getOrderData();
+    if (storedOrderData) {
+      this.orden = storedOrderData;
+      this.getSubTByNumeroOrden(storedOrderData.NumOrden); // Carga los registros de subtareas
+    }
   }
 
   buscarOrden(): void {
@@ -60,8 +69,18 @@ export class CargaNotiComponent {
       this.ordenService.getOrdenTrabajo(numeroOrden).subscribe({
         next: (data) => {
           this.orden = data;
+          this.searchService.setOrderData(data); // Guarda los datos de la orden en el servicio
           this.errorMessage = ''; // Limpiar el mensaje de error si se obtiene la orden correctamente
           this.noData = false; // Hay datos, así que no hay error
+
+          //MENSAJE DE ORDEN DE TRABAJO CERRADA
+          if (this.orden.Estado === 'C') {
+            this.error2Message = 'La orden de trabajo está cerrada.';
+            console.log(this.error2Message)
+          } else {
+            this.error2Message = '';
+          }
+
           this.getSubTByNumeroOrden(numeroOrden);
         },
         error: (err) => {
@@ -86,7 +105,7 @@ export class CargaNotiComponent {
       },
       error: (err) => {
 
-        this.errorMessage = 'No se encontraron registros asociados a esta orden.';
+        this.errorMessage = 'No se encontraron subtareas programadas a esta orden.';
         console.error('Error al obtener los registros de subt', err);
         this.subtRegistros = []; // Resetea los registros si no se encuentran
       },
@@ -118,6 +137,7 @@ export class CargaNotiComponent {
   goBack() {
     this.searchService.setSearchQuery(this.searchTerm); // Guarda la búsqueda actual antes de regresar
     this.location.back(); // Regresa a la página anterior
+    this.searchService.clearSearchQuery();
   }
 
   limpiarInput(): void {
@@ -135,5 +155,32 @@ export class CargaNotiComponent {
       console.log(`Notificando a la tarea: ${subt.Descripcion} con número de orden: ${this.orden.NumOrden}`);
     }
   }
-}
 
+  cerrarSubtarea(subtareaId: number): void {
+    this.ordenService.cerrarSubtarea(subtareaId).subscribe({
+      next: (response) => {
+
+        this.successSubMessage = true;  // Mostrar el mensaje 
+        setTimeout(() => this.successSubMessage = false, 5000);  // Ocultar mensaje después de 3 segundos
+
+        //this.snackBar.open('Subtarea cerrada exitosamente', 'Cerrar', {
+        //  duration: 3000,
+        //});
+        // Opcional: actualiza la lista de subtareas después de cerrar una subtarea
+        this.buscarOrden();
+      },
+      error: (err) => {
+
+        this.successSubMessage = true;  // Mostrar el mensaje 
+        setTimeout(() => this.successSubMessage = false, 5000);  // Ocultar mensaje después de 3 segundos
+
+
+        console.error('Error al cerrar la subtarea:', err);
+        //this.snackBar.open('Error al cerrar la subtarea', 'Cerrar', {
+        //  duration: 3000,
+        //});
+      }
+    });
+  }
+
+}

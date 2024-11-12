@@ -7,13 +7,11 @@
     </button>
 
     <!-- Input de búsqueda -->
-    <input
-      [(ngModel)]="searchTerm"
-      placeholder="Buscar por Número de OT..."
-      class="input-buscar"
-      (input)="onInputChange()"
-      (keyup.enter)="buscarOrden()"
-    >
+    <input [(ngModel)]="searchTerm"
+           placeholder="Buscar por Número de OT..."
+           class="input-buscar"
+           (input)="onInputChange()"
+           (keyup.enter)="buscarOrden()">
 
     <!-- Botón de buscar -->
     <button (click)="buscarOrden()" class="btn-buscar">
@@ -38,8 +36,21 @@
     {{ errorMessage }}
   </div>
 
+  <div *ngIf="successSubMessage" class="message-success active">
+    Subtarea cerrada exitosamente
+  </div>
+
+  <div *ngIf="errorSubMessage" class="error-message">
+    Error al cerrar la subtarea
+  </div>
+
+
   <!-- Detalles de la orden si se encuentra -->
   <div *ngIf="orden" class="orden-details">
+    <div *ngIf="error2Message" class="error2-message">
+      {{ error2Message }}
+    </div>
+
     <p><strong>Número de Orden:</strong> {{ orden.NumOrden }}</p>
     <p> {{ orden.NombreCliente }}</p>
     <p> {{ orden.NombreProyecto }}</p>
@@ -82,8 +93,24 @@
           <td>{{ subt.AsignadaA }}</td>
           <td>{{ subt.Horas }}</td>
           <td>{{ subt.Porc * 100 }}%</td>
+
           <td>
-            <button (click)="notificar(subt)" class="btn-notificar">Notificar</button>
+
+            <!-- Botón que desencadena el menú con mejor accesibilidad -->
+            <button mat-button [matMenuTriggerFor]="menu" aria-haspopup="true" aria-expanded="false">Opciones</button>
+            <mat-menu #menu="matMenu">
+
+              <button mat-menu-item (click)="notificar(subt)">
+                Notificar
+              </button>
+
+              <button mat-menu-item (click)="cerrarSubtarea(subt.Id)">
+                Cerrar SubTarea
+              </button>
+            </mat-menu>
+
+            <!--<button (click)="notificar(subt)" class="btn-notificar">Notificar</button>-->
+
           </td>
         </tr>
       </tbody>

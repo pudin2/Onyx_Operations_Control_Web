@@ -17,7 +17,7 @@
       <img src="img/girar-a-la-izquierda.png" alt="Botón Imagen" class="img-boton">
     </button>
 
-    
+
     <!-- Botón de guardar -->
     <button (click)="guardarValores()" [disabled]="isLoading" class="btn_guardarc">
 
@@ -151,7 +151,7 @@
     <!-- Contenido de la tercera pestaña: Anexos -->
 
     <div class="tab-content" *ngIf="activeTabIndex === 2">
-      <h4>Anexos</h4>
+    
       <button class="btn-agregar" (click)="onFileSelect()">Agregar Anexo</button>
 
       <input type="file" accept="image/*" (change)="onFileChange($event)" style="display: none" #fileInput>
@@ -164,6 +164,20 @@
       <div *ngFor="let anexo of anexosPreview" class="anexos-container">
         <img [src]="anexo" (click)="openPreview(anexo)" alt="Previsualización de Anexo" class="img-anexo">
       </div>
+
+    </div>
+
+    <div class="tab-content" *ngIf="activeTabIndex === 3">
+
+      <h4>Porcentaje Avance</h4>
+
+      <p>Indique el valor de avance en la subtarea</p>
+
+      <input type="text" [(ngModel)]="porcentajeavance" class="custom-input">
+      <span class="percent-sign"> %</span>
+
+
+
 
     </div>
 

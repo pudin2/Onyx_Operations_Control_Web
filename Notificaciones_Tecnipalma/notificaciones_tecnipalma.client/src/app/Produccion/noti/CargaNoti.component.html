@@ -40,16 +40,13 @@
     Subtarea cerrada exitosamente
   </div>
 
-  <div *ngIf="errorSubMessage" class="error-message">
-    Error al cerrar la subtarea
-  </div>
-
-
   <!-- Detalles de la orden si se encuentra -->
   <div *ngIf="orden" class="orden-details">
-    <div *ngIf="error2Message" class="error2-message">
-      {{ error2Message }}
+
+    <div *ngIf="errorSubMessage" class="error2-message">
+      {{ errorSubMessage }}
     </div>
+
 
     <p><strong>Número de Orden:</strong> {{ orden.NumOrden }}</p>
     <p> {{ orden.NombreCliente }}</p>

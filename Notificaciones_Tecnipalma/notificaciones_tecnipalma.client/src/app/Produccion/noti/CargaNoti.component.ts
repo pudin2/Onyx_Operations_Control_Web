@@ -24,11 +24,12 @@ export class CargaNotiComponent {
   orden: VwOrdenTrabajo | null = null; // Variable para almacenar la orden
   subtRegistros: CabSubT[] = []; // Variable para almacenar los registros de Cab_SubT
   errorMessage: string = '';
-  error2Message: string = '';
+ 
   noData: boolean = false;
   isLoading: boolean = false; // Variable para controlar la carga
   successSubMessage = false;
-  errorSubMessage = false;
+  errorSubMessage: string = '';
+
 
 
   constructor(
@@ -74,12 +75,14 @@ export class CargaNotiComponent {
           this.errorMessage = ''; // Limpiar el mensaje de error si se obtiene la orden correctamente
           this.noData = false; // Hay datos, así que no hay error
 
+
+
           //MENSAJE DE ORDEN DE TRABAJO CERRADA
           if (this.orden.Estado === 'C') {
-            this.error2Message = 'La orden de trabajo está cerrada.';
-            console.log(this.error2Message)
+            this.errorSubMessage = 'La orden de trabajo está cerrada.';
+            // No necesitas el console.log aquí a menos que estés depurando.
           } else {
-            this.error2Message = '';
+            this.errorSubMessage = '';  // Asegúrate de limpiar el mensaje cuando la condición no se cumpla
           }
 
           this.getSubTByNumeroOrden(numeroOrden);

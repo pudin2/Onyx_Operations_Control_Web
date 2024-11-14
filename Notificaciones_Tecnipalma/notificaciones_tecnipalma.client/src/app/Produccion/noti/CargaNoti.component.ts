@@ -78,7 +78,7 @@ export class CargaNotiComponent {
 
 
           //MENSAJE DE ORDEN DE TRABAJO CERRADA
-          if (this.orden.Estado === 'C') {
+          if (this.orden.EstadoOT === 'C') {
             this.errorSubMessage = 'La orden de trabajo está cerrada.';
             // No necesitas el console.log aquí a menos que estés depurando.
           } else {

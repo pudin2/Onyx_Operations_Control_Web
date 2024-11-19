@@ -4,13 +4,13 @@ import { Observable } from 'rxjs';
 import { VwOrdenTrabajo } from '../Models/OtModel';
 import { CabSubT } from '../Models/SubTModel';
 import { DetSubT } from '../Models/DetSubTModel';
-import {Operario } from '../Models/OperarioModel'
- 
+import { Operario } from '../Models/OperarioModel'
+
 @Injectable({
   providedIn: 'root'
 })
 export class OrdenService {
-  private apiUrl = 'http://localhost:5000/api/ordenes'; // Ajusta la URL a la de tu API
+  private apiUrl = 'http://localhost:8050/api/ordenes'; // Ajusta la URL a la de tu API
   private apiUrlSubtareas = 'http://localhost:5000/api/ordenes/subtareas';
 
   constructor(private http: HttpClient) { }
@@ -44,7 +44,7 @@ export class OrdenService {
   }
 
   cerrarSubtarea(subtareaId: number): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/cerrar-subtarea`, { subtareaId } );
+    return this.http.post<any>(`${this.apiUrl}/cerrar-subtarea`, { subtareaId });
   }
 
 }

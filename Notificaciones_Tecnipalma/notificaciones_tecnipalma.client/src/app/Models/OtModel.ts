@@ -4,5 +4,7 @@ export interface VwOrdenTrabajo {
   NombreCliente: string;
   NombreProyecto: string;
   OT_Alcance: string;
+  EstadoOT: String;
+  
   // Agrega otros campos según sea necesario
 }

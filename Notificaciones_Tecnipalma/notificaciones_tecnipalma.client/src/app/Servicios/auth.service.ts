@@ -6,7 +6,7 @@ import { Observable, tap } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://localhost:5001/api/auth/login';
+  private apiUrl = 'http://localhost:8050/api/auth/login';
   private tokenKey = 'authToken'; // Clave para almacenar el token en localStorage
 
   constructor(private http: HttpClient) { }
@@ -21,7 +21,7 @@ export class AuthService {
         if (response && response.token) {
           localStorage.setItem(this.tokenKey, response.token);
           console.log('Token guardado en localStorage:', response.token);
-        }else {
+        } else {
           console.warn('Token no encontrado en la respuesta'); // Mensaje si no encuentra el token
         }
       })

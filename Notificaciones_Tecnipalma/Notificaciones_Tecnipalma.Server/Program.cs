@@ -11,14 +11,12 @@ builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSet
 //soluciona el problema de cors
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAngularApp",
+    options.AddPolicy("AllowAllOrigins",
         policy =>
         {
-            policy.WithOrigins("https://localhost:4200") // Permitir solicitudes desde Angular
-                  .AllowAnyHeader()
-                  .AllowAnyMethod()
-                  .AllowCredentials()
-                  .SetIsOriginAllowed((host) => true);
+            policy.AllowAnyOrigin() // Especificar el origen permitido (Angular)
+                  .AllowAnyHeader() // Permitir cualquier encabezado
+                  .AllowAnyMethod(); // Permitir cualquier método (GET, POST, etc.)
         });
 });
 
@@ -45,20 +43,20 @@ builder.Services.AddScoped<AuthService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.WebHost.UseUrls(builder.Configuration["Urls"]);
+
 var app = builder.Build();
+
+app.UseCors("AllowAllOrigins"); // Usar la política de CORS definida anteriormente
+
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
-app.UseCors("AllowAngularApp");
-app.UseHttpsRedirection();
+app.UseRouting(); // Agrega el enrutamiento aquí
 
 app.UseAuthorization();
 

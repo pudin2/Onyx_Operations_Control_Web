@@ -7,13 +7,11 @@
     </button>
 
     <!-- Input de búsqueda -->
-    <input
-      [(ngModel)]="searchTerm"
-      placeholder="Buscar por Número de OT..."
-      class="input-buscar"
-      (input)="onInputChange()"
-      (keyup.enter)="buscarOrden()"
-    >
+    <input [(ngModel)]="searchTerm"
+           placeholder="Buscar por Número de OT..."
+           class="input-buscar"
+           (input)="onInputChange()"
+           (keyup.enter)="buscarOrden()">
 
     <!-- Botón de buscar -->
     <button (click)="buscarOrden()" class="btn-buscar">
@@ -38,8 +36,18 @@
     {{ errorMessage }}
   </div>
 
+  <div *ngIf="successSubMessage" class="message-success active">
+    Subtarea cerrada exitosamente
+  </div>
+
   <!-- Detalles de la orden si se encuentra -->
   <div *ngIf="orden" class="orden-details">
+
+    <div *ngIf="errorSubMessage" class="error2-message">
+      {{ errorSubMessage }}
+    </div>
+
+
     <p><strong>Número de Orden:</strong> {{ orden.NumOrden }}</p>
     <p> {{ orden.NombreCliente }}</p>
     <p> {{ orden.NombreProyecto }}</p>
@@ -82,9 +90,31 @@
           <td>{{ subt.AsignadaA }}</td>
           <td>{{ subt.Horas }}</td>
           <td>{{ subt.Porc * 100 }}%</td>
+
           <td>
-            <button (click)="notificar(subt)" class="btn-notificar">Notificar</button>
+        
+          
+            <button mat-button [matMenuTriggerFor]="menu" [disabled]="subt.Estado === 'C'"
+                    [ngClass]="{'btn-cerrado': subt.Estado === 'C'}">
+              {{ subt.Estado === 'C' ? 'Cerrado' : 'Opciones' }}
+            </button>
+
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="notificar(subt)" [disabled]="subt.Estado === 'C'">
+                Notificar
+              </button>
+              <button mat-menu-item (click)="cerrarSubtarea(subt.Id)" [disabled]="subt.Estado === 'C'">
+                Cerrar SubTarea
+              </button>
+            </mat-menu>
           </td>
+      
+
+
+
+
+        <!--<button (click)="notificar(subt)" class="btn-notificar">Notificar</button>-->
+       
         </tr>
       </tbody>
     </table>

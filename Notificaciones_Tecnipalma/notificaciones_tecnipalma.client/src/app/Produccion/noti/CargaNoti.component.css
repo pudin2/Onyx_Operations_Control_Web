@@ -65,6 +65,17 @@ input {
   box-shadow: 0px 0px 15px rgba(255, 99, 71, 0.7); /* Sombra roja clara */
 }
 
+.btn-cerrado {
+  color: black; /* Texto blanco para mayor contraste */
+  background-color: red; /* Fondo rojo */
+}
+
+button[disabled] {
+  opacity: 0.8;
+  color: black; 
+  cursor: not-allowed;
+}
+
 
 .btn-regresar {
   background: none;
@@ -100,6 +111,31 @@ input {
   margin-left: auto; /* Centra horizontalmente */
   margin-right: auto; /* Centra horizontalmente */
 }
+
+.error2-message {
+  color: #ff0000; /* Rojo para mensajes de error */
+  background-color: #fff4f4; /* Fondo claro */
+  border: 1px solid #ff0000; /* Borde rojo */
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.message-success {
+  color: #4CAF50; /* Color de texto para el éxito */
+  background-color: #e8f5e9; /* Color de fondo claro */
+  padding: 8px 16px;
+  margin-top: 10px;
+  border-radius: 4px;
+  font-size: 16px;
+  text-align: center;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0; /* Inicialmente invisible */
+}
+
+  .message-success.active {
+    opacity: 1; /* Completamente visible cuando está activo */
+  }
 
 .orden-details {
   background-color: #f9f9f9; /* Fondo suave para resaltar la sección */

@@ -1,5 +1,6 @@
 using LoginAPI.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 [ApiController]
 [Route("api/ordenes/subtareas")]
@@ -40,4 +41,26 @@ public class SubTController : ControllerBase
 
         return Ok(detallesSubT);
     }
+
+    [HttpGet("{id:int}/restante")]
+    public IActionResult GetDatosDesdeVistaPorId(int id)
+    {
+        try
+        {
+            // Consulta a la vista con el parámetro ID
+            var datosDesdeVista = _context.VW_DetSubT.Where(d => d.Cab_Id == id).ToList();
+
+            if (datosDesdeVista == null || !datosDesdeVista.Any())
+            {
+                return NotFound(new { message = "No se encontraron datos en la vista para el ID proporcionado" });
+            }
+
+            return Ok(datosDesdeVista);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "Ocurrió un error al obtener los datos desde la vista", error = ex.Message });
+        }
+    }
 }
+

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { OrdenService } from '../../Servicios/ot.service';
 import { CabSubT } from '../../Models/SubTModel';
 import { DetSubT } from '../../Models/DetSubTModel';
+import { VwDetSubT } from '../../Models/CantRestanteModel';
 import { Location } from '@angular/common';
 import { forkJoin } from 'rxjs';
 import { Operario } from '../../Models/OperarioModel';
@@ -23,11 +24,13 @@ export class NotiComponent implements OnInit {
   anexos: string[] = [];
   subtarea: CabSubT | null = null;
   materiales: DetSubT[] = [];
+  cantidad: VwDetSubT[] = [];
   isLoading: boolean = false;
   operarios: Operario[] = [];
   operariosSeleccionados: { Id: number, Encargado: string, Horas: number, Real: string }[] = [];
   mostrarTablaOperarios: boolean = false;
   successMessage = false;
+  success2Message = false;
   errorMessage = false;
   error2Message = false;
   cantidadMessage = false;
@@ -81,11 +84,18 @@ export class NotiComponent implements OnInit {
     this.isLoading = true;
     forkJoin({
       subtarea: this.ordenService.getSubTareaById(id),
-      materiales: this.ordenService.getDetSubTBySubTareaId(id)
+      materiales: this.ordenService.getDetSubTBySubTareaId(id),
+      cantidad: this.ordenService.getCantidadMaterial(id)
     }).subscribe({
       next: (results) => {
         this.subtarea = results.subtarea;
         this.materiales = results.materiales;
+        this.cantidad = results.cantidad.map((item: any) => ({
+          Id: item.Id,
+          Cab_Id: item.Cab_Id,
+          CANT_NT: item.CANT_NT || 0 // Asegúrate de asignar un valor si no existe
+        })) as VwDetSubT[];
+
         if (this.subtarea?.AsignadaA) {
           this.operariosSeleccionados.push({
             Id: 0,
@@ -151,6 +161,29 @@ export class NotiComponent implements OnInit {
 
   guardarValores(): void {
 
+    let isValid = true;
+
+    if (!this.porcentajeavance || this.porcentajeavance.trim() === '') {
+      console.error("El porcentaje de avance está vacío.");
+      isValid = false;
+    }
+
+    if (this.anexosFile.length === 0) {
+      console.error("Debe agregar al menos un anexo.");
+      isValid = false;
+    }
+
+    if (!this.tieneMaterialesLlenos() && !this.tieneManoDeObra()) {
+      console.error("Debe llenar al menos un material o registrar mano de obra.");
+      isValid = false;
+    }
+
+    if (!isValid) {
+      this.errorMessage = true;
+      setTimeout(() => (this.errorMessage = false), 5000);
+      return;
+    }
+    // Si todas las validaciones pasan, procede con el guardado
     this.isLoading = true;
 
     const materialesReales = this.materiales.map(material => ({
@@ -186,7 +219,14 @@ export class NotiComponent implements OnInit {
 
     this.ordenService.guardarValores(datosParaGuardar).subscribe({
       next: (response) => {
+
         console.log("Datos guardados en el backend:", response);
+        this.success2Message = true;  // Mostrar el mensaje de éxito
+        setTimeout(() => this.success2Message = false, 5000);  // Ocultar mensaje después de 3 segundos
+        this.limpiarCampos(); // aquí se limpia después del éxito
+
+        // Limpieza de otros campos si es necesario
+        this.porcentajeavance = '';
         const formData = new FormData();
         formData.append('numOrden', this.numOrden ?? '');
         const cabId = this.materiales[0]?.Cab_Id;
@@ -225,6 +265,7 @@ export class NotiComponent implements OnInit {
             //});
           }
         });
+        
       },
 
       error: (error) => {
@@ -275,4 +316,28 @@ export class NotiComponent implements OnInit {
     }
     return descripcion.trim().startsWith('-') ? descripcion.trim().substring(1).trim() : descripcion.trim();
   }
+
+  limpiarCampos(): void {
+    // Vaciar los valores en los materiales
+    this.materiales.forEach(material => material.CantReal = '');
+
+    // Vaciar los valores en los operarios seleccionados
+    this.operariosSeleccionados.forEach(operario => operario.Real = '');
+
+    // Vaciar el porcentaje de avance
+    this.porcentajeavance = '';
+  }
+
+  tieneMaterialesLlenos(): boolean {
+    return this.materiales.some(
+      (material) => material.CantReal && parseFloat(material.CantReal) > 0
+    );
+  }
+
+  tieneManoDeObra(): boolean {
+    return this.operariosSeleccionados.some(
+      (operario) => operario.Real && parseFloat(operario.Real) > 0
+    );
+  }
+
 }

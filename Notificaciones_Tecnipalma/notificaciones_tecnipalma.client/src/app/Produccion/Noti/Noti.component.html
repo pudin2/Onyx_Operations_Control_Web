@@ -33,16 +33,24 @@
       Datos y anexos guardados correctamente.
     </div>
 
-    <div *ngIf="success2Message" class="message-success active">
-      Datos guardados correctamente.
-    </div>
-
     <div *ngIf="errorMessage" class="message-error">
       Error al guardar el anexo.
     </div>
 
     <div *ngIf="error2Message" class="message-error">
       Error al subir datos.
+    </div>
+
+    <div *ngIf="error3Message" class="message-error">
+      El Porcentaje de avance esta vacio.
+    </div>
+
+    <div *ngIf="error4Message" class="message-error">
+      Debe agregar al menos un anexo.
+    </div>
+
+    <div *ngIf="error5Message" class="message-error">
+      Debe llenar al maneos un material o registrar mano de obra.
     </div>
 
     <div *ngIf="cantidadMessage" class="message-error">

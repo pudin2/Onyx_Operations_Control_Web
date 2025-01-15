@@ -33,6 +33,9 @@ export class NotiComponent implements OnInit {
   success2Message = false;
   errorMessage = false;
   error2Message = false;
+  error3Message = false;
+  error4Message = false;
+  error5Message = false;
   cantidadMessage = false;
   porcentajeavance: string = "";
 
@@ -166,16 +169,22 @@ export class NotiComponent implements OnInit {
     if (!this.porcentajeavance || this.porcentajeavance.trim() === '') {
       console.error("El porcentaje de avance está vacío.");
       isValid = false;
+      this.error3Message = true;
+      setTimeout(() => this.error3Message = false, 5000);
     }
 
     if (this.anexosFile.length === 0) {
       console.error("Debe agregar al menos un anexo.");
       isValid = false;
+      this.error4Message = true;
+      setTimeout(() => this.error4Message = false, 5000);
     }
 
     if (!this.tieneMaterialesLlenos() && !this.tieneManoDeObra()) {
       console.error("Debe llenar al menos un material o registrar mano de obra.");
       isValid = false;
+      this.error5Message = true;
+      setTimeout(() => this.error5Message = false, 5000);
     }
 
     if (!isValid) {
@@ -221,8 +230,6 @@ export class NotiComponent implements OnInit {
       next: (response) => {
 
         console.log("Datos guardados en el backend:", response);
-        this.success2Message = true;  // Mostrar el mensaje de éxito
-        setTimeout(() => this.success2Message = false, 5000);  // Ocultar mensaje después de 3 segundos
         this.limpiarCampos(); // aquí se limpia después del éxito
 
         // Limpieza de otros campos si es necesario

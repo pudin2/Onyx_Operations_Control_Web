@@ -19,7 +19,7 @@
 
 
     <!-- Botón de guardar -->
-    <button (click)="guardarValores()" [disabled]="isLoading" class="btn_guardarc">
+    <button (click)="guardarValores() " [disabled]="isLoading" class="btn_guardarc">
 
       <img src="img/guardar.png" alt="Botón Imagen" class="img-Guardar">
 
@@ -39,6 +39,18 @@
 
     <div *ngIf="error2Message" class="message-error">
       Error al subir datos.
+    </div>
+
+    <div *ngIf="error3Message" class="message-error">
+      El Porcentaje de avance esta vacio.
+    </div>
+
+    <div *ngIf="error4Message" class="message-error">
+      Debe agregar al menos un anexo.
+    </div>
+
+    <div *ngIf="error5Message" class="message-error">
+      Debe llenar al maneos un material o registrar mano de obra.
     </div>
 
     <div *ngIf="cantidadMessage" class="message-error">
@@ -65,19 +77,18 @@
         <thead>
           <tr>
             <th>Descripción</th>
-            <th>Cantidad</th>
             <th>Real</th>
+            <th>Reportado</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let material of materiales">
+          <tr *ngFor="let material of materiales; let i = index">
             <td>{{ material.CodInventario }}</td>
-            <td>{{ material.Cant }}</td>
-
             <!-- Input para la columna "Real" -->
             <td>
               <input type="text" [(ngModel)]="material.CantReal" (input)="validarCantidadMaterial(material)" class="custom-input">
             </td>
+            <td>{{ cantidad[i]?.CANT_NT }}</td>
           </tr>
         </tbody>
       </table>
@@ -151,7 +162,7 @@
     <!-- Contenido de la tercera pestaña: Anexos -->
 
     <div class="tab-content" *ngIf="activeTabIndex === 2">
-    
+
       <button class="btn-agregar" (click)="onFileSelect()">Agregar Anexo</button>
 
       <input type="file" accept="image/*" (change)="onFileChange($event)" style="display: none" #fileInput>
@@ -175,10 +186,6 @@
 
       <input type="text" [(ngModel)]="porcentajeavance" class="custom-input">
       <span class="percent-sign"> %</span>
-
-
-
-
     </div>
 
   </div>

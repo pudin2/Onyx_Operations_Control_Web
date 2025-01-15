@@ -31,6 +31,10 @@ export class OrdenService {
     return this.http.get<DetSubT[]>(`${this.apiUrl}/subtareas/${subtareaId}/detalles`);
   }
 
+  getCantidadMaterial(subtareaId: number): Observable<DetSubT[]> {
+    return this.http.get<DetSubT[]>(`${this.apiUrl}/subtareas/${subtareaId}/restante`);
+  }
+
   getOperarios(): Observable<Operario[]> {
     return this.http.get<Operario[]>(`${this.apiUrl}/operarios`);
   }

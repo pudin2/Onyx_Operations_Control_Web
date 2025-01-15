@@ -11,6 +11,7 @@ namespace LoginAPI.Data
         public DbSet<VwOrdenTrabajo> VW_CabOt { get; set; }
         public DbSet<Cab_SubT> CabSubT { get; set; }
         public DbSet<DetSubT> DetSubT { get; set; }
+        public DbSet<VwDetSubT> VW_DetSubT { get; set; }
         public DbSet<Operarios> VW_Operarios { get; set; }
         public DbSet <Anexo_Notificacion> AnexosNotificacion { get; set; }
 

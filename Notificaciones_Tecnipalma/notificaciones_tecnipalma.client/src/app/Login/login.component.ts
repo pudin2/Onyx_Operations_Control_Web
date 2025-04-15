@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../Servicios/auth.service';
 import { Router } from '@angular/router';
+import { UserService } from '../Servicios/UserService';
 
 @Component({
   selector: 'app-login',
@@ -14,14 +15,15 @@ export class LoginComponent {
   errorMessage: string = '';
   isLoading: boolean = false; // Variable para controlar la pantalla de carga
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private userService: UserService) { }
 
   onSubmit(): void {
     this.isLoading = true; // Mostrar pantalla de carga cuando se envía el formulario
     this.authService.login(this.username, this.password).subscribe(
       response => {
         console.log('Login exitoso', response);
-        
+
+        this.userService.setUsername(this.username);
         this.router.navigate(['/menu'])
         this.isLoading = false;
         this.errorMessage = '';

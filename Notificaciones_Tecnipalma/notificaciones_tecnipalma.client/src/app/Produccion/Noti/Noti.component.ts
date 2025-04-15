@@ -7,9 +7,11 @@ import { VwDetSubT } from '../../Models/CantRestanteModel';
 import { Location } from '@angular/common';
 import { forkJoin } from 'rxjs';
 import { Operario } from '../../Models/OperarioModel';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ImagePreviewComponent } from '../ImagePreviewComponent/ImagePreviewComponent';
+import { UserService } from '../../Servicios/UserService';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-noti',
@@ -38,6 +40,8 @@ export class NotiComponent implements OnInit {
   error5Message = false;
   cantidadMessage = false;
   porcentajeavance: string = "";
+  usuarioId: number = 0;
+  
 
   tabs = [
     { label: 'Materiales' },
@@ -51,8 +55,9 @@ export class NotiComponent implements OnInit {
     private route: ActivatedRoute,
     private ordenService: OrdenService,
     private location: Location,
-    private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private userService: UserService,
+    private http: HttpClient
   ) { }
 
   ngOnInit(): void {
@@ -64,6 +69,18 @@ export class NotiComponent implements OnInit {
     if (id) {
       const subtareaId = parseInt(id, 10);
       this.loadSubtareaAndMateriales(subtareaId);
+    }
+    const username = this.userService.getUsername();
+    if (username) {
+      this.http.get<any>(`http://localhost:8050/api/usuarios/${username}`).subscribe({
+        next: (data) => {
+          this.usuarioId = data.id;
+          console.log('ID del usuario:', this.usuarioId);
+        },
+        error: (err) => {
+          console.error('Error al obtener datos del usuario', err);
+        }
+      });
     }
   }
 
@@ -120,7 +137,7 @@ export class NotiComponent implements OnInit {
   cargarOperarios(): void {
     this.ordenService.getOperarios().subscribe({
       next: (data: Operario[]) => {
-        this.operarios = data;
+        this.operarios = data.sort((a, b) => a.NombreMostrar.localeCompare(b.NombreMostrar));
         this.mostrarTablaOperarios = true;
       },
       error: (error) => {
@@ -214,11 +231,14 @@ export class NotiComponent implements OnInit {
       DetCotizacion_Id: 0,
       Inventario_Id: operario.Id.toString()
     }));
+    
+    this.userService.getUsername
 
     const { Id, ...subtareaCopia } = this.subtarea!;
     subtareaCopia.Tipo = 'NT';
     subtareaCopia.Horas = this.operariosSeleccionados[0]?.Real ? parseFloat(this.operariosSeleccionados[0].Real) : subtareaCopia.Horas;
-    subtareaCopia.Porc = parseFloat(this.porcentajeavance)
+    subtareaCopia.Porc = parseFloat(this.porcentajeavance);
+    subtareaCopia.Usuario_Id = this.usuarioId
 
     const datosParaGuardar = {
       MaterialesReales: materialesReales,

@@ -12,4 +12,5 @@ export interface CabSubT {
   Tipo: string;
   SubT_Cab_Id: number;
   Item: number;
+  Usuario_Id: number;
 }

@@ -11,7 +11,6 @@ import { Operario } from '../Models/OperarioModel'
 })
 export class OrdenService {
   private apiUrl = 'http://localhost:8050/api/ordenes'; // Ajusta la URL a la de tu API
-  private apiUrlSubtareas = 'http://localhost:5000/api/ordenes/subtareas';
 
   constructor(private http: HttpClient) { }
 

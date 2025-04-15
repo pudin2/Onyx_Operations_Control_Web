@@ -82,6 +82,7 @@ public class SubTCopyController : ControllerBase
                 command.Parameters.AddWithValue("@SubT_Cab_Id", datos.CopiaSubtarea.SubT_Cab_Id ?? (object)DBNull.Value);
                 command.Parameters.AddWithValue("@Porc", datos.CopiaSubtarea.Porc ?? (object)DBNull.Value);
                 command.Parameters.AddWithValue("@Observacion", datos.CopiaSubtarea.Observacion ?? (object)DBNull.Value);
+                command.Parameters.AddWithValue("@Usuario_Id", datos.CopiaSubtarea.Usuario_Id ?? (object)DBNull.Value);
 
                 // Agregar el DataTable como parámetro de tipo tabla
                 var tableParam = command.Parameters.AddWithValue("@Detalles", datosTable);

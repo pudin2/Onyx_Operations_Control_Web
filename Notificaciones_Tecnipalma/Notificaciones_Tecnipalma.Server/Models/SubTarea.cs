@@ -14,7 +14,4 @@ public class Cab_SubT
     public byte? Item { get; set; }
     public int? SubT_Cab_Id { get; set; }
     public int? Usuario_Id { get; set; }
-
-
-    // Agrega otras propiedades según las columnas de la tabla Cab_SubT
 }

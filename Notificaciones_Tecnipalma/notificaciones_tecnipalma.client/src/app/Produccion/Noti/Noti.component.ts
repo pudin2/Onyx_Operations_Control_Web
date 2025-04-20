@@ -10,7 +10,6 @@ import { Operario } from '../../Models/OperarioModel';
 import { MatDialog } from '@angular/material/dialog';
 import { ImagePreviewComponent } from '../ImagePreviewComponent/ImagePreviewComponent';
 import { UserService } from '../../Servicios/UserService';
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -41,13 +40,16 @@ export class NotiComponent implements OnInit {
   cantidadMessage = false;
   porcentajeavance: string = "";
   usuarioId: number = 0;
+  observaciones: string = "";
   
 
   tabs = [
     { label: 'Materiales' },
     { label: 'Mano de Obra' },
     { label: 'Anexos' },
-    { label: 'Porcentaje' }
+    { label: 'Porcentaje' },
+    { label: 'Observaciones' }
+
   ];
   activeTabIndex: number = 0;
 
@@ -239,6 +241,7 @@ export class NotiComponent implements OnInit {
     subtareaCopia.Horas = this.operariosSeleccionados[0]?.Real ? parseFloat(this.operariosSeleccionados[0].Real) : subtareaCopia.Horas;
     subtareaCopia.Porc = parseFloat(this.porcentajeavance);
     subtareaCopia.Usuario_Id = this.usuarioId
+    subtareaCopia.Observacion= this.observaciones
 
     const datosParaGuardar = {
       MaterialesReales: materialesReales,
@@ -254,6 +257,7 @@ export class NotiComponent implements OnInit {
 
         // Limpieza de otros campos si es necesario
         this.porcentajeavance = '';
+        this.observaciones = "";
         const formData = new FormData();
         formData.append('numOrden', this.numOrden ?? '');
         const cabId = this.materiales[0]?.Cab_Id;

@@ -289,6 +289,24 @@
     border-color: #66afe9; /* Color del borde al enfocar */
   }
 
+.textarea-observaciones {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  resize: vertical;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+  .textarea-observaciones:focus {
+    border-color: #ff4d4d;
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 77, 77, 0.4);
+  }
+
 .loading-screen {
   display: flex;
   flex-direction: column;

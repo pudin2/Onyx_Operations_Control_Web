@@ -188,5 +188,11 @@
       <span class="percent-sign"> %</span>
     </div>
 
+    <div class="tab-content" *ngIf="activeTabIndex === 4">
+      <h4>Observaciones</h4>
+
+      <textarea [(ngModel)]="observaciones" class="textarea-observaciones" rows="5" maxlength="2000" placeholder="Escribe aquí tus observaciones..."></textarea>
+    </div>
+
   </div>
 </div>

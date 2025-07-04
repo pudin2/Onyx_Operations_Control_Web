@@ -20,7 +20,8 @@ import { HttpClient } from '@angular/common/http';
 export class NotiComponent implements OnInit {
   numOrden: string | null = null;
   @ViewChild('fileInput') fileInput!: ElementRef;
-  anexosPreview: string[] = [];
+  //anexosPreview: string[] = [];
+  anexosPreview: { src: string, tipo: 'imagen' | 'video' }[] = [];
   anexosFile: File[] = [];
   anexos: string[] = [];
   subtarea: CabSubT | null = null;
@@ -169,17 +170,43 @@ export class NotiComponent implements OnInit {
     this.fileInput.nativeElement.click();
   }
 
+  //onFileChange(event: Event): void {
+    //const file = (event.target as HTMLInputElement).files?.[0];
+    //if (file) {
+      //const reader = new FileReader();
+      //reader.onload = (e: any) => {
+        //this.anexosPreview.push(e.target.result);
+        //this.anexosFile.push(file);
+      //};
+      //reader.readAsDataURL(file);
+   // }
+  //}
+
   onFileChange(event: Event): void {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
+      const tipoMime = file.type;
+
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        this.anexosPreview.push(e.target.result);
+        const result = e.target.result;
+
+        if (tipoMime.startsWith('image/')) {
+          this.anexosPreview.push({ src: result, tipo: 'imagen' });
+        } else if (tipoMime.startsWith('video/')) {
+          this.anexosPreview.push({ src: result, tipo: 'video' });
+        } else {
+          alert('Formato no soportado para vista previa');
+          return;
+        }
+
         this.anexosFile.push(file);
       };
+
       reader.readAsDataURL(file);
     }
   }
+
 
   guardarValores(): void {
 

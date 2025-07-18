@@ -32,7 +32,7 @@ public class SubTController : ControllerBase
     public IActionResult GetDetallesBySubTareaId(int id)
     {
         // Obtener los detalles de DetSubT asociados con la subtarea
-        var detallesSubT = _context.DetSubT.Where(d => d.Cab_Id == id).ToList();
+        var detallesSubT = _context.DetSubT.Where(d => d.Cab_Id == id).OrderBy(d => d.Id).ToList();
 
         if (detallesSubT == null || !detallesSubT.Any())
         {
@@ -48,7 +48,7 @@ public class SubTController : ControllerBase
         try
         {
             // Consulta a la vista con el parámetro ID
-            var datosDesdeVista = _context.VW_DetSubT.Where(d => d.Cab_Id == id).ToList();
+            var datosDesdeVista = _context.VW_DetSubT.Where(d => d.Cab_Id == id).OrderBy(d => d.Id).ToList();
 
             if (datosDesdeVista == null || !datosDesdeVista.Any())
             {

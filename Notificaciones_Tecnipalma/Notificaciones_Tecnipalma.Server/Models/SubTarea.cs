@@ -1,6 +1,6 @@
 public class Cab_SubT
 {
-    public int? Id { get; set; } // Asumiendo que hay una columna Id como clave primaria
+    public int? Id { get; set; } 
     public int? OT_Cab_ID { get; set; }
     public string? Descripcion { get; set; }
     public DateTime? Fecha { get; set; }

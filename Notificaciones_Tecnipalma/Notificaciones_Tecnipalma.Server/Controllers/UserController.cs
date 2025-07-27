@@ -15,13 +15,12 @@ namespace LoginAPI.Controllers
             _context = context;
         }
 
-        // GET: api/usuarios/juan
         [HttpGet("{username}")]
         public async Task<IActionResult> GetUsuarioIdByUsername(string username)
         {
             var usuario = await _context.Usuarios
                 .Where(u => u.Usuario == username)
-                .Select(u => new { u.id }) // ?? Solo seleccionamos el Id
+                .Select(u => new { u.id }) 
                 .FirstOrDefaultAsync();
 
             if (usuario == null)
@@ -29,7 +28,7 @@ namespace LoginAPI.Controllers
                 return NotFound(new { message = "Usuario no encontrado." });
             }
 
-            return Ok(usuario); // Devuelve: { "id": 5 }
+            return Ok(usuario); 
         }
     }
 }

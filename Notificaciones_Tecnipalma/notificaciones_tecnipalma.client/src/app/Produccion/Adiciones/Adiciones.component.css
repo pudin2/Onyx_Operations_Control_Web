@@ -6,18 +6,18 @@
 }
 
 .search-container {
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-  gap: 10px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
   margin-top: 3rem;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
 }
 
 input {
-  flex: 1; 
-  max-width: 220px; 
-  text-align:center;
+  flex: 1;
+  max-width: 220px;
+  text-align: center;
   padding: 0.5rem;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -26,19 +26,19 @@ input {
 }
 
 .btn-buscar {
-  padding:0;
-  background:none;
+  padding: 0;
+  background: none;
   border: none;
   cursor: pointer;
   font-size: 16px;
-  flex-shrink: 0; 
+  flex-shrink: 0;
   margin-left: 1rem;
 }
 
 .img-buscar {
-  width: 50px; 
+  width: 50px;
   height: 50px;
-  border-radius: 50%; 
+  border-radius: 50%;
   transition: box-shadow 0.3s ease;
 }
 
@@ -49,30 +49,30 @@ input {
 .btn-limpiar {
   padding: 0;
   margin-left: 10px;
-  background:none;
+  background: none;
   border: none;
   cursor: pointer;
 }
 
 .img-borrar {
-  width: 55px; 
+  width: 55px;
   height: 55px;
-  border-radius: 48%; 
+  border-radius: 48%;
   transition: box-shadow 0.3s ease;
 }
 
 .btn-limpiar:hover .img-borrar {
-  box-shadow: 0px 0px 15px rgba(255, 99, 71, 0.7); 
+  box-shadow: 0px 0px 15px rgba(255, 99, 71, 0.7);
 }
 
 .btn-cerrado {
-  color: black; 
-  background-color: red; 
+  color: black;
+  background-color: red;
 }
 
 button[disabled] {
   opacity: 0.8;
-  color: black; 
+  color: black;
   cursor: not-allowed;
 }
 
@@ -81,47 +81,46 @@ button[disabled] {
   border: none;
   padding: 0;
   cursor: pointer;
-  
-  flex-shrink: 0; 
+  flex-shrink: 0;
   margin-right: 3rem;
 }
 
 .img-boton {
-  width: 50px; 
+  width: 50px;
   height: 50px;
-  border-radius: 50%; 
+  border-radius: 50%;
   transition: box-shadow 0.3s ease;
 }
 
 .btn-regresar:hover .img-boton {
-  box-shadow: 0px 0px 15px rgba(255, 99, 71, 0.7); 
+  box-shadow: 0px 0px 15px rgba(255, 99, 71, 0.7);
 }
 
 .error-message {
   color: red;
-  background-color: #ffe6e6; 
+  background-color: #ffe6e6;
   font-size: 0.9rem;
   margin-top: 40px;
-  padding: 8px; 
-  border: 1px solid #ff9999; 
-  border-radius: 5px; 
+  padding: 8px;
+  border: 1px solid #ff9999;
+  border-radius: 5px;
   text-align: center;
-  max-width: 400px; 
-  margin-left: auto; 
-  margin-right: auto; 
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .error2-message {
-  color: #ff0000; 
-  background-color: #fff4f4; 
-  border: 1px solid #ff0000; 
+  color: #ff0000;
+  background-color: #fff4f4;
+  border: 1px solid #ff0000;
   padding: 10px;
   margin-top: 10px;
   border-radius: 5px;
 }
 
 .message-success {
-  color: #4CAF50; 
+  color: #4CAF50;
   background-color: #e8f5e9;
   padding: 8px 16px;
   margin-top: 10px;
@@ -129,65 +128,65 @@ button[disabled] {
   font-size: 16px;
   text-align: center;
   transition: opacity 0.5s ease-in-out;
-  opacity: 0; 
+  opacity: 0;
 }
 
   .message-success.active {
-    opacity: 1; 
+    opacity: 1;
   }
 
 .orden-details {
-  background-color: #f9f9f9; 
-  border-radius: 8px; 
-  padding: 20px; 
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
-  max-width: 600px; 
-  margin: 20px auto; 
-  font-family: Arial, sans-serif; 
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
 }
 
   .orden-details p {
-    margin: 10px 0; 
-    line-height: 1.6; 
+    margin: 10px 0;
+    line-height: 1.6;
   }
 
   .orden-details strong {
-    color: #333; 
+    color: #333;
     font-weight: bold;
   }
 
   .orden-details p:first-child {
-    font-size: 1.2em; 
-    color: #007bff; 
+    font-size: 1.2em;
+    color: #007bff;
   }
 
   .orden-details p:nth-child(2) {
-    font-size: 1.1em; 
-    color: #555; 
+    font-size: 1.1em;
+    color: #555;
   }
 
   .orden-details p:nth-child(3) {
-    font-size: 1em; 
+    font-size: 1em;
   }
 
   .orden-details p:nth-child(4) {
-    background-color: #f0f0f0; 
-    padding: 10px; 
-    border-radius: 5px; 
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
   }
 
 .alcance-list {
   margin: 10px 0;
   padding-left: 20px;
-  list-style-type: none; 
+  list-style-type: none;
 }
 
   .alcance-list li {
-    margin-bottom: 5px; 
-    line-height: 1.5; 
+    margin-bottom: 5px;
+    line-height: 1.5;
     padding-left: 10px;
     text-indent: -10px;
-    text-align: justify; 
+    text-align: justify;
   }
 
 .subt-table {
@@ -195,13 +194,13 @@ button[disabled] {
   border-collapse: collapse;
   margin: 20px 0;
   font-size: 16px;
-  text-align:center;
+  text-align: center;
   text-align: left;
-  box-shadow: 0px 0px 15px rgba(0, 0, 139, 0.1); 
+  box-shadow: 0px 0px 15px rgba(0, 0, 139, 0.1);
 }
 
   .subt-table thead tr {
-    background-color: #007bff; 
+    background-color: #007bff;
     color: white;
     text-align: center;
   }
@@ -214,7 +213,7 @@ button[disabled] {
   }
 
   .subt-table tbody tr:nth-child(even) {
-    background-color: #f2f2f2; 
+    background-color: #f2f2f2;
   }
 
   .subt-table tbody tr:hover {
@@ -227,30 +226,30 @@ button[disabled] {
 
 .btn-notificar {
   padding: 5px 10px;
-  background-color: #28a745; 
+  background-color: #28a745;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-family: 'Poppins', sans-serif; 
+  font-family: 'Poppins', sans-serif;
 }
 
   .btn-notificar:hover {
-    background-color: #218838; 
+    background-color: #218838;
   }
 
 .loading-screen {
-  position: fixed; 
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(255, 255, 255, 0.8); 
+  background-color: rgba(255, 255, 255, 0.8);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 1000; 
+  z-index: 1000;
 }
 
 .loading-gif {
@@ -261,19 +260,18 @@ button[disabled] {
 
 @media (max-width: 768px) {
   .search-container {
-    flex-direction: column; 
-    align-items: center; 
-    gap: 15px; 
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
   }
 
   input {
-    width: 100%; 
-    max-width: none; 
+    width: 100%;
+    max-width: none;
   }
 
   .btn-buscar, .btn-regresar {
-    width: auto; 
-    text-align: center; 
+    width: auto;
+    text-align: center;
   }
-
 }

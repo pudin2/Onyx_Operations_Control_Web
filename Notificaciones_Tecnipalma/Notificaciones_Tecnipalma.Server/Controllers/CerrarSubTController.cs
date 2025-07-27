@@ -1,5 +1,4 @@
-﻿using LoginAPI.Data;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
@@ -7,12 +6,11 @@ using System.Data;
 [Route("api/ordenes")]
 public class SubTCerrarController : ControllerBase
 {
-    //private readonly ApplicationDbContext _context;
+
     private readonly IConfiguration _configuration;
 
-    public SubTCerrarController(/*ApplicationDbContext context,*/ IConfiguration configuration)
+    public SubTCerrarController( IConfiguration configuration)
     {
-        //_context = context;
         _configuration = configuration;
     }
 
@@ -42,6 +40,4 @@ public class SubTCerrarController : ControllerBase
             }
         }
     }
-
-
 }

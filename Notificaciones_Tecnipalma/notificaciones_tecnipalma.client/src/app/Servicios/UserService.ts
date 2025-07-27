@@ -9,17 +9,14 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  // Guardar el username
   setUsername(username: string): void {
     this.username = username;
   }
 
-  // auth.service.ts o donde quieras hacer la consulta
   getDatosDelUsuario(username: string) {
     return this.http.get<any>(`http://localhost:8050/api/Usuarios/${username}`);
   }
 
-  // Obtener el username
   getUsername(): string {
     return this.username;
   }

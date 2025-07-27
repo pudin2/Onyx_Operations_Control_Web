@@ -1,38 +1,36 @@
 .titulo {
-  font-size: 2rem; /* Tamaño del texto */
-  font-weight: bold; /* Texto en negrita */
-  color: #333; /* Color del texto (gris oscuro) */
-  text-align: center; /* Centrar el título */
-  margin: 1rem 0; /* Espacio superior e inferior */
-  padding: 0.5rem; /* Espacio interno */
-  border-bottom: 2px solid #007bff; /* Línea inferior azul */
-  text-transform: uppercase; /* Convertir texto a mayúsculas */
-  font-family: 'Poppins', sans-serif; /* Fuente personalizada */
+  font-size: 2rem; 
+  font-weight: bold; 
+  color: #333; 
+  text-align: center; 
+  margin: 1rem 0; 
+  padding: 0.5rem; 
+  border-bottom: 2px solid #007bff; 
+  text-transform: uppercase; 
+  font-family: 'Poppins', sans-serif; 
 }
 
 .btn-regresar {
   background: none;
   border: none;
-  flex-shrink: 0; /* Evita que el botón se encoja */
+  flex-shrink: 0; 
   cursor: pointer;
-  position: absolute; /* Posición absoluta respecto a su contenedor relativo */
-  top: 11rem; /* Ajusta la distancia desde la parte superior */
-  left: 5rem; /* Ajusta para alinear al lado izquierdo de la pantalla */
+  position: absolute; 
+  top: 11rem;
+  left: 5rem; 
 }
 
 .img-boton {
-  width: 50px; /* Ajusta el tamaño según lo que desees */
+  width: 50px; 
   height: 50px;
-  border-radius: 50%; /* Hace que la imagen sea circular */
+  border-radius: 50%; 
   transition: box-shadow 0.3s ease;
 }
 
 .btn-regresar:hover .img-boton {
-  box-shadow: 0px 0px 15px rgba(255, 99, 71, 0.7); /* Sombra roja clara */
+  box-shadow: 0px 0px 15px rgba(255, 99, 71, 0.7); 
 }
 
-
-/* Estilo base para el botón */
 .btn_guardarc {
   background: none;
   border: none;
@@ -43,17 +41,14 @@
   left: 10rem;
 }
 
-/* Estilo base para la imagen dentro del botón */
 .img-Guardar {
   width: 45px;
   height: 45px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Agregué transform para un efecto adicional */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; 
 }
 
-/* Efecto hover para el botón que afecta la imagen dentro */
 .btn_guardarc:hover .img-Guardar {
-  transform: scale(1.1); /* Escala la imagen al hacer hover */
-  
+  transform: scale(1.1); 
 }
 
 .btn-agregar {
@@ -78,17 +73,16 @@
 }
 
 .img-borrar {
-  width: 45px; /* Ajusta el tamaño según lo que desees */
+  width: 45px; 
   height: 45px;
-  border-radius: 48%; /* Hace que la imagen sea circular */
+  border-radius: 48%; 
   transition: box-shadow 0.3s ease;
 }
 
 .btn_borrar:hover .img-borrar {
-  box-shadow: 0px 0px 15px rgba(255, 99, 71, 0.7); /* Sombra roja clara */
+  box-shadow: 0px 0px 15px rgba(255, 99, 71, 0.7); 
 }
 
-/* Contenedor principal */
 .operarios-container {
   margin: 20px 0;
   padding: 10px;
@@ -97,7 +91,6 @@
   border-radius: 8px;
 }
 
-/* Título */
 .operarios-title {
   font-size: 18px;
   font-weight: bold;
@@ -105,7 +98,6 @@
   color: #333;
 }
 
-/* Tabla */
 .table-operarios {
   width: 100%;
   border-collapse: collapse;
@@ -128,12 +120,10 @@
     text-transform: uppercase;
   }
 
-/* Filas de la tabla */
 .operarios-row:hover {
   background-color: #f1f1f1;
 }
 
-/* Botón */
 .select-button {
   font-family: 'Poppins', sans-serif;
   padding: 6px 12px;
@@ -189,46 +179,41 @@
   border-radius: 5px;
 }
 
-/* Contenedor de la tabla */
 .table-materiales {
   width: 100%;
   border-collapse: collapse;
   margin: 20px 0;
   font-size: 16px;
   text-align: left;
-  background-color: #f9f9f9; /* Fondo claro */
+  background-color: #f9f9f9;
 }
 
-  /* Encabezados de la tabla */
   .table-materiales th {
-    background-color: #F57747; /* Color de fondo verde */
-    color: white; /* Color del texto blanco */
-    padding: 12px 15px; /* Espaciado interno */
-    border-bottom: 2px solid #ddd; /* Línea inferior */
+    background-color: #F57747; 
+    color: white; 
+    padding: 12px 15px; 
+    border-bottom: 2px solid #ddd; 
     text-align: center;
   }
 
-  /* Celdas del cuerpo de la tabla */
   .table-materiales td {
     padding: 12px 15px;
     border-bottom: 1px solid #ddd;
     text-align:center;
   }
 
-  /* Estilos para las filas impares */
+  
   .table-materiales tr:nth-child(odd) {
-    background-color: #f2f2f2; /* Alterna el color de fondo */
+    background-color: #f2f2f2; 
   }
 
-  /* Efecto hover sobre las filas */
   .table-materiales tr:hover {
-    background-color: #ddd; /* Cambia el color al pasar el mouse */
+    background-color: #ddd; 
   }
 
-  /* Estilos para las celdas de cantidad */
   .table-materiales td:nth-child(2),
   .table-materiales td:nth-child(3) {
-    text-align: center; /* Alinea al centro las columnas de cantidad */
+    text-align: center; 
   }
 
 .table-mano {
@@ -237,56 +222,51 @@
   margin: 20px 0;
   font-size: 16px;
   text-align: left;
-  background-color: #f9f9f9; /* Fondo claro */
+  background-color: #f9f9f9;
 }
 
-  /* Encabezados de la tabla */
   .table-mano th {
     background-color: #F59647;
-    color: white; /* Color del texto blanco */
-    padding: 12px 15px; /* Espaciado interno */
-    border-bottom: 2px solid #ddd; /* Línea inferior */
+    color: white; 
+    padding: 12px 15px; 
+    border-bottom: 2px solid #ddd; 
     text-align: center;
   }
 
-  /* Celdas del cuerpo de la tabla */
   .table-mano td {
     padding: 12px 15px;
     border-bottom: 1px solid #ddd;
     text-align: center;
   }
 
-  /* Estilos para las filas impares */
   .table-mano tr:nth-child(odd) {
-    background-color: #f2f2f2; /* Alterna el color de fondo */
+    background-color: #f2f2f2; 
   }
 
-  /* Efecto hover sobre las filas */
   .table-mano tr:hover {
-    background-color: #ddd; /* Cambia el color al pasar el mouse */
+    background-color: #ddd; 
   }
 
-  /* Estilos para las celdas de cantidad */
   .table-mano td:nth-child(2),
   .table-mano td:nth-child(3) {
-    text-align: center; /* Alinea al centro las columnas de cantidad */
+    text-align: center; 
   }
 
 .custom-input {
-  width: 29px; /* Ajusta el ancho del input */
-  height: 30px; /* Ajusta la altura del input */
-  background: none; /* Elimina el fondo */
-  border: 1px solid #ccc; /* Un borde suave */
-  padding: 5px; /* Espaciado interno */
-  font-size: 16px; /* Ajusta el tamaño de la fuente */
-  border-radius: 4px; /* Bordes redondeados */
+  width: 29px; 
+  height: 30px; 
+  background: none; 
+  border: 1px solid #ccc;
+  padding: 5px; 
+  font-size: 16px; 
+  border-radius: 4px; 
   text-align: center;
   font-family: 'Poppins', sans-serif;
 }
 
   .custom-input:focus {
-    outline: none; /* Elimina el borde resaltado al hacer clic */
-    border-color: #66afe9; /* Color del borde al enfocar */
+    outline: none; 
+    border-color: #66afe9; 
   }
 
 .textarea-observaciones {
@@ -334,21 +314,21 @@
 
 .anexos-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Ajusta el tamaño mínimo de la columna y llena el espacio disponible */
-  gap: 10px; /* Espacio entre las imágenes */
-  padding: 10px; /* Espacio alrededor del contenedor */
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); 
+  gap: 10px; 
+  padding: 10px; 
 }
 
 .img-anexo {
-  width: 100%; /* O el porcentaje que mejor se adapte a tu diseño */
-  max-width: 500px; /* Establece un ancho máximo para las imágenes */
-  height: auto; /* Mantiene la relación de aspecto */
-  border-radius: 2px; /* Opcional: para bordes redondeados */
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* Opcional: para sombra ligera */
+  width: 100%; 
+  max-width: 500px; 
+  height: auto; 
+  border-radius: 2px; 
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1); 
 }
 
   .img-anexo:hover {
-    transform: scale(1.1); /* Efecto de zoom al pasar el mouse */
+    transform: scale(1.1); 
   }
 
 .custom-modalbox .mat-dialog-container {
@@ -356,24 +336,24 @@
 }
 
 .message-success {
-  color: #4CAF50; /* Color de texto para el éxito */
-  background-color: #e8f5e9; /* Color de fondo claro */
+  color: #4CAF50; 
+  background-color: #e8f5e9;
   padding: 8px 16px;
   margin-top: 10px;
   border-radius: 4px;
   font-size: 16px;
   text-align: center;
   transition: opacity 0.5s ease-in-out;
-  opacity: 0; /* Inicialmente invisible */
+  opacity: 0; 
 }
 
   .message-success.active {
-    opacity: 1; /* Completamente visible cuando está activo */
+    opacity: 1; 
   }
 
 .message-error {
-  color: #f44336; /* Color de texto para error */
-  background-color: #ffdde0; /* Color de fondo suave para error */
+  color: #f44336; 
+  background-color: #ffdde0; 
   padding: 8px 16px;
   margin-top: 10px;
   border-radius: 4px;
@@ -381,14 +361,12 @@
   text-align: center;
 }
 
-/* Estilos adicionales */
 h4 {
   font-size: 20px;
   color: #333;
   margin-bottom: 10px;
 }
 
-/* Ajusta el ancho de la tabla para pantallas más pequeñas */
 @media (max-width: 600px) {
   .table-materiales {
     font-size: 14px;

@@ -6,15 +6,14 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
+
 export class AppComponent implements OnInit {
   
-
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
     ;
   }
-
 
   title = 'notificaciones_tecnipalma.client';
 }

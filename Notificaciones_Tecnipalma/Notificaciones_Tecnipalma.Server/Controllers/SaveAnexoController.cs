@@ -11,13 +11,13 @@ public class AnexoController : ControllerBase
 
     public AnexoController(IOptions<AppSettings> appSettings, ApplicationDbContext context)
     {
-        // Obtener la ruta temporal desde la configuración
+        
         _rutaTemporal = appSettings.Value.RutaTmp ?? Path.Combine(Directory.GetCurrentDirectory(), "tempUploads");
         _context= context;
 
         if (!Directory.Exists(_rutaTemporal))
         {
-            Directory.CreateDirectory(_rutaTemporal);  // Crear carpeta si no existe
+            Directory.CreateDirectory(_rutaTemporal);  
         }
     }
 
@@ -31,7 +31,7 @@ public class AnexoController : ControllerBase
             return BadRequest(new { message = "Número de orden no proporcionado" });
 
         var año = DateTime.Now.Year;
-        var mes = DateTime.Now.Month.ToString("D2");  // Agrega el cero a la izquierda si es necesario (e.g., 01 para enero)
+        var mes = DateTime.Now.Month.ToString("D2");  
         var rutaConFecha = Path.Combine(_rutaTemporal, año.ToString(), mes);
 
         if (!Directory.Exists(rutaConFecha))
@@ -39,7 +39,7 @@ public class AnexoController : ControllerBase
             Directory.CreateDirectory(rutaConFecha);
         }
 
-        var filePaths = new List<string>(); // Lista para almacenar las rutas de los archivos guardados
+        var filePaths = new List<string>(); 
 
         try
         {
@@ -47,17 +47,16 @@ public class AnexoController : ControllerBase
             {
                 var nombreArchivo = $"{numOrden}_{file.FileName}";
                 var rutaArchivo = Path.Combine(rutaConFecha, nombreArchivo);
-                // Verificar si el archivo ya existe en la base de datos
+                
                 var existeAnexo = _context.AnexosNotificacion.Any(a => a.RutaArchivo == rutaArchivo);
 
-                //si no existe, Crear un nuevo registro en la tabla AnexosNotificacion
                 if (!existeAnexo)
                 {
                     using (var stream = new FileStream(rutaArchivo, FileMode.Create))
                     {
                         await file.CopyToAsync(stream);
                     }
-                    filePaths.Add(rutaArchivo); // Agrega la ruta del archivo a la lista
+                    filePaths.Add(rutaArchivo);
 
                     var anexo = new Anexo_Notificacion
                     {
@@ -66,22 +65,18 @@ public class AnexoController : ControllerBase
                         MGuid = numOrden,
                         Estado = "A"
                     };
-                    // Agregar el registro a la base de datos
+                    
                     _context.AnexosNotificacion.Add(anexo);
                 }
             }
 
-            // Guardar todos los cambios en la base de datos
             await _context.SaveChangesAsync();
 
-            // Retornar las rutas de los archivos guardados si todo fue exitoso
             return Ok(new { message = "Anexos guardados correctamente." });
         }
         catch (Exception ex)
         {
-            // Manejar cualquier excepción que ocurra durante el proceso
             return StatusCode(500, new { message = "Error al guardar el archivo", error = ex.Message });
         }
     }
-
 }

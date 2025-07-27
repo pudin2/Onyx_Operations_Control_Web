@@ -2,6 +2,7 @@ using LoginAPI.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+
 [ApiController]
 [Route("api/ordenes/subtareas")]
 public class SubTController : ControllerBase
@@ -13,7 +14,6 @@ public class SubTController : ControllerBase
         _context = context;
     }
 
-    // Obtener una subtarea específica por su ID
     [HttpGet("{id:int}")]
     public IActionResult GetSubTareaById(int id)
     {
@@ -27,11 +27,27 @@ public class SubTController : ControllerBase
         return Ok(subtarea);
     }
 
-    // Obtener los detalles de la subtarea desde la tabla DetSubT
+    [HttpGet("{id:int}/totalhoras")]
+    public IActionResult GetTotalHorasSubTarea(int id)
+    {
+        try
+        {
+            var totalHoras = _context.Database
+                .SqlQueryRaw<Int32?>("SELECT dbo.fn_TotalHorasNotifST({0})", id)
+                .AsEnumerable()
+                .FirstOrDefault();
+
+            return Ok(new { Id = id, TotalHoras = totalHoras });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "Error al obtener las horas", error = ex.Message });
+        }
+    }
+
     [HttpGet("{id:int}/detalles")]
     public IActionResult GetDetallesBySubTareaId(int id)
     {
-        // Obtener los detalles de DetSubT asociados con la subtarea
         var detallesSubT = _context.DetSubT.Where(d => d.Cab_Id == id).OrderBy(d => d.Id).ToList();
 
         if (detallesSubT == null || !detallesSubT.Any())
@@ -47,7 +63,6 @@ public class SubTController : ControllerBase
     {
         try
         {
-            // Consulta a la vista con el parámetro ID
             var datosDesdeVista = _context.VW_DetSubT.Where(d => d.Cab_Id == id).OrderBy(d => d.Id).ToList();
 
             if (datosDesdeVista == null || !datosDesdeVista.Any())

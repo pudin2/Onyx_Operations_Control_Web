@@ -1,27 +1,22 @@
 using LoginAPI.Data;
 using LoginAPI.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configurar la sección "AppSettings" para que esté disponible en toda la aplicación
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 
-//soluciona el problema de cors
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAllOrigins",
         policy =>
         {
-            policy.AllowAnyOrigin() // Especificar el origen permitido (Angular)
-                  .AllowAnyHeader() // Permitir cualquier encabezado
-                  .AllowAnyMethod(); // Permitir cualquier método (GET, POST, etc.)
+            policy.AllowAnyOrigin() 
+                  .AllowAnyHeader() 
+                  .AllowAnyMethod(); 
         });
 });
-
-// Add services to the container.
-
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
@@ -29,17 +24,11 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.PropertyNamingPolicy = null;
     });
 
-
-// Otros servicios que uses
-
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Registrar AuthService como un servicio
 builder.Services.AddScoped<AuthService>();
 
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -47,8 +36,7 @@ builder.WebHost.UseUrls(builder.Configuration["Urls"]);
 
 var app = builder.Build();
 
-app.UseCors("AllowAllOrigins"); // Usar la política de CORS definida anteriormente
-
+app.UseCors("AllowAllOrigins");
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
@@ -56,7 +44,7 @@ app.UseStaticFiles();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseRouting(); // Agrega el enrutamiento aquí
+app.UseRouting();
 
 app.UseAuthorization();
 

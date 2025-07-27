@@ -1,6 +1,6 @@
 ﻿public class Anexo_Notificacion
 {
-    public long Id { get; set; } // Llave primaria
+    public long Id { get; set; } 
     public int Cab_Id { get; set; }
     public string? RutaArchivo { get; set; }
     public string? MGuid { get; set; }

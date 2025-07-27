@@ -1,11 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
-
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .mi-icono {
-  width: 10px; /* Ajusta el ancho como necesites */
-  height: 50px; /* Ajusta la altura como necesites */
+  width: 10px; 
+  height: 50px; 
 }
 
 

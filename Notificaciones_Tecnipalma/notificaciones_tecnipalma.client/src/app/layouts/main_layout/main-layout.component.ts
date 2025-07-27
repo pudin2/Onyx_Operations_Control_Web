@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./main-layout.component.css']
 })
 export class MainLayoutComponent {
-  // Aquí puedes agregar la lógica de tu componente si es necesario
+ 
 }

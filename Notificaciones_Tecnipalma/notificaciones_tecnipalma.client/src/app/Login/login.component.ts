@@ -13,12 +13,12 @@ export class LoginComponent {
   username = '';
   password = '';
   errorMessage: string = '';
-  isLoading: boolean = false; // Variable para controlar la pantalla de carga
+  isLoading: boolean = false; 
 
   constructor(private authService: AuthService, private router: Router, private userService: UserService) { }
 
   onSubmit(): void {
-    this.isLoading = true; // Mostrar pantalla de carga cuando se envía el formulario
+    this.isLoading = true; 
     this.authService.login(this.username, this.password).subscribe(
       response => {
         console.log('Login exitoso', response);
@@ -35,6 +35,7 @@ export class LoginComponent {
       }
     );
   }
+
   resetForm() {
     this.username = '';
     this.password = '';

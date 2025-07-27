@@ -15,28 +15,24 @@ namespace LoginAPI.Data
         public DbSet<Operarios> VW_Operarios { get; set; }
         public DbSet <Anexo_Notificacion> AnexosNotificacion { get; set; }
 
-        //Configuración del modelo
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
             base.OnModelCreating(modelBuilder);
 
-            // Configura 'NombreUsuario' como clave primaria
             modelBuilder.Entity<Usuarios>()
-                .HasKey(u => u.Usuario); // Aquí se define la clave primaria
+                .HasKey(u => u.Usuario);
             modelBuilder.Entity<VwOrdenTrabajo>()
                 .HasNoKey()
                 .ToView("VW_CabOt");
 
             modelBuilder.Entity<VwOrdenTrabajo>()
                 .Property(o => o.NumOrden)
-                .HasColumnType("int"); // Esto asegura que la columna se trata como int
+                .HasColumnType("int");
 
             modelBuilder.Entity<Anexo_Notificacion>()
                 .HasIndex(a => a.RutaArchivo)
                 .IsUnique();
-
-            // Puedes agregar más configuraciones de entidades aquí si es necesario
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -44,9 +40,9 @@ namespace LoginAPI.Data
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder
-                    .UseSqlServer("DefaultConnection") // Reemplaza con tu cadena de conexión
-                    .EnableSensitiveDataLogging() // Habilita el registro de datos sensibles
-                    .LogTo(Console.WriteLine, LogLevel.Information); // Registra la salida en la consola
+                    .UseSqlServer("DefaultConnection") 
+                    .EnableSensitiveDataLogging() 
+                    .LogTo(Console.WriteLine, LogLevel.Information); 
             }
         }
 

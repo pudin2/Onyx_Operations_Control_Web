@@ -2,31 +2,29 @@
 .static-menu {
   width: 300px;
   border: none;
-  margin: 0 auto; /* Centra el menú horizontalmente */
-  display: block; /* Asegura que el elemento sea tratado como un bloque */
+  margin: 0 auto; 
+  display: block; 
   margin-top: 2rem;
   font-size:18px;
- 
 }
 
 .menu-item {
   border-bottom: 1px solid #ddd;
-  
 }
 
   .menu-item:last-child {
     border-bottom: none;
   }
 
-.menu-header { /* Titulo grande de cada boton */
+.menu-header { 
   padding: 15px;
   background-color: #B5BAC9;
   cursor: pointer;
-  border-radius: 60px 70px 40px 140px; /* Hace que los bordes sean redondeados */
-  text-align: center; /* Centra el texto */
-  width: 80%; /* Ajusta el ancho para que se vea como un óvalo */
-  margin: 10px auto; /* Centra horizontalmente */
-  border: none; /* Elimina el borde negro */
+  border-radius: 60px 70px 40px 140px; 
+  text-align: center; 
+  width: 80%; 
+  margin: 10px auto; 
+  border: none; 
 
   transition: 0.5s;
   transform: scale(0.95);
@@ -41,8 +39,8 @@
   }
 
 .imagen-inline, .texto-inline {
-  display: inline-block; /* Muestra la imagen y el texto en la misma línea */
-  vertical-align: middle; /* Alinea verticalmente en el centro */
+  display: inline-block; 
+  vertical-align: middle; 
 }
 
 .content {
@@ -53,27 +51,27 @@
   background-color: white;
   text-align: center;
   font-size:17px;
-  margin-top: 1.3rem; /* espacio hacia arriba */
-  margin-bottom: 1.3rem; /* espacio hacia abajo */
-  display: flex; /* Activa Flexbox */
-  align-items: center; /* Alinea verticalmente en el centro */
-  gap: 10px; /* Espacio entre la imagen y el texto */
+  margin-top: 1.3rem; 
+  margin-bottom: 1.3rem; 
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
 }
 
   .content.show {
     max-height: 500px;
-    transform: translateX(50px) scale(1); /* Mueve el elemento 100px a la derecha */
+    transform: translateX(50px) scale(1); 
   }
 
 .link-list {
-  list-style-type: none; /* tipo de marcador que puede tener la lista */
+  list-style-type: none; 
   padding: 0;
   margin: 0;
 }
 
   .link-list li {
     padding: 10px 15px;
-    border-top: 1px solid #eee; /* linea gris que divide las opciones */
+    border-top: 1px solid #eee; 
   }
 
     .link-list li:first-child {
@@ -81,21 +79,17 @@
     }
 
   .link-list a {
-    display: flex; /* Alinea el ícono y el texto en una fila */
-    align-items: center; /* Centra verticalmente el ícono y el texto */
-    gap: 8px; /* Espacio entre el ícono y el texto */
-    text-decoration: none; /* Elimina el subrayado de los enlaces */
-    color: red; /* Mantiene el color del texto */
-
-
-    
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    text-decoration: none; 
+    color: red; 
   }
 
     .link-list a:hover {
-      color: #0066cc; /* pone de color azul la palabra seleccionada*/
+      color: #0066cc; 
       text-shadow: 0 8px 12px rgba(0, 0, 0, 0.5);
     }
-
 
 .logout-btn {
   margin-top: 100px;
@@ -107,8 +101,8 @@
   cursor: pointer;
   text-align:center;
   font-size: 15px;
-  width: 200px; /* Ancho fijo */
-  height: 50px; /* Alto fijo */
+  width: 200px; 
+  height: 50px; 
 }
 
   .logout-btn:hover {
@@ -117,12 +111,12 @@
   }
 
 .imagen {
-  width: 25px; /* Ajusta el tamaño de los íconos */
+  width: 25px; 
   height: 25px;
   margin-left: 1rem;
   margin-right: 1rem;
 }
 
 .static-menu, .menu-header, .link-list a, .logout-btn {
-  font-family: 'Poppins', sans-serif; /* Aplica la fuente específicamente al menú */
+  font-family: 'Poppins', sans-serif; 
 }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
-import { ImagePreviewComponent } from './ImagePreviewComponent';
+import { ImagePreviewComponent } from '../ImagePreviewComponent/ImagePreviewComponent';
 
 @NgModule({
   declarations: [ImagePreviewComponent],

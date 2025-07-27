@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using LoginAPI.Data; // Asegúrate de ajustar la referencia al contexto adecuado
+using LoginAPI.Data; 
 
 [ApiController]
 [Route("api/ordenes/operarios")]
@@ -12,7 +12,6 @@ public class OperariosController : ControllerBase
         _context = context;
     }
 
-    // Obtener todos los operarios
     [HttpGet]
     public IActionResult GetOperarios()
     {

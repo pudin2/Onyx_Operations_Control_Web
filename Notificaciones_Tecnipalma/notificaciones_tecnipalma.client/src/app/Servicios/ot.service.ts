@@ -5,12 +5,13 @@ import { VwOrdenTrabajo } from '../Models/OtModel';
 import { CabSubT } from '../Models/SubTModel';
 import { DetSubT } from '../Models/DetSubTModel';
 import { Operario } from '../Models/OperarioModel'
+import { TotalHoras } from '../Models/TotalHorasModel'
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdenService {
-  private apiUrl = 'http://localhost:8050/api/ordenes'; // Ajusta la URL a la de tu API
+  private apiUrl = 'http://localhost:8050/api/ordenes'; 
 
   constructor(private http: HttpClient) { }
 
@@ -24,6 +25,10 @@ export class OrdenService {
 
   getSubTareaById(id: number): Observable<CabSubT> {
     return this.http.get<CabSubT>(`${this.apiUrl}/subtareas/${id}`);
+  }
+
+  getTotalHorasSubTarea(id: number): Observable<TotalHoras> {
+    return this.http.get<TotalHoras>(`${this.apiUrl}/subtareas/${id}/totalhoras`);
   }
 
   getDetSubTBySubTareaId(subtareaId: number): Observable<DetSubT[]> {
@@ -49,5 +54,10 @@ export class OrdenService {
   cerrarSubtarea(subtareaId: number): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/cerrar-subtarea`, { subtareaId });
   }
+
+  copiarSubtarea(data: { Id: number, Descripcion: string }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/copiar`, data);
+  }
+
 
 }

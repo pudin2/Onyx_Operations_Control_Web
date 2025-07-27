@@ -6,5 +6,4 @@ export interface VwOrdenTrabajo {
   OT_Alcance: string;
   EstadoOT: String;
   
-  // Agrega otros campos según sea necesario
 }

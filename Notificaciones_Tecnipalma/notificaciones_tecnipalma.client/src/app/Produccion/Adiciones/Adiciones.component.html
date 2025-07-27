@@ -86,21 +86,19 @@
 
           <td>
 
-            <button mat-button [matMenuTriggerFor]="menu" [ngClass]="{'btn-cerrado': subt.Estado === 'C'}">
+            <button mat-button [matMenuTriggerFor]="menu" [disabled]="subt.Estado === 'C'"
+                    [ngClass]="{'btn-cerrado': subt.Estado === 'C'}">
               {{ subt.Estado === 'C' ? 'Cerrado' : 'Opciones' }}
             </button>
 
             <mat-menu #menu="matMenu">
-              <ng-container *ngIf="subt.Estado !== 'C'; else menuCerrado">
-                <button mat-menu-item (click)="notificar(subt)">Notificar</button>
-                <button mat-menu-item (click)="cerrarSubtarea(subt.Id)">Cerrar SubTarea</button>
-              </ng-container>
-
-              <ng-template #menuCerrado>
-                <button mat-menu-item (click)="copiarSubt(subt)">Copiar SubT</button>
-              </ng-template>
+              <button mat-menu-item (click)="notificar(subt)" [disabled]="subt.Estado === 'C'">
+                Notificar
+              </button>
+              <button mat-menu-item (click)="cerrarSubtarea(subt.Id)" [disabled]="subt.Estado === 'C'">
+                Cerrar SubTarea
+              </button>
             </mat-menu>
-
           </td>
 
         </tr>

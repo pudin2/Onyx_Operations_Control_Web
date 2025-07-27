@@ -6,7 +6,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatRipple } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { AuthService } from '../Servicios/auth.service';
 
 interface MenuItem {
@@ -28,24 +27,25 @@ export class MenuComponent {
     {
       title: 'Producción',
       links: [
-        { text: 'Notificaciones', url: '/Producción/Notificaciones' },
-        //{ text: 'Prueba', url: '/Producción/Notificaciones', disabled: true },
+        { text: 'Notificaciones', url: '/produccion/noti' },
+        { text: 'Adiciones de Material', url: '/produccion/adiciones' },
   
       ],
       isOpen: false
+
     },
 
     {
       title: 'En desarrollo',
       links: [
-        // text: 'Desarrollo', url: '/En desarrolo/Desarrollo', disabled: true },
+        /*{ text: 'Desarrollo', url: '/Desarrollo/Desarrollo', disabled:true },*/
       ],
       isOpen: false
     }
   ];
 
   isLinkDisabled(link: any): boolean {
-    // Verificar si el enlace tiene la propiedad 'disabled' en true
+    
     return link.disabled === true;
   }
 
@@ -58,16 +58,15 @@ export class MenuComponent {
   }
 
   onLinkClick(url: string) {
-    // Aquí puedes implementar la lógica para navegar a la URL
-    // Por ahora, solo mostraremos un mensaje en la consola
+    
     console.log(`Navegando a: ${url}`);
   }
 
   constructor(private router: Router, private authService: AuthService) { }
 
   logout(): void {
-    this.authService.logout();  // Llama a logout en AuthService para cerrar sesión
-    this.router.navigate(['/login']);  // Redirige a la página de login
+    this.authService.logout();  
+    this.router.navigate(['/login']);  
   }
 }
 

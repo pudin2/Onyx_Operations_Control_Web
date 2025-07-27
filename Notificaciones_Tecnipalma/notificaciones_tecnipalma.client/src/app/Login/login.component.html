@@ -2,9 +2,6 @@
 
   <form (submit)="onSubmit()" class="formulario">
 
-    <!--<img src="img/aguila.png" class="aguila">-->
-    <!--<label class="inicio">Iniciar sesión</label>-->
-
     <div class="form-group">
 
       <input type="text" id="username" [(ngModel)]="username" name="username" required placeholder="Ingresar nombre de usuario">
@@ -32,12 +29,10 @@
 
   </form>
 
-  <!-- Pantalla de carga -->
   <div *ngIf="isLoading" class="loading-screen">
     <img src="img/tuercas.gif" alt="Loading..." class="loading-gif">
     <p>Cargando, por favor espere...</p>
   </div>
-
 
 </div>
 

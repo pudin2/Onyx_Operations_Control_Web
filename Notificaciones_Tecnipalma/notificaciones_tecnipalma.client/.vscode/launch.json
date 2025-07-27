@@ -7,7 +7,7 @@
       "name": "localhost (Chrome)",
       "url": "https://localhost:4200",
       "webRoot": "${workspaceFolder}",
-      "runtimeExecutable": "C:\\Archivos de programa\\Google\\Chrome\\Application\\chrome.exe" // Ruta del ejecutable de Chrome
+      "runtimeExecutable": "C:\\Archivos de programa\\Google\\Chrome\\Application\\chrome.exe" 
     }
   ]
 }

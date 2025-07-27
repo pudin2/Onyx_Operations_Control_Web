@@ -20,7 +20,6 @@ import { HttpClient } from '@angular/common/http';
 export class NotiComponent implements OnInit {
   numOrden: string | null = null;
   @ViewChild('fileInput') fileInput!: ElementRef;
-  //anexosPreview: string[] = [];
   anexosPreview: { src: string, tipo: 'imagen' | 'video' }[] = [];
   anexosFile: File[] = [];
   anexos: string[] = [];
@@ -43,7 +42,6 @@ export class NotiComponent implements OnInit {
   usuarioId: number = 0;
   observaciones: string = "";
   
-
   tabs = [
     { label: 'Materiales' },
     { label: 'Mano de Obra' },
@@ -52,6 +50,7 @@ export class NotiComponent implements OnInit {
     { label: 'Observaciones' }
 
   ];
+
   activeTabIndex: number = 0;
 
   constructor(
@@ -67,13 +66,17 @@ export class NotiComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.numOrden = params['numOrden'];
     });
+
     console.log('Número de Orden:', this.numOrden);
     const id = this.route.snapshot.paramMap.get('Id');
+
     if (id) {
       const subtareaId = parseInt(id, 10);
       this.loadSubtareaAndMateriales(subtareaId);
     }
+
     const username = this.userService.getUsername();
+
     if (username) {
       this.http.get<any>(`http://localhost:8050/api/usuarios/${username}`).subscribe({
         next: (data) => {
@@ -87,28 +90,13 @@ export class NotiComponent implements OnInit {
     }
   }
 
-  validarCantidadMaterial(material: DetSubT): void {
-    if (parseFloat(material.CantReal) > material.Cant) {
-      material.CantReal = material.Cant.toString(); // Limita al valor máximo permitido
-
-      this.cantidadMessage = true;  // Mostrar el mensaje de éxito
-      setTimeout(() => this.cantidadMessage = false, 5000);  // Ocultar mensaje después de 3 segundos
-
-      //this.snackBar.open('La cantidad real no puede ser mayor que la cantidad disponible.', 'Cerrar', {
-      //  duration: 3000,
-      //  horizontalPosition: 'center',
-      //  verticalPosition: 'top'
-      //});
-    }
-  }
-
-
   loadSubtareaAndMateriales(id: number): void {
     this.isLoading = true;
     forkJoin({
       subtarea: this.ordenService.getSubTareaById(id),
       materiales: this.ordenService.getDetSubTBySubTareaId(id),
-      cantidad: this.ordenService.getCantidadMaterial(id)
+      cantidad: this.ordenService.getCantidadMaterial(id),
+      totalHoras: this.ordenService.getTotalHorasSubTarea(id)
     }).subscribe({
       next: (results) => {
         this.subtarea = results.subtarea;
@@ -116,14 +104,14 @@ export class NotiComponent implements OnInit {
         this.cantidad = results.cantidad.map((item: any) => ({
           Id: item.Id,
           Cab_Id: item.Cab_Id,
-          CANT_NT: item.CANT_NT || 0 // Asegúrate de asignar un valor si no existe
+          CANT_NT: item.CANT_NT || 0 
         })) as VwDetSubT[];
 
         if (this.subtarea?.AsignadaA) {
           this.operariosSeleccionados.push({
             Id: 0,
             Encargado: this.subtarea.AsignadaA,
-            Horas: this.subtarea.Horas || 0,
+            Horas: results.totalHoras.TotalHoras || 0,
             Real: ''
           });
         }
@@ -170,18 +158,6 @@ export class NotiComponent implements OnInit {
     this.fileInput.nativeElement.click();
   }
 
-  //onFileChange(event: Event): void {
-    //const file = (event.target as HTMLInputElement).files?.[0];
-    //if (file) {
-      //const reader = new FileReader();
-      //reader.onload = (e: any) => {
-        //this.anexosPreview.push(e.target.result);
-        //this.anexosFile.push(file);
-      //};
-      //reader.readAsDataURL(file);
-   // }
-  //}
-
   onFileChange(event: Event): void {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
@@ -206,7 +182,6 @@ export class NotiComponent implements OnInit {
       reader.readAsDataURL(file);
     }
   }
-
 
   guardarValores(): void {
 
@@ -238,7 +213,7 @@ export class NotiComponent implements OnInit {
       setTimeout(() => (this.errorMessage = false), 5000);
       return;
     }
-    // Si todas las validaciones pasan, procede con el guardado
+   
     this.isLoading = true;
 
     const materialesReales = this.materiales.map(material => ({
@@ -280,9 +255,8 @@ export class NotiComponent implements OnInit {
       next: (response) => {
 
         console.log("Datos guardados en el backend:", response);
-        this.limpiarCampos(); // aquí se limpia después del éxito
+        this.limpiarCampos(); 
 
-        // Limpieza de otros campos si es necesario
         this.porcentajeavance = '';
         this.observaciones = "";
         const formData = new FormData();
@@ -299,48 +273,31 @@ export class NotiComponent implements OnInit {
           next: (response) => {
             console.log("Imagen guardada temporalmente en el servidor:", response.filePath);
 
-            //this.snackBar.open('Datos y anexos guardados correctamente', 'Cerrar', {
-            //  duration: 3000,
-            //  horizontalPosition: 'center',
-            //  verticalPosition: 'top',
-            //  panelClass: ['custom-snackbar']
-            //});
-
-            this.successMessage = true;  // Mostrar el mensaje de éxito
-            setTimeout(() => this.successMessage = false, 5000);  // Ocultar mensaje después de 3 segundos
+            this.successMessage = true; 
+            setTimeout(() => this.successMessage = false, 5000);
             this.anexosPreview = [];
             this.anexosFile = [];
           },
           error: (error) => {
-            this.errorMessage = true;  // Mostrar el mensaje 
-            setTimeout(() => this.errorMessage = false, 5000);  // Ocultar mensaje después de 3 segundos
+            this.errorMessage = true; 
+            setTimeout(() => this.errorMessage = false, 5000);  
             console.error("Error al guardar el anexo en el backend:", error);
 
-            //this.snackBar.open('Error al guardar el anexo', 'Cerrar', {
-            //  duration: 3000,
-            //  horizontalPosition: 'center',
-            //  verticalPosition: 'top'
-            //});
           }
         });
         
       },
 
       error: (error) => {
-        this.error2Message = true;  // Mostrar el mensaje 
-        setTimeout(() => this.error2Message = false, 5000);  // Ocultar mensaje después de 3 segundos
+        this.error2Message = true;  
+        setTimeout(() => this.error2Message = false, 5000); 
 
         console.error("Error al guardar con el procedimiento almacenado:", error);
 
-        //this.snackBar.open('Error al guardar los datos', 'Cerrar', {
-        //  duration: 3000,
-        //  horizontalPosition: 'center',
-        //  verticalPosition: 'top'
-        //});
       },
 
         complete: () => {
-        this.isLoading = false; // Desactivar la pantalla de carga
+        this.isLoading = false; 
       }
 
     });
@@ -376,13 +333,11 @@ export class NotiComponent implements OnInit {
   }
 
   limpiarCampos(): void {
-    // Vaciar los valores en los materiales
+    
     this.materiales.forEach(material => material.CantReal = '');
 
-    // Vaciar los valores en los operarios seleccionados
     this.operariosSeleccionados.forEach(operario => operario.Real = '');
 
-    // Vaciar el porcentaje de avance
     this.porcentajeavance = '';
   }
 

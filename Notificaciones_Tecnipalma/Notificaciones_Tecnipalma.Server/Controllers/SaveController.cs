@@ -24,7 +24,6 @@ public class SubTCopyController : ControllerBase
             return BadRequest(new { message = "No se recibieron datos" });
         }
 
-        // Crear un solo DataTable para Operarios Reales y Materiales Reales
         var datosTable = new DataTable();
         datosTable.Columns.Add("CodInventario", typeof(string));
         datosTable.Columns.Add("Inventario_ID", typeof(string));
@@ -34,7 +33,6 @@ public class SubTCopyController : ControllerBase
         datosTable.Columns.Add("DetCotizacion_Id", typeof(long));
         datosTable.Columns.Add("Tipo", typeof(byte));
 
-        // Agregar filas de Materiales Reales al DataTable
         foreach (var material in datos.MaterialesReales)
         {
             datosTable.Rows.Add(
@@ -44,11 +42,10 @@ public class SubTCopyController : ControllerBase
                 material.Unidad_Id,
                 material.Estado,
                 material.DetCotizacion_Id,
-                "1" // Tipo para materiales (o cualquier otro identificador que uses para distinguir materiales)
+                "1" 
             );
         }
 
-        // Agregar filas de Operarios Reales al DataTable
         foreach (var operario in datos.OperariosReales)
         {
             datosTable.Rows.Add(
@@ -58,10 +55,9 @@ public class SubTCopyController : ControllerBase
                 operario.Unidad_Id,
                 operario.Estado,
                 operario.DetCotizacion_Id,
-                "2" // Tipo para operarios
+                "2" 
             );
         }
-
 
         using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
         {
@@ -69,7 +65,6 @@ public class SubTCopyController : ControllerBase
             {
                 command.CommandType = CommandType.StoredProcedure;
 
-                // Parámetros para la cabecera
                 command.Parameters.AddWithValue("@OT_Cab_ID", datos.CopiaSubtarea.OT_Cab_ID ?? (object)DBNull.Value);
                 command.Parameters.AddWithValue("@Descripcion", datos.CopiaSubtarea.Descripcion ?? (object)DBNull.Value);
                 command.Parameters.AddWithValue("@Fecha", datos.CopiaSubtarea.Fecha ?? (object)DBNull.Value);
@@ -84,7 +79,6 @@ public class SubTCopyController : ControllerBase
                 command.Parameters.AddWithValue("@Observacion", datos.CopiaSubtarea.Observacion ?? (object)DBNull.Value);
                 command.Parameters.AddWithValue("@Usuario_Id", datos.CopiaSubtarea.Usuario_Id ?? (object)DBNull.Value);
 
-                // Agregar el DataTable como parámetro de tipo tabla
                 var tableParam = command.Parameters.AddWithValue("@Detalles", datosTable);
                 tableParam.SqlDbType = SqlDbType.Structured;
                 tableParam.TypeName = "dbo.TypeDetSubT";

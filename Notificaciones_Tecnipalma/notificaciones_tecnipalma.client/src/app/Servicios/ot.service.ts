@@ -59,5 +59,4 @@ export class OrdenService {
     return this.http.post(`${this.apiUrl}/copiar`, data);
   }
 
-
 }
